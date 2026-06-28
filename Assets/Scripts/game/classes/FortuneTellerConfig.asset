@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0997f7fb74d4e4eaf13c0e34deaba0, type: 3}
+  m_Name: FortuneTellerConfig
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterClassConfig
+  className: FortuneTeller
+  maxHP: 30
+  slotCount: 5
+  skinNames:
+  - FortuneTeller_0
+  skinPrefabs:
+  - {fileID: 4642981395163973544, guid: 64db7be081cf04440abdef9d342ee7dd, type: 3}
+  lightAttack:
+    actionName: knight_lightAttck
+    actionType: 0
+    sourcePrefab: {fileID: 7403506191802596844, guid: f22921f2edec86c4a8a2961a3c45b926, type: 3}
+    damage: 3
+  heavyAttack:
+    actionName: knight_heavyAttck
+    actionType: 1
+    sourcePrefab: {fileID: 9051351247407896745, guid: 3129dc9976cf6564da23fda4b4f53fed, type: 3}
+    damage: 7
+  lowAttack:
+    actionName: knight_lowAttack
+    actionType: 2
+    sourcePrefab: {fileID: 8462044620791014764, guid: 9f69e6a853911fd4fa1717e922c1e68a, type: 3}
+    damage: 2
+  parry:
+    actionName: knight_parry
+    actionType: 3
+    sourcePrefab: {fileID: 3418233483363060740, guid: 6a7a4fd127241f9419d9c43885519dec, type: 3}
+  defense:
+    actionName: knight_defense
+    actionType: 0
+    sourcePrefab: {fileID: 1016754651926005539, guid: 0060bc2bcf135d84d9812f477f782d73, type: 3}
+  dance:
+    actionName: Dance
+    actionType: 8
+    sourcePrefab: {fileID: 5595256244740900512, guid: 98ebb12706afc0548a6444e13e1ae550, type: 3}
+    energyGain: 1
+  ultimate:
+    actionName: Ultimate
+    actionType: 9
+    sourcePrefab: {fileID: 5307070120900879462, guid: 58b094eabea8ce243a712946dfa6a0d0, type: 3}
+    damage: 10
+    range: 2
+  energyBarPrefab: {fileID: 958131594077356885, guid: c71191559bc4a3044a46e646be64d16a, type: 3}

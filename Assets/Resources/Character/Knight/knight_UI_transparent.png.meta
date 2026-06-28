@@ -1,0 +1,204 @@
+fileFormatVersion: 2
+guid: 3aa27400b98e4344dbdb2a63e4909bf1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1602786875147869909
+    second: knight_UI_transparent_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 112, y: 11, z: 100, w: 7}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0.057
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: knight_UI_transparent_0
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 9
+        width: 2719
+        height: 524
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b21272834d1c1c9e0800000000000000
+      internalID: -1602786875147869909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: 661.7871, y: -240.248}
+      - {x: 1180.0195, y: -258.8941}
+      - {x: 1310.6543, y: -258.8941}
+      - {x: 1359.4629, y: -20.797588}
+      - {x: 1359.4629, y: 185.74397}
+      - {x: 1325.0098, y: 195.78418}
+      - {x: 165.08789, y: 214.4303}
+      - {x: 51.679688, y: 266.0657}
+      - {x: -78.95508, y: 266.0657}
+      - {x: -170.83008, y: 204.39009}
+      - {x: -1180.0195, y: 204.39009}
+      - {x: -1325.0098, y: 192.91556}
+      - {x: -1359.4629, y: 168.53218}
+      - {x: -1359.4629, y: 164.22923}
+      - {x: -1355.1562, y: 159.92628}
+      - {x: -1322.1387, y: 144.1488}
+      - {x: -1319.2676, y: 144.1488}
+      - {x: -1313.5254, y: -81.03888}
+      - {x: -1293.4277, y: -220.16757}
+      - {x: -1194.375, y: -243.11662}
+      - {x: -601.49414, y: -253.15685}
+      - {x: -312.94922, y: -258.8941}
+      - {x: 412.00195, y: -258.8941}
+    customData: 
+    physicsShape:
+    - - {x: 267.01172, y: -245.98526}
+      - {x: 610.1074, y: -230.20778}
+      - {x: 1174.2773, y: -235.94505}
+      - {x: 1287.6855, y: -221.60188}
+      - {x: 1309.2188, y: -108.290886}
+      - {x: 1358.0273, y: 122.63405}
+      - {x: 1358.0273, y: 178.57239}
+      - {x: 1159.9219, y: 212.99599}
+      - {x: 160.78125, y: 198.65282}
+      - {x: 34.453125, y: 264.63138}
+      - {x: -44.501953, y: 264.63138}
+      - {x: -160.78125, y: 218.73325}
+      - {x: -1205.8594, y: 198.65282}
+      - {x: -1325.0098, y: 187.17828}
+      - {x: -1358.0273, y: 167.09785}
+      - {x: -1358.0273, y: 95.38204}
+      - {x: -1316.3965, y: -81.03888}
+      - {x: -1289.1211, y: -218.73325}
+      - {x: -1283.3789, y: -224.47052}
+      - {x: -1106.8066, y: -235.94505}
+      - {x: -298.59375, y: -237.37936}
+      - {x: -267.01172, y: -257.45978}
+      - {x: 239.73633, y: -257.45978}
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      knight_UI_transparent_0: -1602786875147869909
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
