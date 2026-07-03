@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D0F74257-F6B2-DCEA-FC51-AA11C694D4B0}</ProjectGuid>
+    <ProjectGuid>{C3DA89E1-70C6-7D6C-993E-C8F831D35880}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -73,11 +73,12 @@
     <Compile Include="Assets\Scripts\StartManager.cs" />
     <Compile Include="Assets\Scripts\game\classes\UltimateActionData.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Demo Chat\Code\Utilities\TextToggleIsOnTransition.cs" />
-    <Compile Include="Assets\Scripts\game\BattleAnimationController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\game\ClassGameplayUILayout.cs" />
     <Compile Include="Assets\Scripts\game\classes\KnightUltimateVFX.cs" />
     <Compile Include="Assets\Scripts\character\CharacterClassData.cs" />
     <Compile Include="Assets\Scripts\character\LightningBoltFX.cs" />
+    <Compile Include="Assets\Scripts\game\classes\CombatResolver.cs" />
     <Compile Include="Assets\Scripts\game\BloodDecalFade.cs" />
     <Compile Include="Assets\Scripts\game\classes\DanceActionData.cs" />
     <Compile Include="Assets\Scripts\character\AutoDestroyEffect.cs" />
@@ -182,7 +183,6 @@
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\Swordsman Skills Free Icons Art\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
@@ -766,6 +766,26 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.7f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.7f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.Apple.Extensions.Common">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.7f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.Apple.Extensions.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.3.7f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
@@ -1535,51 +1555,51 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{0C74E0BB-9BC8-D301-01D5-48451A35AEBF}</Project>
+      <Project>{2244A057-929B-8B19-50D2-5EC2362E8E95}</Project>
       <Name>PhotonUnityNetworking</Name>
     </ProjectReference>
     <ProjectReference Include="PsdPlugin.csproj">
-      <Project>{5BDDF8C3-9EC9-69A8-73AE-93C04DE4CCC5}</Project>
+      <Project>{8A995C99-AD04-49B8-42B9-4F0C638C5E80}</Project>
       <Name>PsdPlugin</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
-      <Project>{306AD8B6-53B0-D1A3-FF94-83DEF850C52B}</Project>
+      <Project>{DD3662ED-7916-24DB-41E1-41BE0D62F340}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{7C6117FD-9428-7CCE-C60D-F7B74FABF9A7}</Project>
+      <Project>{6F93DD98-EEC4-CCCF-1F84-6E6B6F236889}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{DCAD7098-1C57-873C-613E-A9E360720C1E}</Project>
+      <Project>{548A4D20-D204-425D-B3C8-9F947FECBC42}</Project>
       <Name>PhotonRealtime</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Demos.csproj">
-      <Project>{595BD4A9-B949-FC51-9EB5-28AEAA65CFFF}</Project>
+      <Project>{4CDD184F-8DD5-641C-B67E-8A5FD1265B6F}</Project>
       <Name>PhotonUnityNetworking.Demos</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonChat.csproj">
-      <Project>{1E469054-07C4-DA89-0440-6C7D788342D0}</Project>
+      <Project>{1D3E7DBD-633F-626C-C3B1-5CFD9AD0655A}</Project>
       <Name>PhotonChat</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Psdimporter.Editor.csproj">
-      <Project>{9A545032-44A0-CF61-C50C-D90A235E535D}</Project>
+      <Project>{48CE6E25-1014-9F9E-4A47-F8BDCBBE5598}</Project>
       <Name>Unity.2D.Psdimporter.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{C1E39A7C-9533-1C27-FE68-DD760E7B8C17}</Project>
+      <Project>{9211E6B9-BD5F-9DF5-C951-66AB4A92F278}</Project>
       <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
-      <Project>{503952CA-2078-5ACA-2A8E-6DA99342AC61}</Project>
+      <Project>{396A8B55-5254-D1E8-F614-39703C77C586}</Project>
       <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="PunDemos.DemoSlotcarEditor.csproj">
-      <Project>{6FBEEBC0-49C1-8BA8-34EB-3E064305D630}</Project>
+      <Project>{51A708A6-96AC-9CBD-360B-8319CE0BA1C1}</Project>
       <Name>PunDemos.DemoSlotcarEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj">
-      <Project>{FE42A37B-405F-5600-4F8F-496039BB7663}</Project>
+      <Project>{B81807BE-1051-870E-76D8-615E7DE7B9A7}</Project>
       <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>
     </ProjectReference>
   </ItemGroup>
