@@ -8,32 +8,38 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-    [Header("°ò¥»UI")]
+    [Header("åŸºæœ¬UI")]
     [SerializeField] Text RoomName;
     [SerializeField] Text PlayerList;
     [SerializeField] Button ButtonLeave;
     [SerializeField] Button ButtonStartGame;
 
-    [Header("¿ï¨¤UI")]
+    [Header("Ready Button UI")]
+    [SerializeField] Text ReadyButtonText;
+    [SerializeField] Component ReadyButtonTextComponent;
+    [SerializeField] GameObject ReadyStateObject;
+    [SerializeField] GameObject NotReadyStateObject;
+
+    [Header("é¸è§’UI")]
     [SerializeField] Text ClassText;
     [SerializeField] Text SkinText;
     [SerializeField] Image PreviewImage;
 
-    [Header("¿ï¨¤«ö¶s")]
+    [Header("é¸è§’æŒ‰éˆ•")]
     [SerializeField] Button PrevClassButton;
     [SerializeField] Button NextClassButton;
     [SerializeField] Button PrevSkinButton;
     [SerializeField] Button NextSkinButton;
 
-    [Header("Â¾·~¦WºÙ")]
+    [Header("è·æ¥­åç¨±")]
     [SerializeField] string[] classNames;
 
-    [Header("¨C­ÓÂ¾·~ªº³y«¬¦WºÙ")]
+    [Header("æ¯å€‹è·æ¥­çš„é€ å‹åç¨±")]
     [SerializeField] string[] knightSkins;
     [SerializeField] string[] fortuneTellerSkins;
     [SerializeField] string[] warriorSkins;
 
-    [Header("¹wÄı¹Ï")]
+    [Header("é è¦½åœ–")]
     [SerializeField] Sprite[] knightSkinSprites;
     [SerializeField] Sprite[] fortuneTellerSkinSprites;
     [SerializeField] Sprite[] warriorSkinSprites;
@@ -127,9 +133,59 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void UpdateReadyButtonText()
     {
-        Text btnText = ButtonStartGame.GetComponentInChildren<Text>();
-        if (btnText != null)
-            btnText.text = ready ? "Cancel" : "Ready";
+        string label = ready ? "Cancel" : "Ready";
+
+        if (ReadyButtonText == null && ButtonStartGame != null)
+            ReadyButtonText = ButtonStartGame.GetComponentInChildren<Text>(true);
+
+        if (ReadyButtonTextComponent == null && ButtonStartGame != null)
+            ReadyButtonTextComponent = FindReadyButtonTextComponent();
+
+        if (ReadyButtonText != null)
+            ReadyButtonText.text = label;
+
+        SetTextOnComponent(ReadyButtonTextComponent, label);
+
+        if (ReadyStateObject != null)
+            ReadyStateObject.SetActive(ready);
+
+        if (NotReadyStateObject != null)
+            NotReadyStateObject.SetActive(!ready);
+    }
+
+    private Component FindReadyButtonTextComponent()
+    {
+        if (ButtonStartGame == null) return null;
+
+        Component[] components = ButtonStartGame.GetComponentsInChildren<Component>(true);
+        foreach (Component component in components)
+        {
+            if (component == null || component is Text) continue;
+
+            string typeName = component.GetType().FullName;
+            if (!string.IsNullOrEmpty(typeName) && typeName.StartsWith("TMPro."))
+                return component;
+        }
+
+        return null;
+    }
+
+    private void SetTextOnComponent(Component component, string value)
+    {
+        if (component == null) return;
+
+        if (component is Text legacyText)
+        {
+            legacyText.text = value;
+            return;
+        }
+
+        System.Reflection.PropertyInfo textProperty = component
+            .GetType()
+            .GetProperty("text", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
+
+        if (textProperty != null && textProperty.CanWrite && textProperty.PropertyType == typeof(string))
+            textProperty.SetValue(component, value);
     }
 
     private void UpdateSelectionButtonsInteractable()
@@ -160,7 +216,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("©Ò¦³ª±®a³£ READY¡A¶i¤J GameScene");
+            Debug.Log("æ‰€æœ‰ç©å®¶éƒ½ READYï¼Œé€²å…¥ GameScene");
             PhotonNetwork.LoadLevel("GameScene");
         }
     }

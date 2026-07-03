@@ -6,33 +6,41 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("戮穨戈")]
+    [Header("Class Configs")]
     [SerializeField] private CharacterClassConfig[] classConfigs;
 
-    [Header("à︹ネΘ翴")]
+    [Header("Character Spawn Points")]
     [SerializeField] private Transform masterSpawnPoint;
     [SerializeField] private Transform clientSpawnPoint;
 
-    [Header("мネΘ翴")]
+    [Header("Skill Spawn Points")]
     [SerializeField] private Transform[] skillSpawnPoints;
 
-    [Header("Slot 笆篈ネΘ")]
+    [Header("Generated Slots")]
     [SerializeField] private GameObject slotPrefab;
     [SerializeField] private Transform masterSlotRoot;
     [SerializeField] private Transform clientSlotRoot;
 
-    [Header("┮Τ戮穨ノ︽笆")]
+    [Header("Shared Actions")]
     [SerializeField] private ActionData moveForwardAction;
     [SerializeField] private ActionData moveBackwardAction;
     [SerializeField] private ActionData jumpAction;
+
+    [Header("Class UI")]
+    [SerializeField] private Transform classUiRoot;
 
     private int selectedClassIndex = 0;
     private int selectedSkinIndex = 0;
 
     private CharacterClassConfig currentConfig;
     private GameObject spawnedCharacter;
+    private GameObject spawnedGameplayUi;
+    private ClassGameplayUILayout currentLayout;
+    private bool initialized;
+    private Coroutine initializeRoutine;
 
     private readonly List<GameObject> spawnedSkillSources = new List<GameObject>();
+    private readonly List<ActionDragSource> boundLayoutSkillSources = new List<ActionDragSource>();
     private readonly List<GameObject> spawnedSlots = new List<GameObject>();
 
     private void Start()
@@ -47,10 +55,56 @@ public class GameManager : MonoBehaviour
 
         LoadPlayerSelection();
         LoadClassConfig();
+        ApplyClassGameplayLayout();
 
-        GenerateSlots();         // ネΘ Slot
-        SpawnSkillSources();     // ネΘмㄓ方
-        SpawnCharacterPrefab();  // 程ネΘà︹
+        initializeRoutine = StartCoroutine(InitializeWhenSyncedStartReached());
+    }
+
+    private IEnumerator InitializeWhenSyncedStartReached()
+    {
+        Debug.Log("GameManager: waiting for GameSceneStartSync");
+
+        while (GameSceneStartSync.Instance == null)
+            yield return null;
+
+        GameSceneStartSync.Instance.MarkLocalSceneReady();
+        Debug.Log("GameManager: local GameScene load completed, waiting for remote player");
+
+        while (!GameSceneStartSync.Instance.AreBothPlayersSceneReady())
+            yield return null;
+
+        Debug.Log("GameManager: both players loaded, waiting for synced start beat");
+
+        while (!GameSceneStartSync.Instance.HasBeatStarted())
+            yield return null;
+
+        InitializeLocalGame();
+        initializeRoutine = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (initializeRoutine != null)
+        {
+            StopCoroutine(initializeRoutine);
+            initializeRoutine = null;
+        }
+
+        ClearClassGameplayLayout();
+    }
+
+    private void InitializeLocalGame()
+    {
+        if (initialized)
+            return;
+
+        initialized = true;
+
+        GenerateSlots();
+        SpawnSkillSources();
+        SpawnCharacterPrefab();
+
+        Debug.Log("GameManager: synced start reached, local game objects spawned");
     }
 
     private ActionData[] GetCurrentActions()
@@ -78,6 +132,77 @@ public class GameManager : MonoBehaviour
         return PhotonNetwork.IsMasterClient ? masterSlotRoot : clientSlotRoot;
     }
 
+    private void ApplyClassGameplayLayout()
+    {
+        ClearClassGameplayLayout();
+
+        if (currentConfig == null || currentConfig.gameplayUiPrefab == null)
+        {
+            Debug.Log("GameManager: no class gameplay UI prefab assigned, using scene layout");
+            return;
+        }
+
+        Transform parent = GetClassUiRoot();
+        spawnedGameplayUi = Instantiate(currentConfig.gameplayUiPrefab, parent, false);
+
+        ClassGameplayUILayout layout = spawnedGameplayUi.GetComponent<ClassGameplayUILayout>();
+        if (layout == null)
+            layout = spawnedGameplayUi.GetComponentInChildren<ClassGameplayUILayout>(true);
+
+        if (layout == null)
+        {
+            Debug.LogWarning("GameManager: class gameplay UI prefab has no ClassGameplayUILayout -> " + spawnedGameplayUi.name);
+            return;
+        }
+
+        layout.ResolveReferences();
+        currentLayout = layout;
+        ApplyLayoutReferences(layout);
+        Debug.Log("GameManager: applied class gameplay UI layout -> " + spawnedGameplayUi.name);
+    }
+
+    private Transform GetClassUiRoot()
+    {
+        if (classUiRoot != null)
+            return classUiRoot;
+
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        if (canvas != null)
+            return canvas.transform;
+
+        return transform;
+    }
+
+    private void ApplyLayoutReferences(ClassGameplayUILayout layout)
+    {
+        if (layout.SkillSpawnPoints != null && layout.SkillSpawnPoints.Length > 0)
+            skillSpawnPoints = layout.SkillSpawnPoints;
+
+        if (layout.MasterSlotRoot != null)
+            masterSlotRoot = layout.MasterSlotRoot;
+
+        if (layout.ClientSlotRoot != null)
+            clientSlotRoot = layout.ClientSlotRoot;
+
+        if (BattleUIManager.Instance != null)
+            BattleUIManager.Instance.ApplyLayout(layout);
+
+        if (TurnPlanningManager.Instance != null)
+            TurnPlanningManager.Instance.ApplyLayout(layout);
+    }
+
+    private void ClearClassGameplayLayout()
+    {
+        if (spawnedGameplayUi != null)
+        {
+            Destroy(spawnedGameplayUi);
+            spawnedGameplayUi = null;
+        }
+
+        currentLayout = null;
+        boundLayoutSkillSources.Clear();
+    }
+
     private void LoadPlayerSelection()
     {
         if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("classIndex", out object classObj))
@@ -91,7 +216,7 @@ public class GameManager : MonoBehaviour
     {
         if (classConfigs == null || classConfigs.Length == 0)
         {
-            Debug.LogError("GameManager: classConfigs ⊿Τ砞﹚");
+            Debug.LogError("GameManager: classConfigs is not assigned");
             return;
         }
 
@@ -101,14 +226,14 @@ public class GameManager : MonoBehaviour
         currentConfig = classConfigs[selectedClassIndex];
 
         if (currentConfig == null)
-            Debug.LogError("GameManager: currentConfig 琌");
+            Debug.LogError("GameManager: currentConfig is null");
     }
 
     private void SpawnCharacterPrefab()
     {
         if (currentConfig == null)
         {
-            Debug.LogError("SpawnCharacterPrefab: currentConfig 琌");
+            Debug.LogError("SpawnCharacterPrefab: currentConfig is null");
             return;
         }
 
@@ -116,13 +241,13 @@ public class GameManager : MonoBehaviour
 
         if (spawnPoint == null)
         {
-            Debug.LogError("SpawnCharacterPrefab: spawnPoint ⊿Τ砞﹚");
+            Debug.LogError("SpawnCharacterPrefab: spawnPoint is not assigned");
             return;
         }
 
         if (currentConfig.skinPrefabs == null || currentConfig.skinPrefabs.Length == 0)
         {
-            Debug.LogError($"SpawnCharacterPrefab: {currentConfig.className} ⊿Τ skinPrefabs");
+            Debug.LogError($"SpawnCharacterPrefab: {currentConfig.className} has no skinPrefabs");
             return;
         }
 
@@ -133,13 +258,13 @@ public class GameManager : MonoBehaviour
 
         if (prefab == null)
         {
-            Debug.LogError("SpawnCharacterPrefab: prefab 琌");
+            Debug.LogError("SpawnCharacterPrefab: prefab is null");
             return;
         }
 
         string resourcePath = BuildPhotonResourcePath(prefab);
 
-        Debug.Log("非称 Photon ネΘà︹: " + resourcePath);
+        Debug.Log("Preparing Photon character spawn: " + resourcePath);
 
         GameObject obj = PhotonNetwork.Instantiate(
             resourcePath,
@@ -149,7 +274,7 @@ public class GameManager : MonoBehaviour
 
         if (obj == null)
         {
-            Debug.LogError("SpawnCharacterPrefab: Photon ネΘア毖");
+            Debug.LogError("SpawnCharacterPrefab: Photon spawn failed");
             return;
         }
 
@@ -158,7 +283,7 @@ public class GameManager : MonoBehaviour
         CharacterUnit unit = spawnedCharacter.GetComponent<CharacterUnit>();
         if (unit == null)
         {
-            Debug.LogError("SpawnCharacterPrefab: à︹ prefab ⊿Τ CharacterUnit");
+            Debug.LogError("SpawnCharacterPrefab: CharacterUnit is missing on prefab");
             return;
         }
 
@@ -167,28 +292,20 @@ public class GameManager : MonoBehaviour
             skinName = currentConfig.skinNames[selectedSkinIndex];
 
         unit.Init(currentConfig.className, skinName, currentConfig.maxHP, currentConfig.slotCount);
-        StartCoroutine(RegisterSpawnedCharacterToStartSync());
+
         if (GameSceneStartSync.Instance != null)
-        {
             GameSceneStartSync.Instance.RegisterMyCharacter(spawnedCharacter);
-        }
     }
-    private IEnumerator RegisterSpawnedCharacterToStartSync()
-    {
-        while (spawnedCharacter == null)
-            yield return null;
 
-        while (GameSceneStartSync.Instance == null)
-            yield return null;
-
-        GameSceneStartSync.Instance.RegisterMyCharacter(spawnedCharacter);
-    }
     private string BuildPhotonResourcePath(GameObject prefab)
     {
-        // 硂柑安砞à︹ prefab 
-        // Assets/Resources/Prefab/<className糶>/<prefab.name>.prefab
-        // ㄒAssets/Resources/Prefab/knight/knight_0.prefab
-        string classFolder = currentConfig.className.Replace(" ", "").ToLower();
+        // Character prefabs are expected at:
+        // Assets/Resources/Prefab/<classFolder>/<prefab.name>.prefab
+        // Example: Assets/Resources/Prefab/knight/knight_0.prefab
+        string classFolder = currentConfig.photonResourceFolder;
+
+        if (string.IsNullOrWhiteSpace(classFolder))
+            classFolder = currentConfig.className.Replace(" ", "").ToLower();
         return "Prefab/" + classFolder + "/" + prefab.name;
     }
 
@@ -200,6 +317,15 @@ public class GameManager : MonoBehaviour
             return;
 
         ActionData[] actions = GetCurrentActions();
+        if (TryBindLayoutSkillSources(actions))
+            return;
+
+        if (skillSpawnPoints == null)
+        {
+            Debug.LogWarning("SpawnSkillSources: skillSpawnPoints is not assigned");
+            return;
+        }
+
         int count = Mathf.Min(actions.Length, skillSpawnPoints.Length);
 
         for (int i = 0; i < count; i++)
@@ -218,7 +344,7 @@ public class GameManager : MonoBehaviour
                 rect.localScale = Vector3.one;
             }
 
-            // ㄓ方秙 ActionDragSource ぃ root璶┕ンт
+            // The source button may keep ActionDragSource on a child.
             ActionDragSource drag = obj.GetComponent<ActionDragSource>();
             if (drag == null)
                 drag = obj.GetComponentInChildren<ActionDragSource>(true);
@@ -229,19 +355,109 @@ public class GameManager : MonoBehaviour
                 if (canvas != null)
                     drag.SetCanvas(canvas);
 
-                // 硂︽程璶ぃ硂︽┷ㄓ方ッ环ぃ笵琌 Ultimate
+                // This binds the spawned source to its action data.
                 drag.Init(actions[i]);
 
-                Debug.Log($"SpawnSkillSources Init Θ: {obj.name}, actionType={actions[i].actionType}, dataType={actions[i].GetType().Name}");
+                Debug.Log($"SpawnSkillSources Init succeeded: {obj.name}, actionType={actions[i].actionType}, dataType={actions[i].GetType().Name}");
             }
             else
             {
-                Debug.LogError($"SpawnSkillSources: {obj.name} тぃ ActionDragSource");
+                Debug.LogError($"SpawnSkillSources: {obj.name} is missing ActionDragSource");
             }
 
             spawnedSkillSources.Add(obj);
         }
     }
+
+    private bool TryBindLayoutSkillSources(ActionData[] actions)
+    {
+        if (currentLayout == null || actions == null || actions.Length == 0)
+            return false;
+
+        currentLayout.ResolveReferences();
+        ActionDragSource[] sources = currentLayout.SkillSources;
+        if (sources == null || sources.Length == 0)
+            return false;
+
+        boundLayoutSkillSources.Clear();
+        HashSet<ActionDragSource> usedSources = new HashSet<ActionDragSource>();
+        Canvas canvas = currentLayout.GetComponentInParent<Canvas>();
+        if (canvas == null)
+            canvas = FindFirstObjectByType<Canvas>();
+
+        int boundCount = 0;
+        for (int i = 0; i < actions.Length; i++)
+        {
+            ActionData action = actions[i];
+            if (action == null)
+                continue;
+
+            ActionDragSource source = FindBestLayoutSkillSource(sources, action, usedSources);
+            if (source == null)
+                continue;
+
+            if (canvas != null)
+                source.SetCanvas(canvas);
+
+            source.Init(action);
+            usedSources.Add(source);
+            boundLayoutSkillSources.Add(source);
+            boundCount++;
+        }
+
+        if (boundCount > 0)
+            Debug.Log("GameManager: bound existing layout skill sources, count = " + boundCount);
+
+        return boundCount > 0;
+    }
+
+    private ActionDragSource FindBestLayoutSkillSource(ActionDragSource[] sources, ActionData action, HashSet<ActionDragSource> usedSources)
+    {
+        string actionName = NormalizeName(action.actionName);
+        string prefabName = action.sourcePrefab != null ? NormalizeName(action.sourcePrefab.name) : string.Empty;
+
+        for (int i = 0; i < sources.Length; i++)
+        {
+            ActionDragSource source = sources[i];
+            if (source == null || usedSources.Contains(source))
+                continue;
+
+            string sourceName = NormalizeName(source.gameObject.name);
+            if (MatchesActionSourceName(sourceName, actionName) || MatchesActionSourceName(sourceName, prefabName))
+                return source;
+        }
+
+        for (int i = 0; i < sources.Length; i++)
+        {
+            ActionDragSource source = sources[i];
+            if (source != null && !usedSources.Contains(source))
+                return source;
+        }
+
+        return null;
+    }
+
+    private bool MatchesActionSourceName(string sourceName, string actionOrPrefabName)
+    {
+        if (string.IsNullOrEmpty(sourceName) || string.IsNullOrEmpty(actionOrPrefabName))
+            return false;
+
+        return sourceName == actionOrPrefabName ||
+            sourceName.Contains(actionOrPrefabName) ||
+            actionOrPrefabName.Contains(sourceName);
+    }
+
+    private string NormalizeName(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        return value.Replace(" ", string.Empty)
+            .Replace("_", string.Empty)
+            .Replace("-", string.Empty)
+            .ToLowerInvariant();
+    }
+
     private void GenerateSlots()
     {
         Transform slotRoot = GetCurrentSlotRoot();
@@ -250,19 +466,19 @@ public class GameManager : MonoBehaviour
 
         if (currentConfig == null)
         {
-            Debug.LogError("GenerateSlots: currentConfig 琌");
+            Debug.LogError("GenerateSlots: currentConfig is null");
             return;
         }
 
         if (slotPrefab == null)
         {
-            Debug.LogError("GenerateSlots: slotPrefab ⊿Τ﹚");
+            Debug.LogError("GenerateSlots: slotPrefab is not assigned");
             return;
         }
 
         if (slotRoot == null)
         {
-            Debug.LogError("GenerateSlots: slotRoot ⊿Τ﹚");
+            Debug.LogError("GenerateSlots: slotRoot is not assigned");
             return;
         }
 
@@ -283,7 +499,7 @@ public class GameManager : MonoBehaviour
             spawnedSlots.Add(slot);
         }
 
-        // 砞﹚腹籔 nextSlot
+        // Link slot order and nextSlot.
         for (int i = 0; i < spawnedSlots.Count; i++)
         {
             ActionSlot actionSlot = spawnedSlots[i].GetComponent<ActionSlot>();
@@ -299,18 +515,20 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        TurnPlanningManager planningManager = FindObjectOfType<TurnPlanningManager>();
+        TurnPlanningManager planningManager = FindFirstObjectByType<TurnPlanningManager>();
         if (planningManager != null)
         {
             ActionSlot[] slots = slotRoot.GetComponentsInChildren<ActionSlot>();
             planningManager.SetPlanningSlots(slots);
         }
 
-        Debug.Log("GenerateSlots ЧΘ计秖 = " + spawnedSlots.Count);
+        Debug.Log("GenerateSlots completed, count = " + spawnedSlots.Count);
     }
 
     private void ClearSkillSources()
     {
+        boundLayoutSkillSources.Clear();
+
         foreach (GameObject obj in spawnedSkillSources)
         {
             if (obj != null)

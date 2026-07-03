@@ -189,7 +189,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: Ready
 --- !u!222 &42189929
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1639,6 +1639,10 @@ MonoBehaviour:
   PlayerList: {fileID: 220235598}
   ButtonLeave: {fileID: 143025109}
   ButtonStartGame: {fileID: 1419550005}
+  ReadyButtonText: {fileID: 0}
+  ReadyButtonTextComponent: {fileID: 0}
+  ReadyStateObject: {fileID: 0}
+  NotReadyStateObject: {fileID: 0}
   ClassText: {fileID: 2027266325}
   SkinText: {fileID: 377260711}
   PreviewImage: {fileID: 838420575}
@@ -1651,13 +1655,13 @@ MonoBehaviour:
   - fortune_teller
   knightSkins:
   - knight_0
-  - knight_1
+  - knight_Realism
   fortuneTellerSkins:
   - 0
   warriorSkins: []
   knightSkinSprites:
   - {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
-  - {fileID: 433645218056146759, guid: b007b622798243741bc8e1e501a43098, type: 3}
+  - {fileID: 21300000, guid: b007b622798243741bc8e1e501a43098, type: 3}
   fortuneTellerSkinSprites:
   - {fileID: -87254469991454428, guid: e7b58c81447bf194ca6d642ab64f69a2, type: 3}
   warriorSkinSprites: []

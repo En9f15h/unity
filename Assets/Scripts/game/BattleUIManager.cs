@@ -8,10 +8,10 @@ public class BattleUIManager : MonoBehaviour
     [SerializeField] private DirectionalHealthBarUI masterHPBar;
     [SerializeField] private DirectionalHealthBarUI clientHPBar;
 
-    [Header("自己的能量條 Root（仍用 prefab 生成）")]
+    [Header("My Energy Root")]
     [SerializeField] private Transform myEnergyRoot;
 
-    [Header("場景中的敵人能量條（直接使用，不再生成 prefab）")]
+    [Header("Scene Enemy Energy Bar")]
     [SerializeField] private EnergyBarUI sceneEnemyEnergyBar;
 
     private void Awake()
@@ -23,24 +23,51 @@ public class BattleUIManager : MonoBehaviour
         }
 
         Instance = this;
+        ResolveAssignedUI();
     }
 
     public DirectionalHealthBarUI GetBarByOwner(bool ownerIsMaster)
     {
-        return ownerIsMaster ? masterHPBar : clientHPBar;
+        DirectionalHealthBarUI bar = ownerIsMaster ? masterHPBar : clientHPBar;
+        if (bar != null)
+            bar.ResolveReferences();
+
+        return bar;
+    }
+
+    public void ApplyLayout(ClassGameplayUILayout layout)
+    {
+        if (layout == null)
+            return;
+
+        layout.ResolveReferences();
+
+        if (layout.MasterHPBar != null)
+            masterHPBar = layout.MasterHPBar;
+
+        if (layout.ClientHPBar != null)
+            clientHPBar = layout.ClientHPBar;
+
+        if (layout.MyEnergyRoot != null)
+            myEnergyRoot = layout.MyEnergyRoot;
+
+        if (layout.EnemyEnergyBar != null)
+            sceneEnemyEnergyBar = layout.EnemyEnergyBar;
+
+        ResolveAssignedUI();
     }
 
     public EnergyBarUI CreateMyEnergyBar(GameObject energyBarPrefab)
     {
         if (myEnergyRoot == null)
         {
-            Debug.LogWarning("BattleUIManager: myEnergyRoot 沒有指定");
+            Debug.LogWarning("BattleUIManager: myEnergyRoot is not assigned");
             return null;
         }
 
         if (energyBarPrefab == null)
         {
-            Debug.LogWarning("BattleUIManager: energyBarPrefab 為空");
+            Debug.LogWarning("BattleUIManager: energyBarPrefab is null");
             return null;
         }
 
@@ -52,11 +79,12 @@ public class BattleUIManager : MonoBehaviour
         EnergyBarUI ui = obj.GetComponent<EnergyBarUI>();
         if (ui == null)
         {
-            Debug.LogWarning("BattleUIManager: 自己的能量條 prefab 上沒有 EnergyBarUI -> " + obj.name);
+            Debug.LogWarning("BattleUIManager: EnergyBarUI is missing on my energy prefab -> " + obj.name);
             return null;
         }
 
-        Debug.Log("成功建立自己的能量條: " + obj.name);
+        ui.ResolveReferences();
+        Debug.Log("Created my energy bar: " + obj.name);
         return ui;
     }
 
@@ -64,11 +92,12 @@ public class BattleUIManager : MonoBehaviour
     {
         if (sceneEnemyEnergyBar == null)
         {
-            Debug.LogWarning("BattleUIManager: sceneEnemyEnergyBar 沒有指定");
+            Debug.LogWarning("BattleUIManager: sceneEnemyEnergyBar is not assigned");
             return null;
         }
 
         sceneEnemyEnergyBar.gameObject.SetActive(true);
+        sceneEnemyEnergyBar.ResolveReferences();
 
         RectTransform rt = sceneEnemyEnergyBar.GetComponent<RectTransform>();
         if (rt != null)
@@ -76,11 +105,10 @@ public class BattleUIManager : MonoBehaviour
             rt.localScale = Vector3.one;
             rt.localRotation = Quaternion.identity;
 
-            // 不要再重設 anchoredPosition
-            // rt.anchoredPosition = Vector2.zero;
+            // Keep the layout-authored anchoredPosition.
         }
 
-        Debug.Log("成功使用場景中的敵人能量條: " + sceneEnemyEnergyBar.name);
+        Debug.Log("Using scene enemy energy bar: " + sceneEnemyEnergyBar.name);
         return sceneEnemyEnergyBar;
     }
 
@@ -103,5 +131,17 @@ public class BattleUIManager : MonoBehaviour
         {
             rt.anchoredPosition = Vector2.zero;
         }
+    }
+
+    private void ResolveAssignedUI()
+    {
+        if (masterHPBar != null)
+            masterHPBar.ResolveReferences();
+
+        if (clientHPBar != null)
+            clientHPBar.ResolveReferences();
+
+        if (sceneEnemyEnergyBar != null)
+            sceneEnemyEnergyBar.ResolveReferences();
     }
 }

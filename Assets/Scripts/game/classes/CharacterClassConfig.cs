@@ -3,28 +3,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCharacterClassConfig", menuName = "Game/Character Class Config")]
 public class CharacterClassConfig : ScriptableObject
 {
-    [Header("基本資料")]
+    [Header("Class")]
     public string className;
+    public string photonResourceFolder;
     public int maxHP = 30;
     public int slotCount = 5;
 
-    [Header("造型")]
+    [Header("Skins")]
     public string[] skinNames;
     public GameObject[] skinPrefabs;
 
-    [Header("攻擊")]
+    [Header("Attacks")]
     public AttackActionData lightAttack;
     public AttackActionData heavyAttack;
     public AttackActionData lowAttack;
 
-    [Header("防禦")]
+    [Header("Defense")]
     public ActionData parry;
     public ActionData defense;
 
-    [Header("特殊行動")]
+    [Header("Special Actions")]
     public DanceActionData dance;
     public UltimateActionData ultimate;
 
-    [Header("職業專屬能量條")]
+    [Header("Class Energy Bar")]
     public GameObject energyBarPrefab;
+
+    [Header("Class Gameplay UI")]
+    public GameObject gameplayUiPrefab;
 }

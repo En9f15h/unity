@@ -17,49 +17,49 @@ public class ActionAnimationMap
 
 public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-    [Header("¸`©ç¦P¨B")]
+    [Header("ç¯€æ‹åŒæ­¥")]
     [SerializeField] private float bpm = 120f;
 
 
     [SerializeField] private BattleStepPlayer battleStepPlayer;
     public static TurnPlanningManager Instance { get; private set; }
 
-    [Header("¨BÆJ©ç¼Æ³]©w")]
-    [SerializeField] private float normalStepBeats = 2f;          // ¤@¯ë°Ê§@ 2 ©ç = 1 ¬í
-    [SerializeField] private float parryCounterStepBeats = 2f;    // ParryCounter ÃB¥~ 2 ©ç
-    [SerializeField] private float effectDelayBeats = 1f;         // ºC°Ê§@ / HitStop ÃB¥~ 1 ©ç
+    [Header("æ­¥é©Ÿæ‹æ•¸è¨­å®š")]
+    [SerializeField] private float normalStepBeats = 2f;          // ä¸€èˆ¬å‹•ä½œ 2 æ‹ = 1 ç§’
+    [SerializeField] private float parryCounterStepBeats = 2f;    // ParryCounter é¡å¤– 2 æ‹
+    [SerializeField] private float effectDelayBeats = 1f;         // æ…¢å‹•ä½œ / HitStop é¡å¤– 1 æ‹
     [Header("UI")]
     [SerializeField] private Text countdownText;
     [SerializeField] private Button readyButton;
     [SerializeField] private Text debugText;
 
-    [Header("³W¹º Slot¡]¥Ñ GameManager °ÊºA«ü©w¡^")]
+    [Header("è¦åŠƒ Slotï¼ˆç”± GameManager å‹•æ…‹æŒ‡å®šï¼‰")]
     [SerializeField] private ActionSlot[] planningSlots;
 
-    [Header("¦^¦X®É¶¡")]
+    [Header("å›åˆæ™‚é–“")]
     [SerializeField] private float planningDuration = 20f;
     [SerializeField] private float timeoutResolveDelay = 0.4f;
     private bool myHeavyPendingThisTurn = false;
     private bool enemyHeavyPendingThisTurn = false;
-    [Header("°Êµeµ¥«İ³]©w")]
+    [Header("å‹•ç•«ç­‰å¾…è¨­å®š")]
     [SerializeField] private ActionAnimationMap[] myAnimationMaps;
     [SerializeField] private ActionAnimationMap[] enemyAnimationMaps;
     [SerializeField] private float animationCrossFadeTime = 0.0f;
     
 
-    [Header("¦ì²¾³]©w")]
+    [Header("ä½ç§»è¨­å®š")]
     [SerializeField] private float moveStep = 1f;
     [SerializeField] private float minCharacterGap = 0.2f;
 
-    [Header("¨üÀ»ªí²{")]
+    [Header("å—æ“Šè¡¨ç¾")]
     [SerializeField] private float hitShakeDuration = 0.12f;
     [SerializeField] private float hitShakeStrength = 0.08f;
 
-    [Header("HP UI¡]¥i¤£¤â©ì¡A·|¦Û°Ê¨Ì BattleUIManager ¸j¡^")]
+    [Header("HP UIï¼ˆå¯ä¸æ‰‹æ‹–ï¼Œæœƒè‡ªå‹•ä¾ BattleUIManager ç¶ï¼‰")]
     [SerializeField] private DirectionalHealthBarUI myHPBar;
     [SerializeField] private DirectionalHealthBarUI enemyHPBar;
 
-    [Header("¨¤¦â / Â¾·~¸ê®Æ")]
+    [Header("è§’è‰² / è·æ¥­è³‡æ–™")]
     [SerializeField] private CharacterClassConfig[] classConfigs;
     [SerializeField] private ActionData moveForwardAction;
     [SerializeField] private ActionData moveBackwardAction;
@@ -67,31 +67,31 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private bool myChargingHeavyThisStep = false;
     private bool enemyChargingHeavyThisStep = false;
 
-    [Header("¼Ä¤è¦æ°Ê¹wÄı")]
+    [Header("æ•µæ–¹è¡Œå‹•é è¦½")]
     [SerializeField] private RectTransform leftEnemyPreviewRoot;
     [SerializeField] private RectTransform rightEnemyPreviewRoot;
     [SerializeField] private GameObject previewCellPrefab;
     [SerializeField] private Sprite emptyPreviewSprite;
 
-    [Header("¯à¶q")]
+    [Header("èƒ½é‡")]
     [SerializeField] private int maxEnergy = 10;
     [SerializeField] private int energyPerHit = 1;
     [SerializeField] private int energyPerBlock = 1;
-    [SerializeField] private int resolveLeadBeats = 1;   // Âù¤è³£ ready «á¡Aµ¥¤U¤@©ç¦A¶}©l Resolve
+    [SerializeField] private int resolveLeadBeats = 1;   // é›™æ–¹éƒ½ ready å¾Œï¼Œç­‰ä¸‹ä¸€æ‹å†é–‹å§‹ Resolve
 
     private Coroutine resolveStartCoroutine;
 
 
-    [Header("ÃM¤h Parry ¤ÏÀ»¯S®Ä")]
+    [Header("é¨å£« Parry åæ“Šç‰¹æ•ˆ")]
     [SerializeField] private GameObject parrySuccessEffectPrefab;
     [SerializeField] private Vector3 parrySuccessEffectOffset = new Vector3(0f, 1f, 0f);
     [SerializeField] private float parryEffectLifeTime = 1f;
 
-    [Header("ªì©l¾Ô°«¸ê®Æ¡]°£¿ù¥Î¡^")]
+    [Header("åˆå§‹æˆ°é¬¥è³‡æ–™ï¼ˆé™¤éŒ¯ç”¨ï¼‰")]
     [SerializeField] private int myHP = 30;
     [SerializeField] private int enemyHP = 30;
     [SerializeField] private int distance = 1;
-    [Header("¼Q¦å®ÄªG")]
+    [Header("å™´è¡€æ•ˆæœ")]
     [SerializeField] private BloodHitVFXManager bloodHitVFXManager;
     [SerializeField] private bool playBloodOnUltimate = true;
     [SerializeField] private bool playBloodOnParryCounter = true;
@@ -132,22 +132,13 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private const string PLAYER_PROP_READY = "turnReady";
     private const string PLAYER_PROP_ACTIONS = "turnActions";
     private const string PLAYER_PROP_SUBMIT_TURN = "submitTurn";
-    [SerializeField] private int planningLeadBeats = 1;   // ¦^¦Xµ²§ô«á¡Aµ¥¤U¤@©ç¦A¶}·s³W¹º
+    [SerializeField] private int planningLeadBeats = 1;   // å›åˆçµæŸå¾Œï¼Œç­‰ä¸‹ä¸€æ‹å†é–‹æ–°è¦åŠƒ
 
     private Coroutine planningStartCoroutine;
     private const byte EVENT_PLANS_READY = 11;
     private bool pendingParryCounter = false;
     private bool pendingParryCounterByMine = false;
     private int pendingParryCounterDamage = 0;
-    private struct AttackResolutionResult
-    {
-        public bool hit;
-        public bool parried;
-        public bool blocked;
-        public bool evaded;
-        public int damage;
-    }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -165,40 +156,82 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         SetupEnemyPreviewSide();
 
-        if (readyButton != null)
-            readyButton.onClick.AddListener(OnClickReady);
+        BindReadyButton(readyButton);
 
         RestartPlanningStartCoroutine();
 
-        RefreshDebug("µ¥«İ³W¹º¶}©l");
+        RefreshDebug("ç­‰å¾…è¦åŠƒé–‹å§‹");
+    }
+
+    public void ApplyLayout(ClassGameplayUILayout layout)
+    {
+        if (layout == null)
+            return;
+
+        layout.ResolveReferences();
+
+        if (layout.CountdownText != null)
+            countdownText = layout.CountdownText;
+
+        if (layout.DebugText != null)
+            debugText = layout.DebugText;
+
+        if (layout.ReadyButton != null)
+            BindReadyButton(layout.ReadyButton);
+
+        if (layout.LeftEnemyPreviewRoot != null)
+            leftEnemyPreviewRoot = layout.LeftEnemyPreviewRoot;
+
+        if (layout.RightEnemyPreviewRoot != null)
+            rightEnemyPreviewRoot = layout.RightEnemyPreviewRoot;
+
+        if (layout.PreviewCellPrefab != null)
+            previewCellPrefab = layout.PreviewCellPrefab;
+
+        if (layout.EmptyPreviewSprite != null)
+            emptyPreviewSprite = layout.EmptyPreviewSprite;
+
+        SetupEnemyPreviewSide();
+        RefreshDebug("Applied class gameplay UI layout");
+    }
+
+    private void BindReadyButton(Button button)
+    {
+        if (readyButton != null)
+            readyButton.onClick.RemoveListener(OnClickReady);
+
+        readyButton = button;
+
+        if (readyButton != null)
+            readyButton.onClick.AddListener(OnClickReady);
     }
 
     private IEnumerator WaitForSyncedGameStart()
     {
-        // ¥ı½T«O¶}³õ¦P¨B¤w§¹¦¨
+        // å…ˆç¢ºä¿é–‹å ´åŒæ­¥å·²å®Œæˆ
         while (GameSceneStartSync.Instance == null || !GameSceneStartSync.Instance.HasGameStarted())
             yield return null;
 
         while (!GameSceneStartSync.Instance.HasBeatStarted())
             yield return null;
 
-        // «D Master ¤£­t³d¶}·s¦^¦X¡A¥uµ¥ Host ¦b¤U¤@©ç¶}³W¹º
+        // é Master ä¸è² è²¬é–‹æ–°å›åˆï¼Œåªç­‰ Host åœ¨ä¸‹ä¸€æ‹é–‹è¦åŠƒ
         if (!PhotonNetwork.IsMasterClient)
         {
-            RefreshDebug("µ¥«İ Host ¦b¤U¤@©ç¶}©l³W¹º");
+            RefreshDebug("ç­‰å¾… Host åœ¨ä¸‹ä¸€æ‹é–‹å§‹è¦åŠƒ");
             planningStartCoroutine = null;
             yield break;
         }
 
         int planningStartTimestamp = GameSceneStartSync.Instance.GetNextBeatTimestamp(planningLeadBeats);
 
-        RefreshDebug($"µ¥«İ©çÂI¶}©l³W¹º¡AstartTs={planningStartTimestamp}");
+        RefreshDebug($"ç­‰å¾…æ‹é»é–‹å§‹è¦åŠƒï¼ŒstartTs={planningStartTimestamp}");
 
         while (!HasReachedServerTimestamp(planningStartTimestamp))
             yield return null;
 
         BeginPlanningPhase();
-        RefreshDebug("©çÂI¨ì¹F¡A¶}©l³W¹º");
+        RefreshDebug("æ‹é»åˆ°é”ï¼Œé–‹å§‹è¦åŠƒ");
         planningStartCoroutine = null;
     }
     private void OnDestroy()
@@ -222,7 +255,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // ¥~³¡µù¥U / ªì©l¤Æ
+    // å¤–éƒ¨è¨»å†Š / åˆå§‹åŒ–
     // =========================
     private bool IsHeavyChargingThisStep(ActionType effectiveAction, bool heavyReleaseNow)
     {
@@ -237,7 +270,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         int classIndex = GetPlayerClassIndex(unit.photonView.Owner);
         CharacterClassConfig config = GetClassConfigByIndex(classIndex);
 
-        // ¥ı½T«O³o°¦¨¤¦â¤w¸g¦³¥¿½T HP / MaxHP / SlotCount
+        // å…ˆç¢ºä¿é€™éš»è§’è‰²å·²ç¶“æœ‰æ­£ç¢º HP / MaxHP / SlotCount
         EnsureCharacterInitialized(unit, config);
 
         if (unit.IsMine())
@@ -258,7 +291,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 }
             }
 
-            Debug.Log($"¤w¸j©w¦Û¤vªº¨¤¦â: {unit.name}, ActorNumber={myActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
+            Debug.Log($"å·²ç¶å®šè‡ªå·±çš„è§’è‰²: {unit.name}, ActorNumber={myActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
         }
         else
         {
@@ -281,10 +314,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             }
             else
             {
-                Debug.LogWarning("§ä¤£¨ì¼Ä¤èÂ¾·~³]©w¡AµLªk«Ø¥ß¼Ä¤è¹wÄı®æ / ¹Ï¤ùªí");
+                Debug.LogWarning("æ‰¾ä¸åˆ°æ•µæ–¹è·æ¥­è¨­å®šï¼Œç„¡æ³•å»ºç«‹æ•µæ–¹é è¦½æ ¼ / åœ–ç‰‡è¡¨");
             }
 
-            Debug.Log($"¤w¸j©w¹ï¤â¨¤¦â: {unit.name}, ActorNumber={enemyActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
+            Debug.Log($"å·²ç¶å®šå°æ‰‹è§’è‰²: {unit.name}, ActorNumber={enemyActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
         }
         if (GameSceneStartSync.Instance != null)
         {
@@ -300,11 +333,11 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public void SetPlanningSlots(ActionSlot[] slots)
     {
         planningSlots = slots;
-        RefreshDebug("¤w¸j©w³W¹º Slot¡A¼Æ¶q = " + (planningSlots != null ? planningSlots.Length : 0));
+        RefreshDebug("å·²ç¶å®šè¦åŠƒ Slotï¼Œæ•¸é‡ = " + (planningSlots != null ? planningSlots.Length : 0));
     }
 
     // =========================
-    // Update / ¦^¦X±±¨î
+    // Update / å›åˆæ§åˆ¶
     // =========================
     private bool HasReachedServerTimestamp(int targetTimestamp)
     {
@@ -326,19 +359,19 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (GameSceneStartSync.Instance != null)
             return GameSceneStartSync.Instance.GetNextBeatTimestamp(resolveLeadBeats);
 
-        // «á³Æ¤è®×¡G¦pªG GameSceneStartSync ¤£¦b¡A´N¥Î¥»¦a bpm ±À¤@©ç
+        // å¾Œå‚™æ–¹æ¡ˆï¼šå¦‚æœ GameSceneStartSync ä¸åœ¨ï¼Œå°±ç”¨æœ¬åœ° bpm æ¨ä¸€æ‹
         int beatMs = Mathf.RoundToInt((60f / bpm) * 1000f);
         return PhotonNetwork.ServerTimestamp + beatMs * Mathf.Max(1, resolveLeadBeats);
     }
 
     private IEnumerator WaitForResolveBeatThenStart(int turnIndex, int resolveStartTimestamp, int[] myActions, int[] enemyActions)
     {
-        RefreshDebug($"¦¬¨ìÂù¤è¦æ°Ê¡Aµ¥«İ©çÂI¶}©l Turn {turnIndex}");
+        RefreshDebug($"æ”¶åˆ°é›™æ–¹è¡Œå‹•ï¼Œç­‰å¾…æ‹é»é–‹å§‹ Turn {turnIndex}");
 
         while (!HasReachedServerTimestamp(resolveStartTimestamp))
             yield return null;
 
-        RefreshDebug($"©çÂI¨ì¹F¡A¶}©l¸ÑªR Turn {turnIndex}");
+        RefreshDebug($"æ‹é»åˆ°é”ï¼Œé–‹å§‹è§£æ Turn {turnIndex}");
 
         resolveStartCoroutine = null;
         resolveCoroutine = StartCoroutine(ResolveActionsInOrderCoroutine(myActions, enemyActions));
@@ -417,7 +450,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (readyButton != null)
             readyButton.interactable = true;
 
-        RefreshDebug("¶}©l·s¦^¦X³W¹º Turn " + nextTurnIndex);
+        RefreshDebug("é–‹å§‹æ–°å›åˆè¦åŠƒ Turn " + nextTurnIndex);
     }
 
     private void ResetLocalTurnProps(int turnIndex)
@@ -460,7 +493,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             readyButton.interactable = false;
 
         SetPlanningInteractable(false);
-        RefreshDebug("¤w´£¥æ¦Û¤vªº¦æ°Ê");
+        RefreshDebug("å·²æäº¤è‡ªå·±çš„è¡Œå‹•");
     }
 
     private int[] ReadLocalSlotActions()
@@ -529,7 +562,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         int[] p1Actions = GetPlayerActionsForTurn(p1, turnIndex);
         int[] p2Actions = GetPlayerActionsForTurn(p2, turnIndex);
 
-        // ===== ·s¼W¡GResolve ­n¶}©lªº¦@¥Î©çÂI =====
+        // ===== æ–°å¢ï¼šResolve è¦é–‹å§‹çš„å…±ç”¨æ‹é» =====
         int resolveStartTimestamp = GetResolveStartTimestamp();
 
         object[] content = new object[]
@@ -548,7 +581,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RaiseEvent(EVENT_PLANS_READY, content, options, SendOptions.SendReliable);
         receivedResolution = true;
 
-        RefreshDebug("Host ¤w°e¥XÂù¤è¦æ°Ê¡Aµ¥«İ¤U¤@©ç¶}©l¸ÑªR");
+        RefreshDebug("Host å·²é€å‡ºé›™æ–¹è¡Œå‹•ï¼Œç­‰å¾…ä¸‹ä¸€æ‹é–‹å§‹è§£æ");
     }
 
     private int[] GetPlayerActionsForTurn(Player player, int turnIndex)
@@ -596,7 +629,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (turnIndex == lastResolvedTurnIndex)
         {
-            Debug.Log("¦P¤@¦^¦X¨Æ¥ó­«½Æ¦¬¨ì¡A©¿²¤¡CturnIndex = " + turnIndex);
+            Debug.Log("åŒä¸€å›åˆäº‹ä»¶é‡è¤‡æ”¶åˆ°ï¼Œå¿½ç•¥ã€‚turnIndex = " + turnIndex);
             return;
         }
 
@@ -622,7 +655,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
         else
         {
-            Debug.LogError("OnEvent µLªk°t¹ï¥»¦aª±®a ActorNumber");
+            Debug.LogError("OnEvent ç„¡æ³•é…å°æœ¬åœ°ç©å®¶ ActorNumber");
             return;
         }
 
@@ -642,7 +675,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             resolveCoroutine = null;
         }
 
-        // ===== ¤£¥ß¨è¸ÑªR¡A§ï¦¨µ¥¤U¤@­Ó¦@¥Î©çÂI =====
+        // ===== ä¸ç«‹åˆ»è§£æï¼Œæ”¹æˆç­‰ä¸‹ä¸€å€‹å…±ç”¨æ‹é» =====
         resolveStartCoroutine = StartCoroutine(
             WaitForResolveBeatThenStart(turnIndex, resolveStartTimestamp, myActions, enemyActions)
         );
@@ -663,7 +696,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 readyButton.interactable = true;
 
             SetPlanningInteractable(true);
-            RefreshDebug("¦¬¨ì·s¦^¦X¶}©l¡A¤w²MªÅ Slot");
+            RefreshDebug("æ”¶åˆ°æ–°å›åˆé–‹å§‹ï¼Œå·²æ¸…ç©º Slot");
         }
     }
 
@@ -673,12 +706,12 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             changedProps.ContainsKey(PLAYER_PROP_ACTIONS) ||
             changedProps.ContainsKey(PLAYER_PROP_SUBMIT_TURN))
         {
-            RefreshDebug("ª±®a´£¥æ§ó·s: " + targetPlayer.NickName);
+            RefreshDebug("ç©å®¶æäº¤æ›´æ–°: " + targetPlayer.NickName);
         }
     }
 
     // =========================
-    // °Ê§@µ²ºâ¬yµ{
+    // å‹•ä½œçµç®—æµç¨‹
     // =========================
 
     private IEnumerator ResolveActionsInOrderCoroutine(int[] myActions, int[] enemyActions)
@@ -703,7 +736,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             ActionType myAction = (myActions != null && i < myActions.Length) ? (ActionType)myActions[i] : ActionType.None;
             ActionType enemyAction = (enemyActions != null && i < enemyActions.Length) ? (ActionType)enemyActions[i] : ActionType.None;
 
-            Debug.Log($"²Ä {step} ®æ¡G§Ú¤è={myAction} ¼Ä¤è={enemyAction}");
+            Debug.Log($"ç¬¬ {step} æ ¼ï¼šæˆ‘æ–¹={myAction} æ•µæ–¹={enemyAction}");
             yield return StartCoroutine(ResolveSingleStepCoroutine(myAction, enemyAction));
 
             if (pendingParryCounter)
@@ -712,7 +745,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             step++;
         }
 
-        RefreshDebug("¥ş³¡¤ù¬qµ²ºâ§¹¦¨");
+        RefreshDebug("å…¨éƒ¨ç‰‡æ®µçµç®—å®Œæˆ");
 
         ClearAllPlanningSlots();
 
@@ -741,10 +774,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         Animator attackerAnimator = attacker.GetAnimator();
 
-        // ParryCounter ¥»Åé©T©w 2 ©ç
+        // ParryCounter æœ¬é«”å›ºå®š 2 æ‹
         yield return StartCoroutine(PlayParryCounterAnimationAndWait(attackerAnimator));
 
-        // ©R¤¤ªí²{
+        // å‘½ä¸­è¡¨ç¾
         PlayHitFeedback(!counterByMine);
 
         if (playBloodOnParryCounter && bloodHitVFXManager != null)
@@ -753,7 +786,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (HitStopManager.Instance != null)
             yield return StartCoroutine(HitStopManager.Instance.HitStopByBeat());
 
-        // ¯u¥¿¦©¦å
+        // çœŸæ­£æ‰£è¡€
         if (counterByMine)
         {
             if (enemyUnit != null)
@@ -771,7 +804,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         RefreshAllHPUI();
 
-        // ParryCounter ¦pªG¦³©R¤¤°±¹y¡A©T©w¦A¸É 1 ©ç
+        // ParryCounter å¦‚æœæœ‰å‘½ä¸­åœé “ï¼Œå›ºå®šå†è£œ 1 æ‹
         if (playedHitFeedbackThisStep)
             yield return new WaitForSecondsRealtime(GetBeatSeconds(effectDelayBeats));
     }
@@ -787,7 +820,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 return clips[i].length;
         }
 
-        Debug.LogWarning("§ä¤£¨ì°Êµe Clip: " + clipName);
+        Debug.LogWarning("æ‰¾ä¸åˆ°å‹•ç•« Clip: " + clipName);
         return 1f;
     }
     private void RefreshAllHPUI()
@@ -839,7 +872,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (isMine)
         {
-            // ¤W¤@®æ¤w¸g»W¤O¡A³o¤@®æ¦Û°Ê¥´¥X
+            // ä¸Šä¸€æ ¼å·²ç¶“è“„åŠ›ï¼Œé€™ä¸€æ ¼è‡ªå‹•æ‰“å‡º
             if (myHeavyPendingThisTurn)
             {
                 myHeavyPendingThisTurn = false;
@@ -847,7 +880,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 return ActionType.HeavyAttack;
             }
 
-            // ³o¤@®æ¿ï¨ì­«§ğ¡A¥ı¶i¤J»W¤O
+            // é€™ä¸€æ ¼é¸åˆ°é‡æ”»ï¼Œå…ˆé€²å…¥è“„åŠ›
             if (selectedAction == ActionType.HeavyAttack)
             {
                 myHeavyPendingThisTurn = true;
@@ -981,7 +1014,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (battleStepPlayer == null)
         {
-            Debug.LogError("ResolveSingleStepCoroutine: battleStepPlayer ¨S¦³«ü©w");
+            Debug.LogError("ResolveSingleStepCoroutine: battleStepPlayer æ²’æœ‰æŒ‡å®š");
             yield break;
         }
 
@@ -995,14 +1028,14 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         ActionType myEffectiveAction = GetEffectiveActionForStep(myAction, true, out myHeavyReleaseNow);
         ActionType enemyEffectiveAction = GetEffectiveActionForStep(enemyAction, false, out enemyHeavyReleaseNow);
 
-        // ===== ³o¤@¨B¥ı°O¦í½Ö¥¿¦b»W¤O =====
+        // ===== é€™ä¸€æ­¥å…ˆè¨˜ä½èª°æ­£åœ¨è“„åŠ› =====
         myChargingHeavyThisStep = IsHeavyChargingThisStep(myEffectiveAction, myHeavyReleaseNow);
         enemyChargingHeavyThisStep = IsHeavyChargingThisStep(enemyEffectiveAction, enemyHeavyReleaseNow);
 
-        // BattleStepPlayer ¸ò TurnPlanningManager ¦@¥Î¦P¤@®M BPM / ©ç¼Æ
+        // BattleStepPlayer è·Ÿ TurnPlanningManager å…±ç”¨åŒä¸€å¥— BPM / æ‹æ•¸
         battleStepPlayer.SetBeatConfig(bpm, normalStepBeats);
 
-        // °ò¥»°Ê§@©T©w 2 ©ç
+        // åŸºæœ¬å‹•ä½œå›ºå®š 2 æ‹
         yield return StartCoroutine(
             battleStepPlayer.PlayStep(
                 myUnit,
@@ -1033,7 +1066,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             enemyHeavyReleaseNow
         );
 
-        // ³o¤@¨B¦pªG¦³©R¤¤°±¹y©ÎºC°Ê§@¡A©T©w¸É 1 ©ç
+        // é€™ä¸€æ­¥å¦‚æœæœ‰å‘½ä¸­åœé “æˆ–æ…¢å‹•ä½œï¼Œå›ºå®šè£œ 1 æ‹
         bool hasSlowMotionStep =
             myEffectiveAction == ActionType.Dance ||
             enemyEffectiveAction == ActionType.Dance;
@@ -1046,11 +1079,11 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         UpdateHPBars();
         UpdateEnergyBars();
 
-        // ===== ³o¤@¨Bµ²§ô«á­«¸m =====
+        // ===== é€™ä¸€æ­¥çµæŸå¾Œé‡ç½® =====
         myChargingHeavyThisStep = false;
         enemyChargingHeavyThisStep = false;
     }    // =========================
-         // °Êµe¼½©ñ / µ¥«İ
+         // å‹•ç•«æ’­æ”¾ / ç­‰å¾…
          // =========================
 
 
@@ -1101,7 +1134,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
    
     // =========================
-    // ²¾°Ê
+    // ç§»å‹•
     // =========================
 
     private void ApplyMovement(ref int currentDistance, ActionType action, bool isMine)
@@ -1111,12 +1144,12 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             case ActionType.MoveForward:
                 currentDistance -= 1;
                 if (currentDistance < 0) currentDistance = 0;
-                Debug.Log(isMine ? "§Ú¤è¦V«e²¾°Ê" : "¼Ä¤è¦V«e²¾°Ê");
+                Debug.Log(isMine ? "æˆ‘æ–¹å‘å‰ç§»å‹•" : "æ•µæ–¹å‘å‰ç§»å‹•");
                 break;
 
             case ActionType.MoveBackward:
                 currentDistance += 1;
-                Debug.Log(isMine ? "§Ú¤è¦V«á²¾°Ê" : "¼Ä¤è¦V«á²¾°Ê");
+                Debug.Log(isMine ? "æˆ‘æ–¹å‘å¾Œç§»å‹•" : "æ•µæ–¹å‘å¾Œç§»å‹•");
                 break;
 
             case ActionType.Jump:
@@ -1124,7 +1157,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                     myJumping = true;
                 else
                     enemyJumping = true;
-                Debug.Log(isMine ? "§Ú¤è¸õÅD" : "¼Ä¤è¸õÅD");
+                Debug.Log(isMine ? "æˆ‘æ–¹è·³èº" : "æ•µæ–¹è·³èº");
                 break;
         }
     }
@@ -1201,7 +1234,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (unit == null || config == null)
             return;
 
-        // ¦pªGÁÙ¨Sªì©l¤Æ¹L¡A´N¸É¤W°òÂ¦¸ê®Æ
+        // å¦‚æœé‚„æ²’åˆå§‹åŒ–éï¼Œå°±è£œä¸ŠåŸºç¤è³‡æ–™
         bool needInit =
             unit.maxHP <= 0 ||
             unit.currentHP <= 0 ||
@@ -1216,7 +1249,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         unit.Init(config.className, skinName, config.maxHP, config.slotCount);
 
-        Debug.Log($"¸Éªì©l¤Æ¨¤¦â¦¨¥\: {unit.name}, HP={config.maxHP}, Slots={config.slotCount}");
+        Debug.Log($"è£œåˆå§‹åŒ–è§’è‰²æˆåŠŸ: {unit.name}, HP={config.maxHP}, Slots={config.slotCount}");
     }
 
 
@@ -1323,7 +1356,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             if (verbose)
             {
-                Debug.Log($"CanDragOrPlaceAction: ÀË¬d¤j©Û, myEnergy={myEnergy}, maxEnergy={maxEnergy}, queued={HasQueuedUltimate(ignoreSlot)}");
+                Debug.Log($"CanDragOrPlaceAction: æª¢æŸ¥å¤§æ‹›, myEnergy={myEnergy}, maxEnergy={maxEnergy}, queued={HasQueuedUltimate(ignoreSlot)}");
             }
 
             if (!CanUseUltimate())
@@ -1358,7 +1391,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // ¾Ô°« / §ğÀ»
+    // æˆ°é¬¥ / æ”»æ“Š
     // =========================
 
     private void ResolveCombat(int currentTurn, ActionType myAction, ActionType enemyAction, bool myHeavyReleaseNow, bool enemyHeavyReleaseNow)
@@ -1369,7 +1402,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (enemyAction == ActionType.Dance)
             ApplyDance(false);
 
-        // ===== Âù¤è³£¬OÃM¤h¥B¦P®É¶}¤j©Û¡G¤¬¦Y¤@¥b¶Ë®` =====
+        // ===== é›™æ–¹éƒ½æ˜¯é¨å£«ä¸”åŒæ™‚é–‹å¤§æ‹›ï¼šäº’åƒä¸€åŠå‚·å®³ =====
         if (myAction == ActionType.Ultimate &&
             enemyAction == ActionType.Ultimate &&
             IsKnightClass(true) &&
@@ -1403,10 +1436,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         int currentDistance = GetCurrentGridDistance();
 
-        // ÁÙ¬O¿í¦u§ğÀ»½d³ò 1
+        // é‚„æ˜¯éµå®ˆæ”»æ“Šç¯„åœ 1
         if (currentDistance > 1)
         {
-            Debug.Log("Âù¤è¦P®É¶}ÃM¤h¤j©Û¡A¦ı¶ZÂ÷¶W¹L 1¡A¥¼©R¤¤");
+            Debug.Log("é›™æ–¹åŒæ™‚é–‹é¨å£«å¤§æ‹›ï¼Œä½†è·é›¢è¶…é 1ï¼Œæœªå‘½ä¸­");
             ConsumeAllEnergy(true);
             ConsumeAllEnergy(false);
             return;
@@ -1433,7 +1466,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         ConsumeAllEnergy(true);
         ConsumeAllEnergy(false);
 
-        Debug.Log($"Âù¤èÃM¤h¦P®É¶}¤j¡G§Ú¤è¨ü¶Ë {enemyHalfDamage}¡A¼Ä¤è¨ü¶Ë {myHalfDamage}");
+        Debug.Log($"é›™æ–¹é¨å£«åŒæ™‚é–‹å¤§ï¼šæˆ‘æ–¹å—å‚· {enemyHalfDamage}ï¼Œæ•µæ–¹å—å‚· {myHalfDamage}");
     }
     private bool IsAttack(ActionType action)
     {
@@ -1460,62 +1493,6 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
     }
 
-    private AttackResolutionResult ResolveAttackDamage(
-     AttackActionData attackData,
-     ActionType defenderAction,
-     bool defenderJumpingNow,
-     int currentDistance)
-    {
-        AttackResolutionResult result = new AttackResolutionResult
-        {
-            hit = false,
-            parried = false,
-            blocked = false,
-            evaded = false,
-            damage = 0
-        };
-
-        if (attackData == null)
-            return result;
-
-        // ¶ZÂ÷¤£°÷´Nª½±µ¥´¤£¨ì
-        if (currentDistance > attackData.range)
-        {
-            Debug.Log($"§ğÀ»¸¨ªÅ¡G¥Ø«e¶ZÂ÷ {currentDistance} ®æ¡A§ğÀ»½d³ò {attackData.range} ®æ");
-            return result;
-        }
-
-        if (defenderAction == ActionType.Parry && attackData.canBeParried)
-        {
-            result.parried = true;
-            return result;
-        }
-
-        if (defenderAction == ActionType.Defense && attackData.canBeDefended)
-        {
-            result.blocked = true;
-            return result;
-        }
-
-        if (defenderJumpingNow)
-        {
-            switch (attackData.jumpInteraction)
-            {
-                case JumpInteractionType.Evade:
-                    result.evaded = true;
-                    return result;
-
-                case JumpInteractionType.HalfDamage:
-                    result.hit = true;
-                    result.damage = Mathf.Max(1, attackData.damage / 2);
-                    return result;
-            }
-        }
-
-        result.hit = true;
-        result.damage = attackData.damage;
-        return result;
-    }
     private void PlayBloodHitEffect(bool attackerIsMine)
     {
         if (bloodHitVFXManager == null)
@@ -1579,50 +1556,56 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         bool defenderJumpingNow = attackerIsMine ? enemyJumping : myJumping;
         bool defenderIsMine = !attackerIsMine;
 
-        // ­«§ğ²Ä¤@®æ¥u»W¤O¡A¤£³y¦¨¶Ë®`
+        // é‡æ”»ç¬¬ä¸€æ ¼åªè“„åŠ›ï¼Œä¸é€ æˆå‚·å®³
         if (attackerAction == ActionType.HeavyAttack && attackData.requiresCharge && !heavyReleaseNow)
         {
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " ­«§ğÀ»²Ä¤@®æ»W¤O");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " é‡æ”»æ“Šç¬¬ä¸€æ ¼è“„åŠ›");
             return;
         }
 
         int currentDistance = GetCurrentGridDistance();
 
-        AttackResolutionResult result = ResolveAttackDamage(
+        AttackResolutionResult result = CombatResolver.ResolveAttackDamage(
             attackData,
             defenderAction,
             defenderJumpingNow,
             currentDistance
         );
 
-        // ===== Parry ¦¨¥\¡G¤£­n·í¤Uª½±µ¤Ï¶Ë¡A§ï¦¨±Æ¤JÃB¥~ Counter ¨BÆJ =====
+        if (result.outOfRange)
+        {
+            Debug.Log($"æ”»æ“Šè½ç©ºï¼šç›®å‰è·é›¢ {currentDistance} æ ¼ï¼Œæ”»æ“Šç¯„åœ {attackData.range} æ ¼");
+            return;
+        }
+
+        // ===== Parry æˆåŠŸï¼šä¸è¦ç•¶ä¸‹ç›´æ¥åå‚·ï¼Œæ”¹æˆæ’å…¥é¡å¤– Counter æ­¥é©Ÿ =====
         if (result.parried)
         {
             int counterDamage = attackData.damage;
 
-            // ¥u¼½ Parry ¦¨¥\¯S®Ä¡A¤£¦b³o¸Ì¼½ ParryCounter ¤ÏÀ»°Êµe
+            // åªæ’­ Parry æˆåŠŸç‰¹æ•ˆï¼Œä¸åœ¨é€™è£¡æ’­ ParryCounter åæ“Šå‹•ç•«
             PlayParrySuccessEffect(defenderIsMine);
 
-            // Parry ¦¨¥\ºâ¨¾¦u¤è¥[¯à¶q
+            // Parry æˆåŠŸç®—é˜²å®ˆæ–¹åŠ èƒ½é‡
             AddEnergy(defenderIsMine, energyPerBlock);
 
-            // ±Æµ{ÃB¥~ªº ParryCounter ¤l¨BÆJ
+            // æ’ç¨‹é¡å¤–çš„ ParryCounter å­æ­¥é©Ÿ
             QueueParryCounter(defenderIsMine, counterDamage);
 
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " §ğÀ»³Q Parry ¦¨¥\¡A¤w±Æ¤JÃB¥~ ParryCounter ¨BÆJ¡A¤Ï¶Ë = " + counterDamage);
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " æ”»æ“Šè¢« Parry æˆåŠŸï¼Œå·²æ’å…¥é¡å¤– ParryCounter æ­¥é©Ÿï¼Œåå‚· = " + counterDamage);
             return;
         }
 
         if (result.blocked)
         {
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " §ğÀ»³Q Defense ¾×¦í");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " æ”»æ“Šè¢« Defense æ“‹ä½");
             AddEnergy(defenderIsMine, energyPerBlock);
             return;
         }
 
         if (result.evaded)
         {
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " §ğÀ»³Q Jump ¸ú±¼");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " æ”»æ“Šè¢« Jump èº²æ‰");
             return;
         }
 
@@ -1635,14 +1618,14 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 enemyUnit.TakeDamage(result.damage);
                 enemyHP = enemyUnit.currentHP;
                 PlayBloodHitEffect(true);
-                Debug.Log("§Ú¤è§ğÀ»©R¤¤¡A¶Ë®` = " + result.damage);
+                Debug.Log("æˆ‘æ–¹æ”»æ“Šå‘½ä¸­ï¼Œå‚·å®³ = " + result.damage);
             }
             else
             {
                 myUnit.TakeDamage(result.damage);
                 myHP = myUnit.currentHP;
                 PlayBloodHitEffect(false);
-                Debug.Log("¼Ä¤è§ğÀ»©R¤¤¡A¶Ë®` = " + result.damage);
+                Debug.Log("æ•µæ–¹æ”»æ“Šå‘½ä¸­ï¼Œå‚·å®³ = " + result.damage);
             }
 
             AddEnergy(attackerIsMine, energyPerHit);
@@ -1666,7 +1649,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (HitStopManager.Instance != null)
             HitStopManager.Instance.PlayDanceSlowMotionWithExtraTime(GetBeatSeconds(effectDelayBeats));
 
-        Debug.Log((isMine ? "§Ú¤è" : "¼Ä¤è") + " ¸õ»R¦¨¥\¡A¥[¯à¶q 1¡AºC°Ê§@µøÄ±®ÄªG¼½©ñ¡A¨BÆJ©µªø¥Ñ¸`©ç¨t²Î±±¨î");
+        Debug.Log((isMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " è·³èˆæˆåŠŸï¼ŒåŠ èƒ½é‡ 1ï¼Œæ…¢å‹•ä½œè¦–è¦ºæ•ˆæœæ’­æ”¾ï¼Œæ­¥é©Ÿå»¶é•·ç”±ç¯€æ‹ç³»çµ±æ§åˆ¶");
     }
     private void TryApplyUltimate(bool attackerIsMine, ActionType defenderAction)
     {
@@ -1674,7 +1657,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (ultimateData == null)
         {
-            Debug.LogWarning("TryApplyUltimate: §ä¤£¨ì¤j©Û¸ê®Æ");
+            Debug.LogWarning("TryApplyUltimate: æ‰¾ä¸åˆ°å¤§æ‹›è³‡æ–™");
             return;
         }
 
@@ -1683,52 +1666,52 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (currentEnergy < maxEnergy)
         {
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " ¤j©Û¥¢±Ñ¡G¯à¶q¥¼º¡");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " å¤§æ‹›å¤±æ•—ï¼šèƒ½é‡æœªæ»¿");
             return;
         }
 
         int currentDistance = GetCurrentGridDistance();
 
-        // ½d³ò 1¡A¶ZÂ÷¤£°÷ª½±µ¸¨ªÅ¡A¦ı¤´®ø¯Ó¯à¶q
+        // ç¯„åœ 1ï¼Œè·é›¢ä¸å¤ ç›´æ¥è½ç©ºï¼Œä½†ä»æ¶ˆè€—èƒ½é‡
         if (currentDistance > 1)
         {
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " ¤j©Û¥¼©R¤¤¡G¶ZÂ÷¶W¹L 1");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " å¤§æ‹›æœªå‘½ä¸­ï¼šè·é›¢è¶…é 1");
             ConsumeAllEnergy(attackerIsMine);
             return;
         }
 
-        // ===== ³Q Parry ¦¨¥\¡G¤£­n·í¤Uª½±µ¤Ï¶Ë¡A§ï¦¨±Æ¤JÃB¥~ Counter ¨BÆJ =====
+        // ===== è¢« Parry æˆåŠŸï¼šä¸è¦ç•¶ä¸‹ç›´æ¥åå‚·ï¼Œæ”¹æˆæ’å…¥é¡å¤– Counter æ­¥é©Ÿ =====
         if (defenderAction == ActionType.Parry)
         {
             int counterDamage = ultimateData.damage;
 
-            // ¥u¼½ Parry ¦¨¥\¯S®Ä
+            // åªæ’­ Parry æˆåŠŸç‰¹æ•ˆ
             PlayParrySuccessEffect(defenderIsMine);
 
-            // Parry ¦¨¥\ºâ¨¾¦u¤è¥[¯à¶q
+            // Parry æˆåŠŸç®—é˜²å®ˆæ–¹åŠ èƒ½é‡
             AddEnergy(defenderIsMine, energyPerBlock);
 
-            // §ğÀ»¤è¤j©Û·Ó¼Ë®ø¯Ó¯à¶q
+            // æ”»æ“Šæ–¹å¤§æ‹›ç…§æ¨£æ¶ˆè€—èƒ½é‡
             ConsumeAllEnergy(attackerIsMine);
 
-            // ±Æµ{ÃB¥~ Counter ¨BÆJ
+            // æ’ç¨‹é¡å¤– Counter æ­¥é©Ÿ
             QueueParryCounter(defenderIsMine, counterDamage);
 
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " ªºÃM¤h¤j©Û³Q Parry ¦¨¥\¡A¤w±Æ¤JÃB¥~ ParryCounter ¨BÆJ¡A¤Ï¶Ë = " + counterDamage);
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " çš„é¨å£«å¤§æ‹›è¢« Parry æˆåŠŸï¼Œå·²æ’å…¥é¡å¤– ParryCounter æ­¥é©Ÿï¼Œåå‚· = " + counterDamage);
             return;
         }
 
-        // ¯à³Q Defense ¾×¦í
+        // èƒ½è¢« Defense æ“‹ä½
         if (defenderAction == ActionType.Defense)
         {
             AddEnergy(defenderIsMine, energyPerBlock);
             ConsumeAllEnergy(attackerIsMine);
 
-            Debug.Log((attackerIsMine ? "§Ú¤è" : "¼Ä¤è") + " ªºÃM¤h¤j©Û³Q Defense ¾×¦í");
+            Debug.Log((attackerIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " çš„é¨å£«å¤§æ‹›è¢« Defense æ“‹ä½");
             return;
         }
 
-        // ¤£¯à³Q Jump ¸ú±¼¡A©Ò¥H¤£§PÂ_ Jump
+        // ä¸èƒ½è¢« Jump èº²æ‰ï¼Œæ‰€ä»¥ä¸åˆ¤æ–· Jump
 
         int damage = ultimateData.damage;
 
@@ -1743,7 +1726,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             if (playBloodOnUltimate)
                 PlayBloodHitEffect(true);
 
-            Debug.Log("§Ú¤èÃM¤h¤j©Û©R¤¤¡A³y¦¨ " + damage + " ¶Ë®`");
+            Debug.Log("æˆ‘æ–¹é¨å£«å¤§æ‹›å‘½ä¸­ï¼Œé€ æˆ " + damage + " å‚·å®³");
         }
         else
         {
@@ -1756,7 +1739,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             if (playBloodOnUltimate)
                 PlayBloodHitEffect(false);
 
-            Debug.Log("¼Ä¤èÃM¤h¤j©Û©R¤¤¡A³y¦¨ " + damage + " ¶Ë®`");
+            Debug.Log("æ•µæ–¹é¨å£«å¤§æ‹›å‘½ä¸­ï¼Œé€ æˆ " + damage + " å‚·å®³");
         }
 
         ConsumeAllEnergy(attackerIsMine);
@@ -1780,18 +1763,18 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             myEnergy += value;
             if (myEnergy > maxEnergy) myEnergy = maxEnergy;
-            Debug.Log("§Ú¤è¯à¶q¼W¥[¨ì: " + myEnergy);
+            Debug.Log("æˆ‘æ–¹èƒ½é‡å¢åŠ åˆ°: " + myEnergy);
         }
         else
         {
             enemyEnergy += value;
             if (enemyEnergy > maxEnergy) enemyEnergy = maxEnergy;
-            Debug.Log("¼Ä¤è¯à¶q¼W¥[¨ì: " + enemyEnergy);
+            Debug.Log("æ•µæ–¹èƒ½é‡å¢åŠ åˆ°: " + enemyEnergy);
         }
 
         UpdateEnergyBars();
 
-        // ©Ò¦³·|¥[¯à¶qªº§P©w³£®M¥Î¸`©ç Hit Stop
+        // æ‰€æœ‰æœƒåŠ èƒ½é‡çš„åˆ¤å®šéƒ½å¥—ç”¨ç¯€æ‹ Hit Stop
         TriggerBeatHitStop();
     }
 
@@ -1815,7 +1798,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // HP / UI §ó·s
+    // HP / UI æ›´æ–°
     // =========================
 
     private void UpdateHPBars()
@@ -1840,7 +1823,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // ¨üÀ» / Parry ¯S®Ä
+    // å—æ“Š / Parry ç‰¹æ•ˆ
     // =========================
 
     private bool IsKnightClass(bool isMine)
@@ -1878,7 +1861,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         bool targetIsHeavyCharging = targetIsMine ? myChargingHeavyThisStep : enemyChargingHeavyThisStep;
 
-        // »W¤O³~¤¤³Q¥´¤¤¡A¤£¤Á¨ì¨üÀ»°Êµe
+        // è“„åŠ›é€”ä¸­è¢«æ‰“ä¸­ï¼Œä¸åˆ‡åˆ°å—æ“Šå‹•ç•«
         if (!targetIsHeavyCharging)
         {
             if (targetAnim != null)
@@ -1886,10 +1869,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
         else
         {
-            Debug.Log((targetIsMine ? "§Ú¤è" : "¼Ä¤è") + " ¥¿¦b HeavyCharge¡A¤¤©Û¦ı¤£¤Á´«¨ì Hit °Êµe");
+            Debug.Log((targetIsMine ? "æˆ‘æ–¹" : "æ•µæ–¹") + " æ­£åœ¨ HeavyChargeï¼Œä¸­æ‹›ä½†ä¸åˆ‡æ›åˆ° Hit å‹•ç•«");
         }
 
-        // ¾_°Ê / ¥´À»·PÁÙ¬O«O¯d
+        // éœ‡å‹• / æ‰“æ“Šæ„Ÿé‚„æ˜¯ä¿ç•™
         if (targetUnit != null)
             StartCoroutine(PlayHitShakeCoroutine(targetUnit.transform));
 
@@ -1916,7 +1899,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // ¼Ä¤è¦æ°Ê¹wÄı
+    // æ•µæ–¹è¡Œå‹•é è¦½
     // =========================
 
     private void SetupEnemyPreviewSide()
@@ -1949,13 +1932,13 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if (currentEnemyPreviewRoot == null)
         {
-            Debug.LogWarning("currentEnemyPreviewRoot ¬°ªÅ¡AµLªk«Ø¥ß¼Ä¤è¹wÄı®æ");
+            Debug.LogWarning("currentEnemyPreviewRoot ç‚ºç©ºï¼Œç„¡æ³•å»ºç«‹æ•µæ–¹é è¦½æ ¼");
             return;
         }
 
         if (previewCellPrefab == null)
         {
-            Debug.LogWarning("previewCellPrefab ¨S¦³«ü©w");
+            Debug.LogWarning("previewCellPrefab æ²’æœ‰æŒ‡å®š");
             return;
         }
 
@@ -1992,7 +1975,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (config == null)
         {
-            Debug.LogWarning("BuildEnemyPreviewSpriteMap: config ¬°ªÅ");
+            Debug.LogWarning("BuildEnemyPreviewSpriteMap: config ç‚ºç©º");
             return;
         }
 
@@ -2021,7 +2004,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (img == null || img.sprite == null)
         {
-            Debug.LogWarning("§ì¤£¨ì¹wÄı¹Ï: " + actionData.actionType);
+            Debug.LogWarning("æŠ“ä¸åˆ°é è¦½åœ–: " + actionData.actionType);
             return;
         }
 
@@ -2034,10 +2017,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         float worldDistance = Mathf.Abs(enemyUnit.transform.position.x - myUnit.transform.position.x);
 
-        // ¨Ì·Ó§A¨C¤@¨B moveStep ºâ¦¨´X®æ
+        // ä¾ç…§ä½ æ¯ä¸€æ­¥ moveStep ç®—æˆå¹¾æ ¼
         int gridDistance = Mathf.RoundToInt(worldDistance / moveStep);
 
-        // ³Ì¤Ö·í¦¨ 1 ®æ¡AÁ×§K¶K¤Óªñ®ÉÅÜ 0
+        // æœ€å°‘ç•¶æˆ 1 æ ¼ï¼Œé¿å…è²¼å¤ªè¿‘æ™‚è®Š 0
         if (gridDistance < 1)
             gridDistance = 1;
 
@@ -2046,7 +2029,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private void RefreshDistance()
     {
         distance = GetCurrentGridDistance();
-        Debug.Log("¥Ø«e¶ZÂ÷ = " + distance + " ®æ");
+        Debug.Log("ç›®å‰è·é›¢ = " + distance + " æ ¼");
     }
     private void ShowEnemyActionsPreview(int[] enemyActions)
     {
@@ -2116,7 +2099,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // ¤½¥Î¤u¨ã
+    // å…¬ç”¨å·¥å…·
     // =========================
 
     private int GetPlayerClassIndex(Player player)

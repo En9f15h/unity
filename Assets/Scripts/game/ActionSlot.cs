@@ -1,37 +1,65 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
-    [Header("²Ä´X®æ")]
+    [Header("ç¬¬å¹¾æ ¼")]
     public int slotIndex;
 
-    [Header("Åã¥Ü§Ç¸¹¤å¦r")]
+    [Header("é¡¯ç¤ºåºè™Ÿæ–‡å­—")]
     [SerializeField] private Text indexText;
 
-    [Header("§Ş¯à¤º®e®e¾¹")]
+    [Header("æŠ€èƒ½å…§å®¹å®¹å™¨")]
     [SerializeField] private RectTransform contentRoot;
 
-    [Header("HeavyAttack ¦û¥Î¤U¤@®æ")]
+    [Header("HeavyAttack ä½”ç”¨ä¸‹ä¸€æ ¼")]
     [SerializeField] private ActionSlot nextSlot;
 
-    [Header("¥b³z©úÂê©w¾B¸n")]
+    [Header("åŠé€æ˜é–å®šé®ç½©")]
     [SerializeField] private GameObject lockOverlay;
 
-    [Header("¥Ø«e©ñ¤Jªº¦æ°Ê¸ê®Æ")]
+    [Header("ç›®å‰æ”¾å…¥çš„è¡Œå‹•è³‡æ–™")]
     [SerializeField] private ActionData currentActionData;
 
     private ActionType currentActionType = ActionType.None;
     private GameObject currentPlacedObject;
+    private bool hasResolvedReferences;
 
     public bool IsOccupiedByHeavyExtension { get; private set; } = false;
 
+    private void Awake()
+    {
+        ResolveReferences();
+    }
+
     private void Start()
     {
+        ResolveReferences();
         RefreshIndexText();
         RefreshLockOverlay();
         CacheCurrentPlacedObject();
+    }
+
+    public void ResolveReferences()
+    {
+        if (hasResolvedReferences)
+            return;
+
+        if (indexText == null)
+            indexText = FindComponentByName<Text>("index", "number", "slottext", "text");
+
+        if (contentRoot == null)
+            contentRoot = FindComponentByName<RectTransform>("content", "itemroot", "droproot", "slotroot", "iconroot");
+
+        if (lockOverlay == null)
+        {
+            Transform overlay = FindTransformByName("lock", "overlay", "disabled", "block");
+            if (overlay != null)
+                lockOverlay = overlay.gameObject;
+        }
+
+        hasResolvedReferences = true;
     }
 
     public ActionData GetCurrentActionData()
@@ -53,6 +81,7 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     public void SetIndex(int index)
     {
         slotIndex = index;
+        ResolveReferences();
         RefreshIndexText();
     }
 
@@ -63,6 +92,7 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     private RectTransform GetTargetRect()
     {
+        ResolveReferences();
         return contentRoot != null ? contentRoot : GetComponent<RectTransform>();
     }
 
@@ -76,6 +106,57 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         if (lockOverlay != null)
             lockOverlay.SetActive(IsOccupiedByHeavyExtension);
+    }
+
+    private T FindComponentByName<T>(params string[] tokens) where T : Component
+    {
+        T[] components = GetComponentsInChildren<T>(true);
+
+        for (int i = 0; i < components.Length; i++)
+        {
+            if (components[i] == null || components[i].transform == transform)
+                continue;
+
+            string normalized = Normalize(components[i].name);
+            for (int j = 0; j < tokens.Length; j++)
+            {
+                if (normalized.Contains(tokens[j]))
+                    return components[i];
+            }
+        }
+
+        return null;
+    }
+
+    private Transform FindTransformByName(params string[] tokens)
+    {
+        Transform[] transforms = GetComponentsInChildren<Transform>(true);
+
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            if (transforms[i] == null || transforms[i] == transform)
+                continue;
+
+            string normalized = Normalize(transforms[i].name);
+            for (int j = 0; j < tokens.Length; j++)
+            {
+                if (normalized.Contains(tokens[j]))
+                    return transforms[i];
+            }
+        }
+
+        return null;
+    }
+
+    private string Normalize(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        return value.Replace(" ", string.Empty)
+            .Replace("_", string.Empty)
+            .Replace("-", string.Empty)
+            .ToLowerInvariant();
     }
 
     public void SetHeavyExtensionOccupied(bool value)
@@ -226,29 +307,29 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        // ¨Ó·½©ì¦²®É­nÀu¥ı¦Y clone¡A¤£­n¥ı¦Y pointerDrag
+        // ä¾†æºæ‹–æ›³æ™‚è¦å„ªå…ˆåƒ cloneï¼Œä¸è¦å…ˆåƒ pointerDrag
         GameObject dropped = ActionDragSource.CurrentDraggedClone;
 
-        // ¦pªG¨S¦³ clone¡A¤~¥Nªí¥i¯à¬O slot ¸Ìªºª«¥ó¤¬¬Û©ì¦²
+        // å¦‚æœæ²’æœ‰ cloneï¼Œæ‰ä»£è¡¨å¯èƒ½æ˜¯ slot è£¡çš„ç‰©ä»¶äº’ç›¸æ‹–æ›³
         if (dropped == null)
             dropped = eventData.pointerDrag;
 
         if (dropped == null)
         {
-            Debug.Log("OnDrop ¥¢±Ñ¡G§ä¤£¨ì©ì¦²ª«¥ó");
+            Debug.Log("OnDrop å¤±æ•—ï¼šæ‰¾ä¸åˆ°æ‹–æ›³ç‰©ä»¶");
             return;
         }
 
         if (IsOccupiedByHeavyExtension)
         {
-            Debug.Log("³o®æ³Q HeavyAttack ¦û¥Î¡A¤£¯à©ñ¸m");
+            Debug.Log("é€™æ ¼è¢« HeavyAttack ä½”ç”¨ï¼Œä¸èƒ½æ”¾ç½®");
             return;
         }
 
         DraggableItem incomingItem = dropped.GetComponent<DraggableItem>();
         if (incomingItem == null)
         {
-            Debug.Log("OnDrop ¥¢±Ñ¡G©ì¦²ª«¨S¦³ DraggableItem");
+            Debug.Log("OnDrop å¤±æ•—ï¼šæ‹–æ›³ç‰©æ²’æœ‰ DraggableItem");
             return;
         }
 
@@ -258,24 +339,24 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
         if (incomingData == null)
         {
-            Debug.Log("OnDrop ¥¢±Ñ¡GincomingData ¬°ªÅ");
+            Debug.Log("OnDrop å¤±æ•—ï¼šincomingData ç‚ºç©º");
             return;
         }
 
         if (!CanAcceptAction(incomingData, incomingType, fromSlot, false))
         {
-            Debug.Log("³o­Ó¦æ°Ê²{¦b¤£¯à©ñ¤J");
+            Debug.Log("é€™å€‹è¡Œå‹•ç¾åœ¨ä¸èƒ½æ”¾å…¥");
             return;
         }
 
-        // ©ì¦^­ì¦ì
+        // æ‹–å›åŸä½
         if (fromSlot == this)
         {
             RestoreDraggedItem(incomingItem);
             return;
         }
 
-        // ¥Ø¼Ğ¬°ªÅ¡Gª½±µ©ñ
+        // ç›®æ¨™ç‚ºç©ºï¼šç›´æ¥æ”¾
         if (!HasPlacedItem())
         {
             if (fromSlot != null)
@@ -285,7 +366,7 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             return;
         }
 
-        // ¥Ø¼Ğ¦³ªF¦è¡G°µ¥æ´«
+        // ç›®æ¨™æœ‰æ±è¥¿ï¼šåšäº¤æ›
         DraggableItem targetItem = GetTargetRect().GetComponentInChildren<DraggableItem>(true);
         if (targetItem == null)
         {
@@ -299,7 +380,7 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         ActionData targetData = targetItem.GetActionData();
         ActionType targetType = targetItem.GetActionType();
 
-        // ¨Ó·½¬O§Ş¯àÄæ©ì¶i¨Ó¡Gª½±µÂĞ»\
+        // ä¾†æºæ˜¯æŠ€èƒ½æ¬„æ‹–é€²ä¾†ï¼šç›´æ¥è¦†è“‹
         if (fromSlot == null)
         {
             ClearPlacedItemOnly();
@@ -307,10 +388,10 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             return;
         }
 
-        // ¥æ´««eÀË¬d¨Ó·½®æ¯à¤£¯à±µ¨ü¹ï¤è
+        // äº¤æ›å‰æª¢æŸ¥ä¾†æºæ ¼èƒ½ä¸èƒ½æ¥å—å°æ–¹
         if (!fromSlot.CanAcceptAction(targetData, targetType, this, false))
         {
-            Debug.Log("¥æ´«¥¢±Ñ¡G¨Ó·½®æ¤£¯à±µ¨ü¥Ø¼Ğ¦æ°Ê");
+            Debug.Log("äº¤æ›å¤±æ•—ï¼šä¾†æºæ ¼ä¸èƒ½æ¥å—ç›®æ¨™è¡Œå‹•");
             fromSlot.RestoreDraggedItem(incomingItem);
             return;
         }

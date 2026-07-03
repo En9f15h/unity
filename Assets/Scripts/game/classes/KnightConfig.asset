@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: KnightConfig
   m_EditorClassIdentifier: Assembly-CSharp::CharacterClassConfig
   className: Knight
+  photonResourceFolder: knight
   maxHP: 30
   slotCount: 5
   skinNames:
@@ -79,3 +80,4 @@ MonoBehaviour:
     requiresCharge: 0
     chargeTurns: 1
   energyBarPrefab: {fileID: 958131594077356885, guid: c71191559bc4a3044a46e646be64d16a, type: 3}
+  gameplayUiPrefab: {fileID: 4782544926118438106, guid: 3070c82da12c7924ba984ca6e550fc8d, type: 3}

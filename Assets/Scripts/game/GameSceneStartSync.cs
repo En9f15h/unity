@@ -9,18 +9,18 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 {
     public static GameSceneStartSync Instance;
 
-    [Header("節拍同步")]
+    [Header("Beat Sync")]
     [SerializeField] private float bpm = 120f;
     [SerializeField] private int leadInBeats = 4;
 
     [Header("BGM")]
     [SerializeField] private AudioSource bgmSource;
 
-    [Header("要同步顯示的角色根物件")]
+    [Header("Character Roots")]
     [SerializeField] private GameObject myCharacterRoot;
     [SerializeField] private GameObject enemyCharacterRoot;
 
-    [Header("開場後才啟用的物件")]
+    [Header("Enable On Start")]
     [SerializeField] private GameObject[] objectsEnableOnStart;
 
     private const string PROP_SCENE_READY = "GameSceneReady";
@@ -57,14 +57,14 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         int beatMs = GetBeatDurationMs();
         int now = PhotonNetwork.ServerTimestamp;
 
-        // 如果開場拍點還沒準備好，就退化成「現在 + N 拍」
+        // Fallback to now + N beats until the shared beat anchor is ready.
         if (!beatStartReady)
             return now + beatMs * safeExtraBeats;
 
-        // 注意：Photon ServerTimestamp 可能是負數，要用差值算
+        // Photon ServerTimestamp can be negative, so compare by difference.
         int diff = now - beatStartServerTimestamp;
 
-        // 已經走過幾拍（向上取整，確保一定是“下一拍”）
+        // Round up so the returned timestamp is always on a future beat.
         int beatsPassed = diff <= 0 ? 0 : Mathf.CeilToInt(diff / (float)beatMs);
 
         return beatStartServerTimestamp + (beatsPassed + safeExtraBeats) * beatMs;
@@ -72,7 +72,6 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
     private void Start()
     {
         HideBeforeStart();
-        MarkLocalSceneReady();
 
         if (!waitRoutineStarted)
         {
@@ -109,11 +108,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
     private void ShowAfterStart()
     {
-        if (myCharacterRoot != null)
-            myCharacterRoot.SetActive(true);
-
-        if (enemyCharacterRoot != null)
-            enemyCharacterRoot.SetActive(true);
+        ShowCharacterRoots();
 
         if (objectsEnableOnStart != null)
         {
@@ -125,7 +120,16 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         }
     }
 
-    private void MarkLocalSceneReady()
+    private void ShowCharacterRoots()
+    {
+        if (myCharacterRoot != null)
+            myCharacterRoot.SetActive(true);
+
+        if (enemyCharacterRoot != null)
+            enemyCharacterRoot.SetActive(true);
+    }
+
+    public void MarkLocalSceneReady()
     {
         if (localSceneReadySent)
             return;
@@ -141,7 +145,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         localSceneReadySent = true;
 
-        Debug.Log("本地 GameScene ready 已送出");
+        Debug.Log("Local GameScene ready sent");
     }
 
     private bool BothPlayersSceneReady()
@@ -172,6 +176,11 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         return true;
     }
 
+    public bool AreBothPlayersSceneReady()
+    {
+        return BothPlayersSceneReady();
+    }
+
     private bool TryCreateBeatAnchor()
     {
         if (!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom == null)
@@ -197,11 +206,11 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
 
-        // Master 本地先直接記住，不等 callback
+        // Master keeps the value locally without waiting for the callback.
         beatStartServerTimestamp = startTs;
         beatStartReady = true;
 
-        Debug.Log($"建立開場拍點: startTs={startTs}, bpm={bpm}");
+        Debug.Log($"Created beat anchor: startTs={startTs}, bpm={bpm}");
         return true;
     }
 
@@ -218,7 +227,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BPM, out object bpmObj))
             bpm = System.Convert.ToSingle(bpmObj);
 
-        // 只要有讀到就算 ready，不要判斷正負
+        // Reading the anchor is enough; timestamp sign is not meaningful.
         beatStartReady = true;
         return true;
     }
@@ -228,7 +237,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         return beatStartReady;
     }
 
-    // Photon ServerTimestamp 可能是負數，必須用差值判斷
+    // Photon ServerTimestamp can be negative, so compare by difference.
     private bool HasReachedServerTimestamp(int targetTimestamp)
     {
         int diff = PhotonNetwork.ServerTimestamp - targetTimestamp;
@@ -242,7 +251,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         if (bgmSource == null || bgmSource.clip == null)
         {
-            Debug.LogWarning("StartSyncedBGM: bgmSource 或 clip 未指定");
+            Debug.LogWarning("StartSyncedBGM: bgmSource or clip is not assigned");
             return true;
         }
 
@@ -266,7 +275,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         bgmSource.PlayScheduled(dspStart);
         bgmScheduled = true;
 
-        Debug.Log($"BGM 已排程播放，remainMs={remainMs}, dspStart={dspStart}, beatStartTs={beatStartServerTimestamp}, nowTs={PhotonNetwork.ServerTimestamp}");
+        Debug.Log($"BGM scheduled, remainMs={remainMs}, dspStart={dspStart}, beatStartTs={beatStartServerTimestamp}, nowTs={PhotonNetwork.ServerTimestamp}");
         return true;
     }
 
@@ -285,7 +294,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         {
             gameStartedOnBeat = true;
             ShowAfterStart();
-            Debug.Log("GameScene 拍點到達，正式開始");
+            Debug.Log("GameScene beat reached, start enabled");
         }
     }
 
@@ -315,7 +324,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         yield return StartCoroutine(WaitForBeatAndStartGame());
 
-        Debug.Log("GameScene 同步開場完成（拍點對齊）");
+        Debug.Log("GameScene synced start completed");
     }
 
     public void RegisterMyCharacter(GameObject go)
@@ -323,7 +332,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         myCharacterRoot = go;
 
         if (myCharacterRoot != null)
-            myCharacterRoot.SetActive(HasGameStarted());
+            myCharacterRoot.SetActive(gameStartedOnBeat);
     }
 
     public void RegisterEnemyCharacter(GameObject go)
@@ -331,7 +340,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         enemyCharacterRoot = go;
 
         if (enemyCharacterRoot != null)
-            enemyCharacterRoot.SetActive(HasGameStarted());
+            enemyCharacterRoot.SetActive(gameStartedOnBeat);
     }
 
     public bool HasBeatStarted()
@@ -359,7 +368,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         {
             beatStartServerTimestamp = System.Convert.ToInt32(propertiesThatChanged[ROOM_PROP_BEAT_START_TS]);
             beatStartReady = true;
-            Debug.Log("收到開場拍點 server timestamp = " + beatStartServerTimestamp);
+            Debug.Log("Received beat anchor server timestamp = " + beatStartServerTimestamp);
         }
 
         if (propertiesThatChanged.ContainsKey(ROOM_PROP_BPM))
@@ -370,9 +379,6 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (!localSceneReadySent)
-            MarkLocalSceneReady();
-
         TryReadBeatAnchor();
     }
 

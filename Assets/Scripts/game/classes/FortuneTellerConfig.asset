@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: FortuneTellerConfig
   m_EditorClassIdentifier: Assembly-CSharp::CharacterClassConfig
   className: FortuneTeller
+  photonResourceFolder: FortuneTeller
   maxHP: 30
   slotCount: 5
   skinNames:
   - FortuneTeller_0
   skinPrefabs:
-  - {fileID: 4642981395163973544, guid: 64db7be081cf04440abdef9d342ee7dd, type: 3}
+  - {fileID: 4642981395163973544, guid: eecf6feb7d9d210449d37a5e00218f44, type: 3}
   lightAttack:
     actionName: knight_lightAttck
     actionType: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
     sourcePrefab: {fileID: 3418233483363060740, guid: 6a7a4fd127241f9419d9c43885519dec, type: 3}
   defense:
     actionName: knight_defense
-    actionType: 0
+    actionType: 4
     sourcePrefab: {fileID: 1016754651926005539, guid: 0060bc2bcf135d84d9812f477f782d73, type: 3}
   dance:
     actionName: Dance
@@ -54,3 +55,4 @@ MonoBehaviour:
     damage: 10
     range: 2
   energyBarPrefab: {fileID: 958131594077356885, guid: c71191559bc4a3044a46e646be64d16a, type: 3}
+  gameplayUiPrefab: {fileID: 0}
