@@ -2,12 +2,14 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using System.Text;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    private const string RoomPropStageIndex = BackgroundSpriteSync.ROOM_PROP_BG_INDEX;
     [Header("基本UI")]
     [SerializeField] Text RoomName;
     [SerializeField] Text PlayerList;
@@ -44,9 +46,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField] Sprite[] fortuneTellerSkinSprites;
     [SerializeField] Sprite[] warriorSkinSprites;
 
+    [Header("Stage Selection")]
+    [SerializeField] Text StageText;
+    [SerializeField] Button PrevStageButton;
+    [SerializeField] Button NextStageButton;
+    [SerializeField] string[] stageNames;
+    [SerializeField] int stageCount = 4;
+
     private bool ready = false;
     private int selectedClassIndex = 0;
     private int selectedSkinIndex = 0;
+    private int selectedStageIndex = 0;
+    private GameObject generatedStagePanel;
+    private bool roomPropertiesInitialized = false;
 
     void Start()
     {
@@ -57,14 +69,43 @@ public class RoomManager : MonoBehaviourPunCallbacks
         }
 
         PhotonNetwork.AutomaticallySyncScene = true;
-        RoomName.text = PhotonNetwork.CurrentRoom.Name;
+        ResolveOptionalUIReferences();
+
+        if (RoomName != null)
+            RoomName.text = PhotonNetwork.CurrentRoom.Name;
 
         LoadLocalSelectionFromProperties();
-
-        SetReady(false);
-        SetClassAndSkin(selectedClassIndex, selectedSkinIndex);
+        EnsureStageSelectionUI();
 
         UpdateSelectionUI();
+        UpdateStageUI();
+        UpdatePlayerList();
+        UpdateReadyButtonText();
+        UpdateSelectionButtonsInteractable();
+
+        StartCoroutine(InitializeRoomPropertiesWhenJoined());
+    }
+
+    private IEnumerator InitializeRoomPropertiesWhenJoined()
+    {
+        while (PhotonNetwork.CurrentRoom != null &&
+               (!PhotonNetwork.InRoom || PhotonNetwork.NetworkClientState != ClientState.Joined))
+        {
+            yield return null;
+        }
+
+        if (PhotonNetwork.CurrentRoom == null)
+            yield break;
+
+        roomPropertiesInitialized = true;
+
+        LoadLocalSelectionFromProperties();
+        SetReady(false);
+        SetClassAndSkin(selectedClassIndex, selectedSkinIndex);
+        EnsureRoomStageSelection();
+
+        UpdateSelectionUI();
+        UpdateStageUI();
         UpdatePlayerList();
         UpdateReadyButtonText();
         UpdateSelectionButtonsInteractable();
@@ -73,6 +114,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
+        EnsureRoomStageSelection();
+        UpdateStageUI();
+        UpdateSelectionButtonsInteractable();
         UpdatePlayerList();
         CheckAllPlayersReady();
     }
@@ -80,6 +124,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void UpdatePlayerList()
     {
         if (PhotonNetwork.CurrentRoom == null) return;
+
+        if (PlayerList == null)
+        {
+            ResolveOptionalUIReferences();
+
+            if (PlayerList == null)
+            {
+                Debug.LogWarning("RoomManager: PlayerList is not assigned, player list text will be skipped.");
+                return;
+            }
+        }
+
+        LoadStageSelectionFromRoomProperties();
 
         StringBuilder sb = new StringBuilder();
 
@@ -105,10 +162,41 @@ public class RoomManager : MonoBehaviourPunCallbacks
             string readyText = isReady ? " READY" : "";
             string masterText = player.IsMasterClient ? " (Host)" : "";
 
-            sb.AppendLine($"- {player.NickName}{readyText}{masterText} | {className} - {skinName}");
+            sb.AppendLine($"- {GetPlayerDisplayName(player)}{readyText}{masterText} | {className} - {skinName}");
         }
 
+        sb.AppendLine();
+        sb.AppendLine("Stage: " + GetStageName(selectedStageIndex));
+
         PlayerList.text = sb.ToString();
+    }
+
+    private void ResolveOptionalUIReferences()
+    {
+        if (RoomName == null)
+            RoomName = FindTextByObjectName("RoomName", "RoomTitle", "RoomText");
+
+        if (PlayerList == null)
+            PlayerList = FindTextByObjectName("PlayerList", "RoomPlayerList", "PlayersText");
+    }
+
+    private Text FindTextByObjectName(params string[] objectNames)
+    {
+        Text[] texts = FindObjectsByType<Text>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        for (int i = 0; i < texts.Length; i++)
+        {
+            if (texts[i] == null)
+                continue;
+
+            for (int j = 0; j < objectNames.Length; j++)
+            {
+                if (texts[i].name == objectNames[j])
+                    return texts[i];
+            }
+        }
+
+        return null;
     }
 
     public void StartGameButton()
@@ -120,6 +208,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
         UpdateSelectionButtonsInteractable();
         UpdatePlayerList();
         CheckAllPlayersReady();
+    }
+
+    private string GetPlayerDisplayName(Player player)
+    {
+        if (player == null)
+            return "P?";
+
+        return player.IsMasterClient ? "P1" : "P2";
     }
 
     private void SetReady(bool value)
@@ -190,12 +286,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void UpdateSelectionButtonsInteractable()
     {
-        bool canSelect = !ready;
+        bool canUseRoomButtons = roomPropertiesInitialized &&
+                                 PhotonNetwork.InRoom &&
+                                 PhotonNetwork.NetworkClientState == ClientState.Joined;
+        bool canSelect = canUseRoomButtons && !ready;
+        bool canSelectStage = canSelect && PhotonNetwork.IsMasterClient && GetStageCount() > 1;
 
+        if (ButtonStartGame != null) ButtonStartGame.interactable = canUseRoomButtons;
         if (PrevClassButton != null) PrevClassButton.interactable = canSelect;
         if (NextClassButton != null) NextClassButton.interactable = canSelect;
         if (PrevSkinButton != null) PrevSkinButton.interactable = canSelect;
         if (NextSkinButton != null) NextSkinButton.interactable = canSelect;
+        if (PrevStageButton != null) PrevStageButton.interactable = canSelectStage;
+        if (NextStageButton != null) NextStageButton.interactable = canSelectStage;
     }
 
     private void CheckAllPlayersReady()
@@ -217,6 +320,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("所有玩家都 READY，進入 GameScene");
+            EnsureRoomStageSelection();
             PhotonNetwork.LoadLevel("GameScene");
         }
     }
@@ -261,6 +365,42 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             CheckAllPlayersReady();
         }
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged.ContainsKey(RoomPropStageIndex))
+        {
+            LoadStageSelectionFromRoomProperties();
+            UpdateStageUI();
+            UpdatePlayerList();
+        }
+    }
+
+    public void NextStage()
+    {
+        if (!CanLocalPlayerChangeStage())
+            return;
+
+        int count = GetStageCount();
+        selectedStageIndex++;
+        if (selectedStageIndex >= count)
+            selectedStageIndex = 0;
+
+        SetRoomStage(selectedStageIndex);
+    }
+
+    public void PrevStage()
+    {
+        if (!CanLocalPlayerChangeStage())
+            return;
+
+        int count = GetStageCount();
+        selectedStageIndex--;
+        if (selectedStageIndex < 0)
+            selectedStageIndex = count - 1;
+
+        SetRoomStage(selectedStageIndex);
     }
 
     public void NextClass()
@@ -334,6 +474,175 @@ public class RoomManager : MonoBehaviourPunCallbacks
         props["classIndex"] = selectedClassIndex;
         props["skinIndex"] = selectedSkinIndex;
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+    }
+
+    private void EnsureRoomStageSelection()
+    {
+        LoadStageSelectionFromRoomProperties();
+
+        if (!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom == null)
+            return;
+
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey(RoomPropStageIndex))
+            return;
+
+        SetRoomStage(selectedStageIndex);
+    }
+
+    private void LoadStageSelectionFromRoomProperties()
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+            return;
+
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(RoomPropStageIndex, out object stageObj))
+            selectedStageIndex = Mathf.Clamp(System.Convert.ToInt32(stageObj), 0, GetStageCount() - 1);
+    }
+
+    private void SetRoomStage(int stageIndex)
+    {
+        if (!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom == null)
+            return;
+
+        selectedStageIndex = Mathf.Clamp(stageIndex, 0, GetStageCount() - 1);
+
+        Hashtable props = new Hashtable
+        {
+            { RoomPropStageIndex, selectedStageIndex }
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+        UpdateStageUI();
+    }
+
+    private bool CanLocalPlayerChangeStage()
+    {
+        return PhotonNetwork.IsMasterClient && !ready && GetStageCount() > 1;
+    }
+
+    private int GetStageCount()
+    {
+        if (stageNames != null && stageNames.Length > 0)
+            return stageNames.Length;
+
+        return Mathf.Max(1, stageCount);
+    }
+
+    private string GetStageName(int stageIndex)
+    {
+        if (stageNames != null &&
+            stageIndex >= 0 &&
+            stageIndex < stageNames.Length &&
+            !string.IsNullOrEmpty(stageNames[stageIndex]))
+        {
+            return stageNames[stageIndex];
+        }
+
+        return "Stage " + (stageIndex + 1);
+    }
+
+    private void UpdateStageUI()
+    {
+        if (StageText != null)
+        {
+            string ownerText = PhotonNetwork.IsMasterClient ? "" : " (Host only)";
+            StageText.text = "Stage: " + GetStageName(selectedStageIndex) + ownerText;
+        }
+
+        UpdateSelectionButtonsInteractable();
+    }
+
+    private void EnsureStageSelectionUI()
+    {
+        if (StageText != null && PrevStageButton != null && NextStageButton != null)
+            return;
+
+        Canvas canvas = FindFirstObjectByType<Canvas>();
+        if (canvas == null)
+            return;
+
+        if (generatedStagePanel != null)
+            return;
+
+        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+        generatedStagePanel = new GameObject("StageSelectionPanel", typeof(RectTransform));
+        generatedStagePanel.transform.SetParent(canvas.transform, false);
+
+        RectTransform panelRect = generatedStagePanel.GetComponent<RectTransform>();
+        panelRect.anchorMin = new Vector2(0.5f, 0f);
+        panelRect.anchorMax = new Vector2(0.5f, 0f);
+        panelRect.pivot = new Vector2(0.5f, 0f);
+        panelRect.sizeDelta = new Vector2(520f, 90f);
+        panelRect.anchoredPosition = new Vector2(0f, 28f);
+
+        Image panelImage = generatedStagePanel.AddComponent<Image>();
+        panelImage.color = new Color(0f, 0f, 0f, 0.45f);
+
+        HorizontalLayoutGroup layout = generatedStagePanel.AddComponent<HorizontalLayoutGroup>();
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.spacing = 12f;
+        layout.padding = new RectOffset(12, 12, 12, 12);
+        layout.childControlWidth = false;
+        layout.childControlHeight = true;
+
+        PrevStageButton = CreateStageButton("PrevStageButton", generatedStagePanel.transform, font, "<");
+        StageText = CreateStageText("StageText", generatedStagePanel.transform, font);
+        NextStageButton = CreateStageButton("NextStageButton", generatedStagePanel.transform, font, ">");
+
+        PrevStageButton.onClick.AddListener(PrevStage);
+        NextStageButton.onClick.AddListener(NextStage);
+    }
+
+    private Text CreateStageText(string objectName, Transform parent, Font font)
+    {
+        GameObject obj = new GameObject(objectName, typeof(RectTransform));
+        obj.transform.SetParent(parent, false);
+
+        LayoutElement layoutElement = obj.AddComponent<LayoutElement>();
+        layoutElement.preferredWidth = 320f;
+        layoutElement.preferredHeight = 56f;
+
+        Text text = obj.AddComponent<Text>();
+        text.font = font;
+        text.fontSize = 26;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.white;
+        return text;
+    }
+
+    private Button CreateStageButton(string objectName, Transform parent, Font font, string label)
+    {
+        GameObject obj = new GameObject(objectName, typeof(RectTransform));
+        obj.transform.SetParent(parent, false);
+
+        LayoutElement layoutElement = obj.AddComponent<LayoutElement>();
+        layoutElement.preferredWidth = 72f;
+        layoutElement.preferredHeight = 56f;
+
+        Image image = obj.AddComponent<Image>();
+        image.color = new Color(0.15f, 0.2f, 0.28f, 0.9f);
+
+        Button button = obj.AddComponent<Button>();
+        button.targetGraphic = image;
+
+        GameObject textObj = new GameObject("Text", typeof(RectTransform));
+        textObj.transform.SetParent(obj.transform, false);
+
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        Text text = textObj.AddComponent<Text>();
+        text.font = font;
+        text.fontSize = 30;
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.white;
+        text.text = label;
+
+        return button;
     }
 
     private void LoadLocalSelectionFromProperties()

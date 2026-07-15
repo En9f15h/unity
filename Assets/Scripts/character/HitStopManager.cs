@@ -1,25 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class HitStopManager : MonoBehaviour
 {
     public static HitStopManager Instance;
 
-    [Header("¸`©ç³]©w")]
+    [Header("ç¯€æ‹è¨­å®š")]
     [SerializeField] private float bpm = 120f;
 
-    [Tooltip("°±´X©ç¡C120 BPM ®É¡A1 ©ç = 0.5 ¬í")]
+    [Tooltip("åœå¹¾æ‹ã€‚120 BPM æ™‚ï¼Œ1 æ‹ = 0.5 ç§’")]
     [SerializeField] private float stopBeats = 1f;
 
-    [Header("¤@¯ë Hit Stop ³]©w")]
+    [Header("ä¸€èˆ¬ Hit Stop è¨­å®š")]
     [SerializeField] private float stopTimeScale = 0f;
 
-    [Header("¸õ»RºC°Ê§@³]©w")]
+    [Header("è·³èˆæ…¢å‹•ä½œè¨­å®š")]
     [SerializeField] private float danceSlowTimeScale = 0.2f;
 
     private bool isTimeEffectPlaying = false;
     private float originalFixedDeltaTime;
     private Coroutine currentTimeEffectCoroutine;
+    private int timeEffectVersion = 0;
 
     private void Awake()
     {
@@ -45,14 +46,14 @@ public class HitStopManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¼½©ñ¸õ»RºC°Ê§@¡A¨Ã¥BÅı¾ãÅé°Ê§@¡uÃB¥~¼W¥[ extraDuration ¬í¡v
-    /// ¨Ò¦p extraDuration = 0.5f¡A´N·|Åı­ì¥» 1 ¬íªº°Ê§@ÅÜ¦¨ 1.5 ¬í¡C
+    /// æ’­æ”¾è·³èˆæ…¢å‹•ä½œï¼Œä¸¦ä¸”è®“æ•´é«”å‹•ä½œã€Œé¡å¤–å¢åŠ  extraDuration ç§’ã€
+    /// ä¾‹å¦‚ extraDuration = 0.5fï¼Œå°±æœƒè®“åŸæœ¬ 1 ç§’çš„å‹•ä½œè®Šæˆ 1.5 ç§’ã€‚
     /// </summary>
     public void PlayDanceSlowMotionWithExtraTime(float extraDuration)
     {
         if (danceSlowTimeScale >= 1f)
         {
-            Debug.LogWarning("danceSlowTimeScale ¥²¶·¤p©ó 1¡A§_«h¤£·|ÅÜºC");
+            Debug.LogWarning("danceSlowTimeScale å¿…é ˆå°æ–¼ 1ï¼Œå¦å‰‡ä¸æœƒè®Šæ…¢");
             return;
         }
 
@@ -64,8 +65,23 @@ public class HitStopManager : MonoBehaviour
         currentTimeEffectCoroutine = StartCoroutine(TimeEffectCoroutine(danceSlowTimeScale, realDuration));
     }
 
+    public void PlaySlowMotion(float targetTimeScale, float realDuration)
+    {
+        if (realDuration <= 0f)
+            return;
+
+        targetTimeScale = Mathf.Clamp(targetTimeScale, 0.01f, 0.99f);
+
+        if (currentTimeEffectCoroutine != null)
+            StopCoroutine(currentTimeEffectCoroutine);
+
+        currentTimeEffectCoroutine = StartCoroutine(TimeEffectCoroutine(targetTimeScale, realDuration));
+    }
+
     private IEnumerator TimeEffectCoroutine(float targetTimeScale, float realDuration)
     {
+        int version = ++timeEffectVersion;
+
         if (isTimeEffectPlaying)
         {
             Time.timeScale = 1f;
@@ -81,6 +97,9 @@ public class HitStopManager : MonoBehaviour
         Time.fixedDeltaTime = originalFixedDeltaTime * Time.timeScale;
 
         yield return new WaitForSecondsRealtime(realDuration);
+
+        if (version != timeEffectVersion)
+            yield break;
 
         Time.timeScale = originalTimeScale <= 0f ? 1f : originalTimeScale;
         Time.fixedDeltaTime = originalFixedDeltaTime;

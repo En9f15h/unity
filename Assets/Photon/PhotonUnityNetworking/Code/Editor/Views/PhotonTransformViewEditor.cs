@@ -24,6 +24,9 @@ namespace Photon.Pun
 
         public void OnEnable()
         {
+            if (target == null || targets == null || targets.Length == 0 || targets[0] == null)
+                return;
+
             pos = serializedObject.FindProperty("m_SynchronizePosition");
             rot = serializedObject.FindProperty("m_SynchronizeRotation");
             scl = serializedObject.FindProperty("m_SynchronizeScale");
@@ -38,7 +41,9 @@ namespace Photon.Pun
                 return;
             }
 
-            PhotonTransformView view = (PhotonTransformView)target;
+            PhotonTransformView view = target as PhotonTransformView;
+            if (view == null || pos == null || rot == null || scl == null || lcl == null)
+                return;
 
 
             EditorGUILayout.LabelField("Synchronize Options");

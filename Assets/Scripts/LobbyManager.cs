@@ -30,42 +30,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private readonly List<string> regionDisplayNames = new List<string>
     {
-        "Asia (Singapore)",
-        "Australia (Sydney)",
-        "Canada East (Montreal)",
-        "China Mainland (Shanghai)",
-        "Europe (Amsterdam)",
+        "Asia / Singapore",
         "Hong Kong",
-        "India (Chennai)",
-        "Japan (Tokyo)",
-        "South Africa (Johannesburg)",
-        "South America (Sao Paulo)",
-        "South Korea (Seoul)",
-        "Turkey (Istanbul)",
-        "UAE (Dubai)",
-        "USA East (Washington D.C.)",
-        "USA West (San Jose)",
-        "USA South Central (Dallas)"
+        "Japan / Tokyo",
+        "South Korea / Seoul",
+        "USA West / San Jose"
     };
 
     private readonly List<string> regionCodes = new List<string>
     {
         "asia",
-        "au",
-        "cae",
-        "cn",
-        "eu",
         "hk",
-        "in",
         "jp",
-        "za",
-        "sa",
         "kr",
-        "tr",
-        "uae",
-        "us",
-        "usw",
-        "ussc"
+        "usw"
     };
 
     private bool isChangingRegion = false;
@@ -79,6 +57,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         SetupRegionDropdown();
         UpdateRegionText();
+        DisablePlayerNameInput();
 
         if (!PhotonNetwork.IsConnected)
         {
@@ -102,8 +81,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         RegionDropdown.ClearOptions();
         RegionDropdown.AddOptions(regionDisplayNames);
 
-        string currentRegion = PhotonNetwork.CloudRegion;
-        int index = regionCodes.IndexOf(currentRegion);
+        int index = GetRegionIndex(PhotonNetwork.CloudRegion);
         if (index < 0)
             index = 0;
 
@@ -116,8 +94,36 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (CurrentRegionText == null)
             return;
 
-        string region = string.IsNullOrEmpty(PhotonNetwork.CloudRegion) ? "Not connected" : PhotonNetwork.CloudRegion;
+        string region = string.IsNullOrEmpty(PhotonNetwork.CloudRegion) ? "Not connected" : GetRegionLabel(PhotonNetwork.CloudRegion);
         CurrentRegionText.text = "Current region: " + region;
+    }
+
+    private int GetRegionIndex(string regionCode)
+    {
+        if (string.IsNullOrEmpty(regionCode))
+            return -1;
+
+        string normalizedRegionCode = regionCode.Trim().ToLowerInvariant();
+        int slashIndex = normalizedRegionCode.IndexOf('/');
+        if (slashIndex >= 0)
+            normalizedRegionCode = normalizedRegionCode.Substring(0, slashIndex);
+
+        for (int i = 0; i < regionCodes.Count; i++)
+        {
+            if (string.Equals(regionCodes[i], normalizedRegionCode, StringComparison.OrdinalIgnoreCase))
+                return i;
+        }
+
+        return -1;
+    }
+
+    private string GetRegionLabel(string regionCode)
+    {
+        int index = GetRegionIndex(regionCode);
+        if (index < 0)
+            return regionCode;
+
+        return regionDisplayNames[index] + " (" + regionCodes[index] + ")";
     }
 
     public void ChangeRegionButton()
@@ -136,17 +142,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
         string targetRegion = regionCodes[index];
+        string targetRegionLabel = GetRegionLabel(targetRegion);
         Debug.Log("Changing region to: " + targetRegion);
 
-        if (PhotonNetwork.CloudRegion == targetRegion && PhotonNetwork.IsConnectedAndReady)
+        if (GetRegionIndex(PhotonNetwork.CloudRegion) == index && PhotonNetwork.IsConnectedAndReady)
         {
-            SetOutput("Already in region: " + targetRegion);
+            SetOutput("Already in region: " + targetRegionLabel);
             UpdateRegionText();
             return;
         }
 
         isChangingRegion = true;
-        SetOutput("Changing region: " + targetRegion);
+        SetOutput("Changing region: " + targetRegionLabel);
 
         cachedRooms.Clear();
         if (TextRoomList != null)
@@ -262,27 +269,34 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         string targetRegion = regionCodes[index];
         Debug.Log("Reconnecting to region: " + targetRegion);
+        SetOutput("Reconnecting to region: " + GetRegionLabel(targetRegion));
         PhotonNetwork.ConnectToRegion(targetRegion);
     }
 
-    public string GetPlayerName()
+    private void DisablePlayerNameInput()
     {
-        return InputPlayerName != null ? InputPlayerName.text.Trim() : "";
+        if (InputPlayerName != null)
+            InputPlayerName.gameObject.SetActive(false);
+    }
+
+    private void ClearPhotonNickname()
+    {
+        if (PhotonNetwork.LocalPlayer != null)
+            PhotonNetwork.LocalPlayer.NickName = "";
     }
 
     public void CreateRoomButton()
     {
         string roomName = InputRoomName != null ? InputRoomName.text.Trim() : "";
-        string playerName = GetPlayerName();
         string roomPassword = InputRoomPassword != null ? InputRoomPassword.text.Trim() : "";
 
-        if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(playerName))
+        if (string.IsNullOrEmpty(roomName))
         {
-            SetOutput("Room name or player name is empty.");
+            SetOutput("Room name is empty.");
             return;
         }
 
-        PhotonNetwork.LocalPlayer.NickName = playerName;
+        ClearPhotonNickname();
         pendingJoinPassword = roomPassword;
 
         RoomOptions roomOptions = new RoomOptions
@@ -308,31 +322,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void JoinRoomButton()
     {
         string roomName = InputRoomName != null ? InputRoomName.text.Trim() : "";
-        string playerName = GetPlayerName();
         pendingJoinPassword = InputRoomPassword != null ? InputRoomPassword.text.Trim() : "";
 
-        if (string.IsNullOrEmpty(roomName) || string.IsNullOrEmpty(playerName))
+        if (string.IsNullOrEmpty(roomName))
         {
-            SetOutput("Room name or player name is empty.");
+            SetOutput("Room name is empty.");
             pendingJoinPassword = "";
             return;
         }
 
-        PhotonNetwork.LocalPlayer.NickName = playerName;
+        ClearPhotonNickname();
         PhotonNetwork.JoinRoom(roomName);
     }
 
     public void RandomJoinButton()
     {
-        string playerName = GetPlayerName();
-
-        if (string.IsNullOrEmpty(playerName))
-        {
-            SetOutput("Player name is empty.");
-            return;
-        }
-
-        PhotonNetwork.LocalPlayer.NickName = playerName;
+        ClearPhotonNickname();
         pendingJoinPassword = "";
 
         Hashtable expectedProperties = new Hashtable

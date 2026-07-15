@@ -1,9 +1,9 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using UnityEngine;
 
 public class CharacterUnit : MonoBehaviourPun
 {
-    [Header("¨¤¦â¸ê®Æ")]
+    [Header("è§’è‰²è³‡æ–™")]
     public string className;
     public string skinName;
 
@@ -11,11 +11,11 @@ public class CharacterUnit : MonoBehaviourPun
     public int currentHP;
     public int slotCount;
 
-    [Header("»W¤Oª¬ºA")]
+    [Header("è“„åŠ›ç‹€æ…‹")]
     public bool isChargingHeavy = false;
     public int heavyReleaseTurn = -1;
 
-    [Header("¥i¿ï¡G¤â°Ê«ü©w Animator¡A¤£«ü©w´N¦Û°Ê§ì")]
+    [Header("å¯é¸ï¼šæ‰‹å‹•æŒ‡å®š Animatorï¼Œä¸æŒ‡å®šå°±è‡ªå‹•æŠ“")]
     [SerializeField] private Animator animatorOverride;
 
     private DirectionalHealthBarUI healthBarUI;
@@ -42,19 +42,19 @@ public class CharacterUnit : MonoBehaviourPun
         BindHPBarByOwner();
         UpdateHPBar();
 
-        Debug.Log($"ªì©l¤Æ¨¤¦â: {className}, Skin={skinName}, HP={maxHP}, Slots={slotCount}");
+        Debug.Log($"åˆå§‹åŒ–è§’è‰²: {className}, Skin={skinName}, HP={maxHP}, Slots={slotCount}");
     }   
 
     private void RegisterToTurnPlanningManager()
     {
-        TurnPlanningManager manager = FindObjectOfType<TurnPlanningManager>();
+        TurnPlanningManager manager = FindFirstObjectByType<TurnPlanningManager>();
         if (manager != null)
         {
             manager.RegisterCharacter(this);
         }
         else
         {
-            Debug.LogWarning("CharacterUnit: §ä¤£¨ì TurnPlanningManager¡AµLªk¦Û°Êµù¥U¨¤¦â");
+            Debug.LogWarning("CharacterUnit: æ‰¾ä¸åˆ° TurnPlanningManagerï¼Œç„¡æ³•è‡ªå‹•è¨»å†Šè§’è‰²");
         }
     }
 
@@ -83,13 +83,13 @@ public class CharacterUnit : MonoBehaviourPun
     {
         if (BattleUIManager.Instance == null)
         {
-            Debug.LogWarning("BattleUIManager.Instance ¬°ªÅ¡AµLªk¸j©w¦å±ø");
+            Debug.LogWarning("BattleUIManager.Instance ç‚ºç©ºï¼Œç„¡æ³•ç¶å®šè¡€æ¢");
             return;
         }
 
         if (photonView == null || photonView.Owner == null)
         {
-            Debug.LogWarning("PhotonView ©Î Owner ¬°ªÅ¡AµLªk¸j©w¦å±ø");
+            Debug.LogWarning("PhotonView æˆ– Owner ç‚ºç©ºï¼Œç„¡æ³•ç¶å®šè¡€æ¢");
             return;
         }
 

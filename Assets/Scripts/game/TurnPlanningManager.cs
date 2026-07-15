@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
@@ -17,81 +17,86 @@ public class ActionAnimationMap
 
 public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-    [Header("節拍同步")]
+    [Header("Beat Settings")]
     [SerializeField] private float bpm = 120f;
 
 
     [SerializeField] private BattleStepPlayer battleStepPlayer;
     public static TurnPlanningManager Instance { get; private set; }
 
-    [Header("步驟拍數設定")]
-    [SerializeField] private float normalStepBeats = 2f;          // 一般動作 2 拍 = 1 秒
-    [SerializeField] private float parryCounterStepBeats = 2f;    // ParryCounter 額外 2 拍
-    [SerializeField] private float effectDelayBeats = 1f;         // 慢動作 / HitStop 額外 1 拍
+    [Header("甇仿??閮剖?")]
+    [SerializeField] private float normalStepBeats = 2f;          // 銝?砍?雿?2 ??= 1 蝘?
+    [SerializeField] private float parryCounterStepBeats = 2f;    // ParryCounter 憿? 2 ??
+    [SerializeField] private float effectDelayBeats = 1f;         // ?Ｗ?雿?/ HitStop 憿? 1 ??
     [Header("UI")]
     [SerializeField] private Text countdownText;
     [SerializeField] private Button readyButton;
     [SerializeField] private Text debugText;
 
-    [Header("規劃 Slot（由 GameManager 動態指定）")]
+    [Header("Planning Slots")]
     [SerializeField] private ActionSlot[] planningSlots;
 
-    [Header("回合時間")]
+    [Header("????")]
     [SerializeField] private float planningDuration = 20f;
     [SerializeField] private float timeoutResolveDelay = 0.4f;
     private bool myHeavyPendingThisTurn = false;
     private bool enemyHeavyPendingThisTurn = false;
-    [Header("動畫等待設定")]
+    [Header("?蝑?閮剖?")]
     [SerializeField] private ActionAnimationMap[] myAnimationMaps;
     [SerializeField] private ActionAnimationMap[] enemyAnimationMaps;
-    [SerializeField] private float animationCrossFadeTime = 0.0f;
     
 
-    [Header("位移設定")]
+    [Header("雿宏閮剖?")]
     [SerializeField] private float moveStep = 1f;
     [SerializeField] private float minCharacterGap = 0.2f;
 
-    [Header("受擊表現")]
+    [Header("??銵函")]
     [SerializeField] private float hitShakeDuration = 0.12f;
     [SerializeField] private float hitShakeStrength = 0.08f;
 
-    [Header("HP UI（可不手拖，會自動依 BattleUIManager 綁）")]
+    [Header("Finisher Slow Motion")]
+    [SerializeField] private float finisherSlowMotionBeats = 2f;
+    [SerializeField] private float finisherSlowTimeScale = 0.08f;
+
+    [Header("HP UI嚗銝?????? BattleUIManager 蝬?")]
     [SerializeField] private DirectionalHealthBarUI myHPBar;
     [SerializeField] private DirectionalHealthBarUI enemyHPBar;
 
-    [Header("角色 / 職業資料")]
+    [Header("閫 / ?瑟平鞈?")]
     [SerializeField] private CharacterClassConfig[] classConfigs;
     [SerializeField] private ActionData moveForwardAction;
     [SerializeField] private ActionData moveBackwardAction;
     [SerializeField] private ActionData jumpAction;
     private bool myChargingHeavyThisStep = false;
     private bool enemyChargingHeavyThisStep = false;
+    private bool myHeavyAnimationProtectedThisStep = false;
+    private bool enemyHeavyAnimationProtectedThisStep = false;
 
-    [Header("敵方行動預覽")]
+    [Header("?菜銵??汗")]
     [SerializeField] private RectTransform leftEnemyPreviewRoot;
     [SerializeField] private RectTransform rightEnemyPreviewRoot;
     [SerializeField] private GameObject previewCellPrefab;
     [SerializeField] private Sprite emptyPreviewSprite;
 
-    [Header("能量")]
+    [Header("?賡?")]
     [SerializeField] private int maxEnergy = 10;
     [SerializeField] private int energyPerHit = 1;
     [SerializeField] private int energyPerBlock = 1;
-    [SerializeField] private int resolveLeadBeats = 1;   // 雙方都 ready 後，等下一拍再開始 Resolve
+    [SerializeField] private int resolveLeadBeats = 1;   // ???ready 敺?蝑?銝???? Resolve
 
     private Coroutine resolveStartCoroutine;
 
 
-    [Header("騎士 Parry 反擊特效")]
+    [Header("擉ㄚ Parry ???寞?")]
     [SerializeField] private GameObject parrySuccessEffectPrefab;
     [SerializeField] private Vector3 parrySuccessEffectOffset = new Vector3(0f, 1f, 0f);
     [SerializeField] private float parryEffectLifeTime = 1f;
 
-    [Header("初始戰鬥資料（除錯用）")]
+    [Header("Debug Combat State") ]
     [SerializeField] private int myHP = 30;
     [SerializeField] private int enemyHP = 30;
     [SerializeField] private int distance = 1;
-    [Header("噴血效果")]
+    [Header("?渲???")]
     [SerializeField] private BloodHitVFXManager bloodHitVFXManager;
     [SerializeField] private bool playBloodOnUltimate = true;
     [SerializeField] private bool playBloodOnParryCounter = true;
@@ -113,6 +118,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private bool myJumping = false;
     private bool enemyJumping = false;
     private bool playedHitFeedbackThisStep = false;
+    private bool playedFinisherSlowMotionThisStep = false;
 
     private bool localSubmitted = false;
     private bool receivedResolution = false;
@@ -132,13 +138,18 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private const string PLAYER_PROP_READY = "turnReady";
     private const string PLAYER_PROP_ACTIONS = "turnActions";
     private const string PLAYER_PROP_SUBMIT_TURN = "submitTurn";
-    [SerializeField] private int planningLeadBeats = 1;   // 回合結束後，等下一拍再開新規劃
+
+    private const string ROOM_PROP_GAME_ENDED = "gameEnded";
+    private const string ROOM_PROP_GAME_WINNER_ACTOR = "gameWinnerActor";
+    private const string ROOM_PROP_GAME_END_REASON = "gameEndReason";
+    [SerializeField] private int planningLeadBeats = 1;   // ??蝯?敺?蝑?銝???閬?
 
     private Coroutine planningStartCoroutine;
     private const byte EVENT_PLANS_READY = 11;
     private bool pendingParryCounter = false;
     private bool pendingParryCounterByMine = false;
     private int pendingParryCounterDamage = 0;
+    private bool gameEnded = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -153,14 +164,19 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private void Start()
     {
         PhotonNetwork.AddCallbackTarget(this);
+        ApplyGameResultFromRoom();
+
+        if (gameEnded)
+            return;
 
         SetupEnemyPreviewSide();
 
         BindReadyButton(readyButton);
 
-        RestartPlanningStartCoroutine();
+        if (!gameEnded)
+            RestartPlanningStartCoroutine();
 
-        RefreshDebug("等待規劃開始");
+        RefreshDebug("蝑?閬???");
     }
 
     public void ApplyLayout(ClassGameplayUILayout layout)
@@ -208,30 +224,48 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private IEnumerator WaitForSyncedGameStart()
     {
-        // 先確保開場同步已完成
+        if (gameEnded)
+            yield break;
+
+        // ?Ⅱ靽??游?甇亙歇摰?
         while (GameSceneStartSync.Instance == null || !GameSceneStartSync.Instance.HasGameStarted())
+        {
+            if (gameEnded)
+                yield break;
+
             yield return null;
+        }
 
         while (!GameSceneStartSync.Instance.HasBeatStarted())
-            yield return null;
+        {
+            if (gameEnded)
+                yield break;
 
-        // 非 Master 不負責開新回合，只等 Host 在下一拍開規劃
+            yield return null;
+        }
+
+        // ??Master 銝?鞎祇??啣????芰? Host ?其?銝??閬?
         if (!PhotonNetwork.IsMasterClient)
         {
-            RefreshDebug("等待 Host 在下一拍開始規劃");
+            RefreshDebug("Waiting for Host to start planning.");
             planningStartCoroutine = null;
             yield break;
         }
 
         int planningStartTimestamp = GameSceneStartSync.Instance.GetNextBeatTimestamp(planningLeadBeats);
 
-        RefreshDebug($"等待拍點開始規劃，startTs={planningStartTimestamp}");
+        RefreshDebug($"蝑?????閬?嚗tartTs={planningStartTimestamp}");
 
         while (!HasReachedServerTimestamp(planningStartTimestamp))
+        {
+            if (gameEnded)
+                yield break;
+
             yield return null;
+        }
 
         BeginPlanningPhase();
-        RefreshDebug("拍點到達，開始規劃");
+        RefreshDebug("Planning started.");
         planningStartCoroutine = null;
     }
     private void OnDestroy()
@@ -255,11 +289,16 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // 外部註冊 / 初始化
+    // 憭閮餃? / ????
     // =========================
     private bool IsHeavyChargingThisStep(ActionType effectiveAction, bool heavyReleaseNow)
     {
         return effectiveAction == ActionType.HeavyAttack && !heavyReleaseNow;
+    }
+
+    private bool IsHeavyAnimationProtectedThisStep(ActionType effectiveAction)
+    {
+        return effectiveAction == ActionType.HeavyAttack;
     }
     public void RegisterCharacter(CharacterUnit unit)
     {
@@ -270,7 +309,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         int classIndex = GetPlayerClassIndex(unit.photonView.Owner);
         CharacterClassConfig config = GetClassConfigByIndex(classIndex);
 
-        // 先確保這隻角色已經有正確 HP / MaxHP / SlotCount
+        // ?Ⅱ靽閫撌脩??迤蝣?HP / MaxHP / SlotCount
         EnsureCharacterInitialized(unit, config);
 
         if (unit.IsMine())
@@ -291,7 +330,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 }
             }
 
-            Debug.Log($"已綁定自己的角色: {unit.name}, ActorNumber={myActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
+            Debug.Log($"撌脩?摰撌梁?閫: {unit.name}, ActorNumber={myActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
         }
         else
         {
@@ -314,10 +353,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             }
             else
             {
-                Debug.LogWarning("找不到敵方職業設定，無法建立敵方預覽格 / 圖片表");
+                Debug.LogWarning("Enemy class config missing; preview cannot be built.");
             }
 
-            Debug.Log($"已綁定對手角色: {unit.name}, ActorNumber={enemyActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
+            Debug.Log($"撌脩?摰????? {unit.name}, ActorNumber={enemyActorNumber}, HP={unit.currentHP}/{unit.maxHP}");
         }
         if (GameSceneStartSync.Instance != null)
         {
@@ -333,11 +372,11 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public void SetPlanningSlots(ActionSlot[] slots)
     {
         planningSlots = slots;
-        RefreshDebug("已綁定規劃 Slot，數量 = " + (planningSlots != null ? planningSlots.Length : 0));
+        RefreshDebug("撌脩?摰???Slot嚗??= " + (planningSlots != null ? planningSlots.Length : 0));
     }
 
     // =========================
-    // Update / 回合控制
+    // Update / ???批
     // =========================
     private bool HasReachedServerTimestamp(int targetTimestamp)
     {
@@ -346,6 +385,9 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
     private void RestartPlanningStartCoroutine()
     {
+        if (gameEnded)
+            return;
+
         if (planningStartCoroutine != null)
         {
             StopCoroutine(planningStartCoroutine);
@@ -359,25 +401,39 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (GameSceneStartSync.Instance != null)
             return GameSceneStartSync.Instance.GetNextBeatTimestamp(resolveLeadBeats);
 
-        // 後備方案：如果 GameSceneStartSync 不在，就用本地 bpm 推一拍
+        // 敺??寞?嚗???GameSceneStartSync 銝嚗停?冽??bpm ?其???
         int beatMs = Mathf.RoundToInt((60f / bpm) * 1000f);
         return PhotonNetwork.ServerTimestamp + beatMs * Mathf.Max(1, resolveLeadBeats);
     }
 
     private IEnumerator WaitForResolveBeatThenStart(int turnIndex, int resolveStartTimestamp, int[] myActions, int[] enemyActions)
     {
-        RefreshDebug($"收到雙方行動，等待拍點開始 Turn {turnIndex}");
+        if (gameEnded)
+            yield break;
+
+        RefreshDebug($"?嗅?銵?嚗?敺?暺?憪?Turn {turnIndex}");
 
         while (!HasReachedServerTimestamp(resolveStartTimestamp))
-            yield return null;
+        {
+            if (gameEnded)
+                yield break;
 
-        RefreshDebug($"拍點到達，開始解析 Turn {turnIndex}");
+            yield return null;
+        }
+
+        if (gameEnded)
+            yield break;
+
+        RefreshDebug($"???圈?嚗?憪圾??Turn {turnIndex}");
 
         resolveStartCoroutine = null;
         resolveCoroutine = StartCoroutine(ResolveActionsInOrderCoroutine(myActions, enemyActions));
     }
     private void Update()
     {
+        if (gameEnded)
+            return;
+
         if (!TryGetCurrentTurnInfo(out int turnIndex, out double turnStart, out double turnDur))
             return;
 
@@ -412,7 +468,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void OnClickReady()
     {
-        if (localSubmitted || isResolving)
+        if (gameEnded || localSubmitted || isResolving)
             return;
 
         SubmitLocalPlan();
@@ -420,6 +476,9 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void BeginPlanningPhase()
     {
+        if (gameEnded)
+            return;
+
         int nextTurnIndex = 1;
 
         if (PhotonNetwork.CurrentRoom != null &&
@@ -450,7 +509,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (readyButton != null)
             readyButton.interactable = true;
 
-        RefreshDebug("開始新回合規劃 Turn " + nextTurnIndex);
+        RefreshDebug("???啣?????Turn " + nextTurnIndex);
     }
 
     private void ResetLocalTurnProps(int turnIndex)
@@ -473,6 +532,9 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void SubmitLocalPlan()
     {
+        if (gameEnded)
+            return;
+
         if (!TryGetCurrentTurnInfo(out int turnIndex, out _, out _))
             return;
 
@@ -493,7 +555,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             readyButton.interactable = false;
 
         SetPlanningInteractable(false);
-        RefreshDebug("已提交自己的行動");
+        RefreshDebug("撌脫?鈭方撌梁?銵?");
     }
 
     private int[] ReadLocalSlotActions()
@@ -524,6 +586,9 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void TryFinalizePlanning(int turnIndex, bool timerExpired)
     {
+        if (gameEnded)
+            return;
+
         Player[] players = PhotonNetwork.PlayerList;
         if (players == null || players.Length < 2)
             return;
@@ -562,7 +627,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         int[] p1Actions = GetPlayerActionsForTurn(p1, turnIndex);
         int[] p2Actions = GetPlayerActionsForTurn(p2, turnIndex);
 
-        // ===== 新增：Resolve 要開始的共用拍點 =====
+        // ===== ?啣?嚗esolve 閬?憪??梁?? =====
         int resolveStartTimestamp = GetResolveStartTimestamp();
 
         object[] content = new object[]
@@ -581,7 +646,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         PhotonNetwork.RaiseEvent(EVENT_PLANS_READY, content, options, SendOptions.SendReliable);
         receivedResolution = true;
 
-        RefreshDebug("Host 已送出雙方行動，等待下一拍開始解析");
+        RefreshDebug("Host broadcast plan resolution; waiting for shared start beat.");
     }
 
     private int[] GetPlayerActionsForTurn(Player player, int turnIndex)
@@ -619,6 +684,9 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public void OnEvent(EventData photonEvent)
     {
+        if (gameEnded)
+            return;
+
         if (photonEvent.Code != EVENT_PLANS_READY)
             return;
 
@@ -629,7 +697,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (turnIndex == lastResolvedTurnIndex)
         {
-            Debug.Log("同一回合事件重複收到，忽略。turnIndex = " + turnIndex);
+            Debug.Log("????鈭辣???嗅嚗蕭?乓urnIndex = " + turnIndex);
             return;
         }
 
@@ -655,7 +723,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         }
         else
         {
-            Debug.LogError("OnEvent 無法配對本地玩家 ActorNumber");
+            Debug.LogError("OnEvent ?⊥????砍?拙振 ActorNumber");
             return;
         }
 
@@ -675,7 +743,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             resolveCoroutine = null;
         }
 
-        // ===== 不立刻解析，改成等下一個共用拍點 =====
+        // ===== 銝??餉圾???寞?蝑?銝??冽?暺?=====
         resolveStartCoroutine = StartCoroutine(
             WaitForResolveBeatThenStart(turnIndex, resolveStartTimestamp, myActions, enemyActions)
         );
@@ -683,6 +751,15 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
+        if (propertiesThatChanged.ContainsKey(ROOM_PROP_GAME_ENDED) ||
+            propertiesThatChanged.ContainsKey(ROOM_PROP_GAME_WINNER_ACTOR))
+        {
+            ApplyGameResultFromRoom();
+        }
+
+        if (gameEnded)
+            return;
+
         if (propertiesThatChanged.ContainsKey(ROOM_PROP_TURN_INDEX))
         {
             localSubmitted = false;
@@ -696,27 +773,47 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 readyButton.interactable = true;
 
             SetPlanningInteractable(true);
-            RefreshDebug("收到新回合開始，已清空 Slot");
+            RefreshDebug("?嗅?啣???憪?撌脫?蝛?Slot");
         }
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
+        if (gameEnded)
+            return;
+
         if (changedProps.ContainsKey(PLAYER_PROP_READY) ||
             changedProps.ContainsKey(PLAYER_PROP_ACTIONS) ||
             changedProps.ContainsKey(PLAYER_PROP_SUBMIT_TURN))
         {
-            RefreshDebug("玩家提交更新: " + targetPlayer.NickName);
+            RefreshDebug("?拙振?漱?湔: " + GetPlayerDisplayName(targetPlayer));
         }
     }
 
+    private string GetPlayerDisplayName(Player player)
+    {
+        if (player == null)
+            return "P?";
+
+        return player.IsMasterClient ? "P1" : "P2";
+    }
+
     // =========================
-    // 動作結算流程
+    // ??蝯?瘚?
     // =========================
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (gameEnded)
+            return;
+
+        int localActorNumber = PhotonNetwork.LocalPlayer != null ? PhotonNetwork.LocalPlayer.ActorNumber : myActorNumber;
+        FinishGame(localActorNumber, "OpponentLeft", true);
+    }
 
     private IEnumerator ResolveActionsInOrderCoroutine(int[] myActions, int[] enemyActions)
     {
-        if (isResolving)
+        if (gameEnded || isResolving)
             yield break;
 
         isResolving = true;
@@ -736,23 +833,30 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             ActionType myAction = (myActions != null && i < myActions.Length) ? (ActionType)myActions[i] : ActionType.None;
             ActionType enemyAction = (enemyActions != null && i < enemyActions.Length) ? (ActionType)enemyActions[i] : ActionType.None;
 
-            Debug.Log($"第 {step} 格：我方={myAction} 敵方={enemyAction}");
+            Debug.Log($"蝚?{step} ?潘??={myAction} ?菜={enemyAction}");
             yield return StartCoroutine(ResolveSingleStepCoroutine(myAction, enemyAction));
+
+            if (CheckGameResultAfterStep())
+                yield break;
 
             if (pendingParryCounter)
                 yield return StartCoroutine(ResolveParryCounterStepCoroutine());
 
+            if (CheckGameResultAfterStep())
+                yield break;
+
             step++;
         }
 
-        RefreshDebug("全部片段結算完成");
+        RefreshDebug("?券?挾蝯?摰?");
 
         ClearAllPlanningSlots();
 
         isResolving = false;
         resolveCoroutine = null;
 
-        RestartPlanningStartCoroutine();
+        if (!gameEnded)
+            RestartPlanningStartCoroutine();
     }
     private IEnumerator ResolveParryCounterStepCoroutine()
     {
@@ -761,6 +865,8 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         bool counterByMine = pendingParryCounterByMine;
         int damage = pendingParryCounterDamage;
+        playedHitFeedbackThisStep = false;
+        playedFinisherSlowMotionThisStep = false;
 
         pendingParryCounter = false;
         pendingParryCounterByMine = false;
@@ -774,10 +880,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         Animator attackerAnimator = attacker.GetAnimator();
 
-        // ParryCounter 本體固定 2 拍
+        // ParryCounter ?祇??箏? 2 ??
         yield return StartCoroutine(PlayParryCounterAnimationAndWait(attackerAnimator));
 
-        // 命中表現
+        // ?賭葉銵函
         PlayHitFeedback(!counterByMine);
 
         if (playBloodOnParryCounter && bloodHitVFXManager != null)
@@ -786,27 +892,40 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (HitStopManager.Instance != null)
             yield return StartCoroutine(HitStopManager.Instance.HitStopByBeat());
 
-        // 真正扣血
+        // ?迤???
         if (counterByMine)
         {
+            int hpBefore = enemyUnit != null ? enemyUnit.currentHP : enemyHP;
+
             if (enemyUnit != null)
                 enemyUnit.TakeDamage(damage);
 
             enemyHP = enemyUnit != null ? enemyUnit.currentHP : Mathf.Max(0, enemyHP - damage);
+            TryPlayFinisherSlowMotion(hpBefore, enemyHP);
         }
         else
         {
+            int hpBefore = myUnit != null ? myUnit.currentHP : myHP;
+
             if (myUnit != null)
                 myUnit.TakeDamage(damage);
 
             myHP = myUnit != null ? myUnit.currentHP : Mathf.Max(0, myHP - damage);
+            TryPlayFinisherSlowMotion(hpBefore, myHP);
         }
 
         RefreshAllHPUI();
 
-        // ParryCounter 如果有命中停頓，固定再補 1 拍
-        if (playedHitFeedbackThisStep)
-            yield return new WaitForSecondsRealtime(GetBeatSeconds(effectDelayBeats));
+        // ParryCounter 憒??銝剖????箏??? 1 ??
+        float postCounterDelayBeats = 0f;
+
+        if (playedFinisherSlowMotionThisStep)
+            postCounterDelayBeats = Mathf.Max(effectDelayBeats, finisherSlowMotionBeats);
+        else if (playedHitFeedbackThisStep)
+            postCounterDelayBeats = effectDelayBeats;
+
+        if (postCounterDelayBeats > 0f)
+            yield return new WaitForSecondsRealtime(GetBeatSeconds(postCounterDelayBeats));
     }
     private float GetClipLength(Animator animator, string clipName)
     {
@@ -820,7 +939,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 return clips[i].length;
         }
 
-        Debug.LogWarning("找不到動畫 Clip: " + clipName);
+        Debug.LogWarning("?曆??啣???Clip: " + clipName);
         return 1f;
     }
     private void RefreshAllHPUI()
@@ -872,7 +991,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (isMine)
         {
-            // 上一格已經蓄力，這一格自動打出
+            // 銝??澆歇蝬??????潸????
             if (myHeavyPendingThisTurn)
             {
                 myHeavyPendingThisTurn = false;
@@ -880,7 +999,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 return ActionType.HeavyAttack;
             }
 
-            // 這一格選到重攻，先進入蓄力
+            // ???潮?圈??鳴??脣??
             if (selectedAction == ActionType.HeavyAttack)
             {
                 myHeavyPendingThisTurn = true;
@@ -1011,10 +1130,11 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         myJumping = false;
         enemyJumping = false;
         playedHitFeedbackThisStep = false;
+        playedFinisherSlowMotionThisStep = false;
 
         if (battleStepPlayer == null)
         {
-            Debug.LogError("ResolveSingleStepCoroutine: battleStepPlayer 沒有指定");
+            Debug.LogError("ResolveSingleStepCoroutine: battleStepPlayer 瘝???");
             yield break;
         }
 
@@ -1028,14 +1148,16 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         ActionType myEffectiveAction = GetEffectiveActionForStep(myAction, true, out myHeavyReleaseNow);
         ActionType enemyEffectiveAction = GetEffectiveActionForStep(enemyAction, false, out enemyHeavyReleaseNow);
 
-        // ===== 這一步先記住誰正在蓄力 =====
+        // ===== ??甇亙?閮?隤唳迤?刻???=====
         myChargingHeavyThisStep = IsHeavyChargingThisStep(myEffectiveAction, myHeavyReleaseNow);
         enemyChargingHeavyThisStep = IsHeavyChargingThisStep(enemyEffectiveAction, enemyHeavyReleaseNow);
+        myHeavyAnimationProtectedThisStep = IsHeavyAnimationProtectedThisStep(myEffectiveAction);
+        enemyHeavyAnimationProtectedThisStep = IsHeavyAnimationProtectedThisStep(enemyEffectiveAction);
 
-        // BattleStepPlayer 跟 TurnPlanningManager 共用同一套 BPM / 拍數
+        // BattleStepPlayer 頝?TurnPlanningManager ?梁??憟?BPM / ?
         battleStepPlayer.SetBeatConfig(bpm, normalStepBeats);
 
-        // 基本動作固定 2 拍
+        // ?箸???箏? 2 ??
         yield return StartCoroutine(
             battleStepPlayer.PlayStep(
                 myUnit,
@@ -1066,24 +1188,31 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             enemyHeavyReleaseNow
         );
 
-        // 這一步如果有命中停頓或慢動作，固定補 1 拍
+        // ??甇亙????賭葉?????嚗摰? 1 ??
         bool hasSlowMotionStep =
             myEffectiveAction == ActionType.Dance ||
             enemyEffectiveAction == ActionType.Dance;
 
-        if (playedHitFeedbackThisStep || hasSlowMotionStep)
-        {
-            yield return new WaitForSecondsRealtime(GetBeatSeconds(effectDelayBeats));
-        }
+        float postStepDelayBeats = 0f;
+
+        if (playedFinisherSlowMotionThisStep)
+            postStepDelayBeats = Mathf.Max(effectDelayBeats, finisherSlowMotionBeats);
+        else if (playedHitFeedbackThisStep || hasSlowMotionStep)
+            postStepDelayBeats = effectDelayBeats;
+
+        if (postStepDelayBeats > 0f)
+            yield return new WaitForSecondsRealtime(GetBeatSeconds(postStepDelayBeats));
 
         UpdateHPBars();
         UpdateEnergyBars();
 
-        // ===== 這一步結束後重置 =====
+        // ===== ??甇亦????蔭 =====
         myChargingHeavyThisStep = false;
         enemyChargingHeavyThisStep = false;
+        myHeavyAnimationProtectedThisStep = false;
+        enemyHeavyAnimationProtectedThisStep = false;
     }    // =========================
-         // 動畫播放 / 等待
+         // ??剜 / 蝑?
          // =========================
 
 
@@ -1134,7 +1263,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
    
     // =========================
-    // 移動
+    // 蝘餃?
     // =========================
 
     private void ApplyMovement(ref int currentDistance, ActionType action, bool isMine)
@@ -1144,12 +1273,12 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
             case ActionType.MoveForward:
                 currentDistance -= 1;
                 if (currentDistance < 0) currentDistance = 0;
-                Debug.Log(isMine ? "我方向前移動" : "敵方向前移動");
+                Debug.Log(isMine ? "???蝘餃?" : "?菜??蝘餃?");
                 break;
 
             case ActionType.MoveBackward:
                 currentDistance += 1;
-                Debug.Log(isMine ? "我方向後移動" : "敵方向後移動");
+                Debug.Log(isMine ? "???蝘餃?" : "?菜??蝘餃?");
                 break;
 
             case ActionType.Jump:
@@ -1157,7 +1286,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
                     myJumping = true;
                 else
                     enemyJumping = true;
-                Debug.Log(isMine ? "我方跳躍" : "敵方跳躍");
+                Debug.Log(isMine ? "?頝唾?" : "?菜頝唾?");
                 break;
         }
     }
@@ -1234,7 +1363,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (unit == null || config == null)
             return;
 
-        // 如果還沒初始化過，就補上基礎資料
+        // 憒???????嚗停鋆??箇?鞈?
         bool needInit =
             unit.maxHP <= 0 ||
             unit.currentHP <= 0 ||
@@ -1249,7 +1378,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         unit.Init(config.className, skinName, config.maxHP, config.slotCount);
 
-        Debug.Log($"補初始化角色成功: {unit.name}, HP={config.maxHP}, Slots={config.slotCount}");
+        Debug.Log($"鋆?憪?閫??: {unit.name}, HP={config.maxHP}, Slots={config.slotCount}");
     }
 
 
@@ -1346,7 +1475,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (actionData == null)
             return false;
 
-        if (isResolving)
+        if (gameEnded || isResolving)
             return false;
 
         if (localSubmitted)
@@ -1356,7 +1485,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             if (verbose)
             {
-                Debug.Log($"CanDragOrPlaceAction: 檢查大招, myEnergy={myEnergy}, maxEnergy={maxEnergy}, queued={HasQueuedUltimate(ignoreSlot)}");
+                Debug.Log($"CanDragOrPlaceAction: 瑼Ｘ憭扳?, myEnergy={myEnergy}, maxEnergy={maxEnergy}, queued={HasQueuedUltimate(ignoreSlot)}");
             }
 
             if (!CanUseUltimate())
@@ -1391,7 +1520,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // 戰鬥 / 攻擊
+    // ?圈洛 / ?餅?
     // =========================
 
     private void ResolveCombat(int currentTurn, ActionType myAction, ActionType enemyAction, bool myHeavyReleaseNow, bool enemyHeavyReleaseNow)
@@ -1402,7 +1531,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (enemyAction == ActionType.Dance)
             ApplyDance(false);
 
-        // ===== 雙方都是騎士且同時開大招：互吃一半傷害 =====
+        // ===== ??賣擉ㄚ銝???憭扳?嚗????摰?=====
         if (myAction == ActionType.Ultimate &&
             enemyAction == ActionType.Ultimate &&
             IsKnightClass(true) &&
@@ -1436,10 +1565,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         int currentDistance = GetCurrentGridDistance();
 
-        // 還是遵守攻擊範圍 1
+        // ??萄??餅?蝭? 1
         if (currentDistance > 1)
         {
-            Debug.Log("雙方同時開騎士大招，但距離超過 1，未命中");
+            Debug.Log("?????憯怠之??雿??Ｚ???1嚗?賭葉");
             ConsumeAllEnergy(true);
             ConsumeAllEnergy(false);
             return;
@@ -1450,14 +1579,18 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (myUnit != null)
         {
+            int hpBefore = myUnit.currentHP;
             myUnit.TakeDamage(enemyHalfDamage);
             myHP = myUnit.currentHP;
+            TryPlayFinisherSlowMotion(hpBefore, myHP);
         }
 
         if (enemyUnit != null)
         {
+            int hpBefore = enemyUnit.currentHP;
             enemyUnit.TakeDamage(myHalfDamage);
             enemyHP = enemyUnit.currentHP;
+            TryPlayFinisherSlowMotion(hpBefore, enemyHP);
         }
 
         PlayHitFeedback(true);
@@ -1466,7 +1599,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         ConsumeAllEnergy(true);
         ConsumeAllEnergy(false);
 
-        Debug.Log($"雙方騎士同時開大：我方受傷 {enemyHalfDamage}，敵方受傷 {myHalfDamage}");
+        Debug.Log($"?擉ㄚ???之嚗??孵???{enemyHalfDamage}嚗?孵???{myHalfDamage}");
     }
     private bool IsAttack(ActionType action)
     {
@@ -1541,6 +1674,33 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         HitStopManager.Instance.StartCoroutine(HitStopManager.Instance.HitStopByBeat());
     }
+
+    private bool DidDamageBecomeFatal(int hpBefore, int hpAfter)
+    {
+        return hpBefore > 0 && hpAfter <= 0;
+    }
+
+    private void TryPlayFinisherSlowMotion(int hpBefore, int hpAfter)
+    {
+        if (!DidDamageBecomeFatal(hpBefore, hpAfter))
+            return;
+
+        PlayFinisherSlowMotionOnce();
+    }
+
+    private void PlayFinisherSlowMotionOnce()
+    {
+        if (playedFinisherSlowMotionThisStep)
+            return;
+
+        playedFinisherSlowMotionThisStep = true;
+
+        if (HitStopManager.Instance != null)
+            HitStopManager.Instance.PlaySlowMotion(finisherSlowTimeScale, GetBeatSeconds(finisherSlowMotionBeats));
+
+        Debug.Log("Finisher slow motion triggered.");
+    }
+
     private void TryApplyAttack(ActionType attackerAction, ActionType defenderAction, bool attackerIsMine, bool heavyReleaseNow)
     {
         CharacterUnit attackerUnit = attackerIsMine ? myUnit : enemyUnit;
@@ -1556,10 +1716,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         bool defenderJumpingNow = attackerIsMine ? enemyJumping : myJumping;
         bool defenderIsMine = !attackerIsMine;
 
-        // 重攻第一格只蓄力，不造成傷害
+        // ?蝚砌??澆??嚗????瑕拿
         if (attackerAction == ActionType.HeavyAttack && attackData.requiresCharge && !heavyReleaseNow)
         {
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 重攻擊第一格蓄力");
+            Debug.Log((attackerIsMine ? "My" : "Enemy") + " heavy attack is charging; no damage this step.");
             return;
         }
 
@@ -1574,61 +1734,69 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (result.outOfRange)
         {
-            Debug.Log($"攻擊落空：目前距離 {currentDistance} 格，攻擊範圍 {attackData.range} 格");
+            Debug.Log($"Attack out of range. Distance={currentDistance}, range={attackData.range}");
             return;
         }
 
-        // ===== Parry 成功：不要當下直接反傷，改成排入額外 Counter 步驟 =====
+        // ===== Parry ??嚗?閬銝?亙??瘀??寞??憿? Counter 甇仿? =====
         if (result.parried)
         {
             int counterDamage = attackData.damage;
 
-            // 只播 Parry 成功特效，不在這裡播 ParryCounter 反擊動畫
+            // ?芣 Parry ???寞?嚗??券ㄐ??ParryCounter ???
             PlayParrySuccessEffect(defenderIsMine);
 
-            // Parry 成功算防守方加能量
+            // Parry ??蝞摰???
             AddEnergy(defenderIsMine, energyPerBlock);
 
-            // 排程額外的 ParryCounter 子步驟
+            // ??憿???ParryCounter 摮郊撽?
             QueueParryCounter(defenderIsMine, counterDamage);
 
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 攻擊被 Parry 成功，已排入額外 ParryCounter 步驟，反傷 = " + counterDamage);
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " ?餅?鋡?Parry ??嚗歇?憿? ParryCounter 甇仿?嚗???= " + counterDamage);
             return;
         }
 
         if (result.blocked)
         {
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 攻擊被 Defense 擋住");
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " ?餅?鋡?Defense ??");
             AddEnergy(defenderIsMine, energyPerBlock);
             return;
         }
 
         if (result.evaded)
         {
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 攻擊被 Jump 躲掉");
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " ?餅?鋡?Jump 頨脫?");
             return;
         }
 
         if (result.hit && result.damage > 0)
         {
             PlayHitFeedback(defenderIsMine);
+            bool fatalDamage = false;
 
             if (attackerIsMine)
             {
+                int hpBefore = enemyUnit.currentHP;
                 enemyUnit.TakeDamage(result.damage);
                 enemyHP = enemyUnit.currentHP;
+                fatalDamage = DidDamageBecomeFatal(hpBefore, enemyHP);
                 PlayBloodHitEffect(true);
-                Debug.Log("我方攻擊命中，傷害 = " + result.damage);
+                Debug.Log("??餅??賭葉嚗摰?= " + result.damage);
             }
             else
             {
+                int hpBefore = myUnit.currentHP;
                 myUnit.TakeDamage(result.damage);
                 myHP = myUnit.currentHP;
+                fatalDamage = DidDamageBecomeFatal(hpBefore, myHP);
                 PlayBloodHitEffect(false);
-                Debug.Log("敵方攻擊命中，傷害 = " + result.damage);
+                Debug.Log("?菜?餅??賭葉嚗摰?= " + result.damage);
             }
 
             AddEnergy(attackerIsMine, energyPerHit);
+
+            if (fatalDamage)
+                PlayFinisherSlowMotionOnce();
         }
     }
     private void QueueParryCounter(bool counterByMine, int damage)
@@ -1649,7 +1817,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (HitStopManager.Instance != null)
             HitStopManager.Instance.PlayDanceSlowMotionWithExtraTime(GetBeatSeconds(effectDelayBeats));
 
-        Debug.Log((isMine ? "我方" : "敵方") + " 跳舞成功，加能量 1，慢動作視覺效果播放，步驟延長由節拍系統控制");
+        Debug.Log((isMine ? "My" : "Enemy") + " dance: gain 1 energy and play slow motion.");
     }
     private void TryApplyUltimate(bool attackerIsMine, ActionType defenderAction)
     {
@@ -1657,7 +1825,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (ultimateData == null)
         {
-            Debug.LogWarning("TryApplyUltimate: 找不到大招資料");
+            Debug.LogWarning("TryApplyUltimate: ultimate data missing.");
             return;
         }
 
@@ -1666,83 +1834,93 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (currentEnergy < maxEnergy)
         {
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 大招失敗：能量未滿");
+            Debug.Log((attackerIsMine ? "My" : "Enemy") + " ultimate energy is not full.");
             return;
         }
 
         int currentDistance = GetCurrentGridDistance();
 
-        // 範圍 1，距離不夠直接落空，但仍消耗能量
+        // 蝭? 1嚗??Ｖ?憭?亥蝛綽?雿?瘨??
         if (currentDistance > 1)
         {
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 大招未命中：距離超過 1");
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " 憭扳??芸銝哨?頝頞? 1");
             ConsumeAllEnergy(attackerIsMine);
             return;
         }
 
-        // ===== 被 Parry 成功：不要當下直接反傷，改成排入額外 Counter 步驟 =====
+        // ===== 鋡?Parry ??嚗?閬銝?亙??瘀??寞??憿? Counter 甇仿? =====
         if (defenderAction == ActionType.Parry)
         {
             int counterDamage = ultimateData.damage;
 
-            // 只播 Parry 成功特效
+            // ?芣 Parry ???寞?
             PlayParrySuccessEffect(defenderIsMine);
 
-            // Parry 成功算防守方加能量
+            // Parry ??蝞摰???
             AddEnergy(defenderIsMine, energyPerBlock);
 
-            // 攻擊方大招照樣消耗能量
+            // ?餅??孵之?璅?????
             ConsumeAllEnergy(attackerIsMine);
 
-            // 排程額外 Counter 步驟
+            // ??憿? Counter 甇仿?
             QueueParryCounter(defenderIsMine, counterDamage);
 
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 的騎士大招被 Parry 成功，已排入額外 ParryCounter 步驟，反傷 = " + counterDamage);
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " ??憯怠之?◤ Parry ??嚗歇?憿? ParryCounter 甇仿?嚗???= " + counterDamage);
             return;
         }
 
-        // 能被 Defense 擋住
+        // ?質◤ Defense ??
         if (defenderAction == ActionType.Defense)
         {
             AddEnergy(defenderIsMine, energyPerBlock);
             ConsumeAllEnergy(attackerIsMine);
 
-            Debug.Log((attackerIsMine ? "我方" : "敵方") + " 的騎士大招被 Defense 擋住");
+            Debug.Log((attackerIsMine ? "?" : "?菜") + " ??憯怠之?◤ Defense ??");
             return;
         }
 
-        // 不能被 Jump 躲掉，所以不判斷 Jump
+        // 銝鋡?Jump 頨脫?嚗?隞乩??斗 Jump
 
         int damage = ultimateData.damage;
+        bool fatalDamage = false;
 
         if (attackerIsMine)
         {
+            int hpBefore = enemyUnit != null ? enemyUnit.currentHP : enemyHP;
+
             if (enemyUnit != null)
                 enemyUnit.TakeDamage(damage);
 
             enemyHP = enemyUnit != null ? enemyUnit.currentHP : Mathf.Max(0, enemyHP - damage);
+            fatalDamage = DidDamageBecomeFatal(hpBefore, enemyHP);
             PlayHitFeedback(false);
 
             if (playBloodOnUltimate)
                 PlayBloodHitEffect(true);
 
-            Debug.Log("我方騎士大招命中，造成 " + damage + " 傷害");
+            Debug.Log("?擉ㄚ憭扳??賭葉嚗? " + damage + " ?瑕拿");
         }
         else
         {
+            int hpBefore = myUnit != null ? myUnit.currentHP : myHP;
+
             if (myUnit != null)
                 myUnit.TakeDamage(damage);
 
             myHP = myUnit != null ? myUnit.currentHP : Mathf.Max(0, myHP - damage);
+            fatalDamage = DidDamageBecomeFatal(hpBefore, myHP);
             PlayHitFeedback(true);
 
             if (playBloodOnUltimate)
                 PlayBloodHitEffect(false);
 
-            Debug.Log("敵方騎士大招命中，造成 " + damage + " 傷害");
+            Debug.Log("?菜擉ㄚ憭扳??賭葉嚗? " + damage + " ?瑕拿");
         }
 
         ConsumeAllEnergy(attackerIsMine);
+
+        if (fatalDamage)
+            PlayFinisherSlowMotionOnce();
     }
     private UltimateActionData GetUltimateData(bool isMine)
     {
@@ -1763,18 +1941,18 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             myEnergy += value;
             if (myEnergy > maxEnergy) myEnergy = maxEnergy;
-            Debug.Log("我方能量增加到: " + myEnergy);
+            Debug.Log("??賡?憓??? " + myEnergy);
         }
         else
         {
             enemyEnergy += value;
             if (enemyEnergy > maxEnergy) enemyEnergy = maxEnergy;
-            Debug.Log("敵方能量增加到: " + enemyEnergy);
+            Debug.Log("?菜?賡?憓??? " + enemyEnergy);
         }
 
         UpdateEnergyBars();
 
-        // 所有會加能量的判定都套用節拍 Hit Stop
+        // ???????文??賢??函???Hit Stop
         TriggerBeatHitStop();
     }
 
@@ -1798,7 +1976,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // HP / UI 更新
+    // HP / UI ?湔
     // =========================
 
     private void UpdateHPBars()
@@ -1823,8 +2001,114 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // 受擊 / Parry 特效
+    // ?? / Parry ?寞?
     // =========================
+
+    private bool CheckGameResultAfterStep()
+    {
+        UpdateHPBars();
+
+        if (gameEnded)
+            return true;
+
+        bool myDead = myHP <= 0;
+        bool enemyDead = enemyHP <= 0;
+
+        if (!myDead && !enemyDead)
+            return false;
+
+        int winnerActorNumber = 0;
+
+        if (myDead && !enemyDead)
+            winnerActorNumber = enemyActorNumber;
+        else if (!myDead && enemyDead)
+            winnerActorNumber = myActorNumber;
+
+        FinishGame(winnerActorNumber, "HPZero", true);
+        return true;
+    }
+
+    private void ApplyGameResultFromRoom()
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+            return;
+
+        Hashtable roomProps = PhotonNetwork.CurrentRoom.CustomProperties;
+        if (roomProps == null)
+            return;
+
+        if (!roomProps.TryGetValue(ROOM_PROP_GAME_ENDED, out object endedObj) || !Convert.ToBoolean(endedObj))
+            return;
+
+        int winnerActorNumber = 0;
+        if (roomProps.TryGetValue(ROOM_PROP_GAME_WINNER_ACTOR, out object winnerObj))
+            winnerActorNumber = Convert.ToInt32(winnerObj);
+
+        string reason = "HPZero";
+        if (roomProps.TryGetValue(ROOM_PROP_GAME_END_REASON, out object reasonObj) && reasonObj != null)
+            reason = reasonObj.ToString();
+
+        FinishGame(winnerActorNumber, reason, false);
+    }
+
+    private void FinishGame(int winnerActorNumber, string reason, bool publishToRoom)
+    {
+        if (gameEnded)
+            return;
+
+        gameEnded = true;
+        localSubmitted = true;
+        receivedResolution = true;
+        isResolving = false;
+        resolveCoroutine = null;
+        pendingParryCounter = false;
+        pendingParryCounterByMine = false;
+        pendingParryCounterDamage = 0;
+
+        if (planningStartCoroutine != null)
+        {
+            StopCoroutine(planningStartCoroutine);
+            planningStartCoroutine = null;
+        }
+
+        if (resolveStartCoroutine != null)
+        {
+            StopCoroutine(resolveStartCoroutine);
+            resolveStartCoroutine = null;
+        }
+
+        SetPlanningInteractable(false);
+        ClearEnemyActionsPreview();
+
+        if (readyButton != null)
+            readyButton.interactable = false;
+
+        if (countdownText != null)
+            countdownText.text = "";
+
+        int localActorNumber = PhotonNetwork.LocalPlayer != null ? PhotonNetwork.LocalPlayer.ActorNumber : myActorNumber;
+        GameResultManager.Instance.ShowResult(winnerActorNumber, localActorNumber, reason);
+
+        RefreshDebug("Game ended. Winner actor = " + winnerActorNumber + ", reason = " + reason);
+
+        if (publishToRoom)
+            PublishGameResultToRoom(winnerActorNumber, reason);
+    }
+
+    private void PublishGameResultToRoom(int winnerActorNumber, string reason)
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+            return;
+
+        Hashtable props = new Hashtable
+        {
+            { ROOM_PROP_GAME_ENDED, true },
+            { ROOM_PROP_GAME_WINNER_ACTOR, winnerActorNumber },
+            { ROOM_PROP_GAME_END_REASON, reason }
+        };
+
+        PhotonNetwork.CurrentRoom.SetCustomProperties(props);
+    }
 
     private bool IsKnightClass(bool isMine)
     {
@@ -1859,20 +2143,25 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
         CharacterUnit targetUnit = targetIsMine ? myUnit : enemyUnit;
         Animator targetAnim = targetIsMine ? myAnimator : enemyAnimator;
 
-        bool targetIsHeavyCharging = targetIsMine ? myChargingHeavyThisStep : enemyChargingHeavyThisStep;
+        bool targetIsHeavyAnimationProtected = targetIsMine
+            ? myHeavyAnimationProtectedThisStep
+            : enemyHeavyAnimationProtectedThisStep;
 
-        // 蓄力途中被打中，不切到受擊動畫
-        if (!targetIsHeavyCharging)
+        // ???葉鋡急?銝哨?銝??啣?????
+        if (!targetIsHeavyAnimationProtected)
         {
             if (targetAnim != null)
                 targetAnim.SetTrigger("Hit");
         }
         else
         {
-            Debug.Log((targetIsMine ? "我方" : "敵方") + " 正在 HeavyCharge，中招但不切換到 Hit 動畫");
+            if (targetAnim != null)
+                targetAnim.ResetTrigger("Hit");
+
+            Debug.Log((targetIsMine ? "My" : "Enemy") + " heavy animation protected: damage applied without Hit animation.");
         }
 
-        // 震動 / 打擊感還是保留
+        // ?? / ?????臭???
         if (targetUnit != null)
             StartCoroutine(PlayHitShakeCoroutine(targetUnit.transform));
 
@@ -1899,7 +2188,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // 敵方行動預覽
+    // ?菜銵??汗
     // =========================
 
     private void SetupEnemyPreviewSide()
@@ -1932,13 +2221,13 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         if (currentEnemyPreviewRoot == null)
         {
-            Debug.LogWarning("currentEnemyPreviewRoot 為空，無法建立敵方預覽格");
+            Debug.LogWarning("currentEnemyPreviewRoot ?箇征嚗瘜遣蝡?寥?閬賣");
             return;
         }
 
         if (previewCellPrefab == null)
         {
-            Debug.LogWarning("previewCellPrefab 沒有指定");
+            Debug.LogWarning("previewCellPrefab 瘝???");
             return;
         }
 
@@ -1975,7 +2264,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (config == null)
         {
-            Debug.LogWarning("BuildEnemyPreviewSpriteMap: config 為空");
+            Debug.LogWarning("BuildEnemyPreviewSpriteMap: config ?箇征");
             return;
         }
 
@@ -2004,7 +2293,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (img == null || img.sprite == null)
         {
-            Debug.LogWarning("抓不到預覽圖: " + actionData.actionType);
+            Debug.LogWarning("???圈?閬賢?: " + actionData.actionType);
             return;
         }
 
@@ -2017,10 +2306,10 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         float worldDistance = Mathf.Abs(enemyUnit.transform.position.x - myUnit.transform.position.x);
 
-        // 依照你每一步 moveStep 算成幾格
+        // 靘雿?銝甇?moveStep 蝞?撟暹
         int gridDistance = Mathf.RoundToInt(worldDistance / moveStep);
 
-        // 最少當成 1 格，避免貼太近時變 0
+        // ?撠??1 ?潘??踹?鞎澆云餈?霈?0
         if (gridDistance < 1)
             gridDistance = 1;
 
@@ -2029,7 +2318,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     private void RefreshDistance()
     {
         distance = GetCurrentGridDistance();
-        Debug.Log("目前距離 = " + distance + " 格");
+        Debug.Log("Current grid distance = " + distance);
     }
     private void ShowEnemyActionsPreview(int[] enemyActions)
     {
@@ -2099,7 +2388,7 @@ public class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCallback
     }
 
     // =========================
-    // 公用工具
+    // ?祉撌亙
     // =========================
 
     private int GetPlayerClassIndex(Player player)

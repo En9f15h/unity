@@ -29,7 +29,9 @@ namespace Photon.Pun
 
         public void OnEnable()
         {
-            this.m_Target = (PhotonView)this.target;
+            this.m_Target = this.target as PhotonView;
+            if (this.m_Target == null)
+                return;
 
             if (!Application.isPlaying)
                 m_Target.FindObservables();
@@ -38,7 +40,10 @@ namespace Photon.Pun
         {
 
 
-            this.m_Target = (PhotonView)this.target;
+            this.m_Target = this.target as PhotonView;
+            if (this.m_Target == null)
+                return;
+
             bool isProjectPrefab = PhotonEditorUtils.IsPrefab(this.m_Target.gameObject);
             bool multiSelected = Selection.gameObjects.Length > 1;
 

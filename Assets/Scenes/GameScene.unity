@@ -815,11 +815,12 @@ MonoBehaviour:
   timeoutResolveDelay: 0.4
   myAnimationMaps: []
   enemyAnimationMaps: []
-  animationCrossFadeTime: 0
   moveStep: 1
   minCharacterGap: 0.2
   hitShakeDuration: 0.12
   hitShakeStrength: 0.08
+  finisherSlowMotionBeats: 2
+  finisherSlowTimeScale: 0.08
   myHPBar: {fileID: 0}
   enemyHPBar: {fileID: 0}
   classConfigs:
@@ -1667,11 +1668,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundSpriteSync
   backgroundRenderer: {fileID: 1351338253}
+  floorRenderer: {fileID: 1176404009}
   backgroundSprites:
   - {fileID: -7708994065749507159, guid: 4900abf1472dafb4db5511654b462603, type: 3}
   - {fileID: 21300000, guid: ea0eb04b4fdfb974d861fe01c3c10c84, type: 3}
   - {fileID: 21300000, guid: 259d5197bc459bb47972f9b395415afc, type: 3}
   - {fileID: -7443756053782179069, guid: 00c012a227eaf21479192000b7a62151, type: 3}
+  floorSprites:
+  - {fileID: 1287819129093318787, guid: 12f14a2df79ac1649998632cd3fb357d, type: 3}
+  - {fileID: 7109297536227335521, guid: d25bb3573be602843ade8475b40a0d9f, type: 3}
+  - {fileID: 7109297536227335521, guid: d25bb3573be602843ade8475b40a0d9f, type: 3}
+  - {fileID: -3878557786174838139, guid: 7667ab5162af3664eb48eeaea0abf7e9, type: 3}
   syncOnStart: 1
 --- !u!4 &1272246066
 Transform:

@@ -6,21 +6,35 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
 {
-    [Header("背景 SpriteRenderer")]
+    public const string ROOM_PROP_BG_INDEX = "bgSpriteIndex";
+
+    [Header("Background SpriteRenderer")]
     [SerializeField] private SpriteRenderer backgroundRenderer;
 
-    [Header("可隨機背景陣列（所有玩家順序必須完全一樣）")]
+    [Header("Floor SpriteRenderer")]
+    [SerializeField] private SpriteRenderer floorRenderer;
+
+    [Header("Stage backgrounds. Order must match on every client.")]
     [SerializeField] private Sprite[] backgroundSprites;
 
-    [Header("是否在 Start 自動同步")]
+    [Header("Stage floors. Same index as backgroundSprites.")]
+    [SerializeField] private Sprite[] floorSprites;
+
+    [Header("Auto sync on Start")]
     [SerializeField] private bool syncOnStart = true;
 
-    private const string ROOM_PROP_BG_INDEX = "bgSpriteIndex";
+    private Sprite initialFloorSprite;
 
     private void Awake()
     {
         if (backgroundRenderer == null)
             backgroundRenderer = GetComponent<SpriteRenderer>();
+
+        if (floorRenderer == null)
+            floorRenderer = FindRendererByName("ground", "floor");
+
+        if (floorRenderer != null)
+            initialFloorSprite = floorRenderer.sprite;
     }
 
     private void Start()
@@ -35,37 +49,32 @@ public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom == null)
         {
-            Debug.LogWarning("BackgroundSpriteSync: 尚未進入房間，無法同步背景");
+            Debug.LogWarning("BackgroundSpriteSync: not in room, cannot sync stage visuals");
             return;
         }
 
         if (backgroundSprites == null || backgroundSprites.Length == 0)
         {
-            Debug.LogWarning("BackgroundSpriteSync: backgroundSprites 為空");
+            Debug.LogWarning("BackgroundSpriteSync: backgroundSprites is empty");
             return;
         }
 
-        // 房間裡已經有背景索引，直接套用
         if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BG_INDEX, out object indexObj))
         {
-            int index = (int)indexObj;
+            int index = System.Convert.ToInt32(indexObj);
             ApplyBackground(index);
             return;
         }
 
-        // 只有 Master 負責抽隨機值
         if (PhotonNetwork.IsMasterClient)
         {
-            int randomIndex = Random.Range(0, backgroundSprites.Length);
-
             Hashtable props = new Hashtable
             {
-                { ROOM_PROP_BG_INDEX, randomIndex }
+                { ROOM_PROP_BG_INDEX, 0 }
             };
 
             PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-            Debug.Log("BackgroundSpriteSync: Master 隨機背景 index = " + randomIndex);
+            Debug.Log("BackgroundSpriteSync: Master set default stage index = 0");
         }
     }
 
@@ -73,7 +82,7 @@ public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
     {
         if (propertiesThatChanged.TryGetValue(ROOM_PROP_BG_INDEX, out object indexObj))
         {
-            int index = (int)indexObj;
+            int index = System.Convert.ToInt32(indexObj);
             ApplyBackground(index);
         }
     }
@@ -82,33 +91,75 @@ public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
     {
         if (backgroundRenderer == null)
         {
-            Debug.LogWarning("BackgroundSpriteSync: backgroundRenderer 沒有指定");
+            Debug.LogWarning("BackgroundSpriteSync: backgroundRenderer is missing");
             return;
         }
 
         if (backgroundSprites == null || backgroundSprites.Length == 0)
         {
-            Debug.LogWarning("BackgroundSpriteSync: backgroundSprites 為空");
+            Debug.LogWarning("BackgroundSpriteSync: backgroundSprites is empty");
             return;
         }
 
         if (index < 0 || index >= backgroundSprites.Length)
         {
-            Debug.LogWarning("BackgroundSpriteSync: index 超出範圍 = " + index);
+            Debug.LogWarning("BackgroundSpriteSync: index out of range = " + index);
             return;
         }
 
         backgroundRenderer.sprite = backgroundSprites[index];
-        Debug.Log("BackgroundSpriteSync: 已套用背景 index = " + index + " / sprite = " + backgroundSprites[index].name);
+        ApplyFloor(index);
+
+        Debug.Log("BackgroundSpriteSync: applied stage index = " + index + " / background = " + backgroundSprites[index].name);
     }
 
-    // 如果 Master 切換，也補一次，避免特殊情況沒寫進去
+    private void ApplyFloor(int index)
+    {
+        if (floorRenderer == null)
+            return;
+
+        Sprite floorSprite = GetFloorSprite(index);
+        if (floorSprite == null)
+            return;
+
+        floorRenderer.sprite = floorSprite;
+    }
+
+    private Sprite GetFloorSprite(int index)
+    {
+        if (floorSprites != null && index >= 0 && index < floorSprites.Length && floorSprites[index] != null)
+            return floorSprites[index];
+
+        if (floorSprites != null && floorSprites.Length == 1 && floorSprites[0] != null)
+            return floorSprites[0];
+
+        return initialFloorSprite;
+    }
+
+    private SpriteRenderer FindRendererByName(params string[] nameParts)
+    {
+        SpriteRenderer[] renderers = FindObjectsByType<SpriteRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] == null)
+                continue;
+
+            string lowerName = renderers[i].name.ToLowerInvariant();
+            for (int j = 0; j < nameParts.Length; j++)
+            {
+                if (lowerName.Contains(nameParts[j]))
+                    return renderers[i];
+            }
+        }
+
+        return null;
+    }
+
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         TrySyncBackground();
     }
 
-    // 晚進房的玩家，也在加入房間後補檢查一次
     public override void OnJoinedRoom()
     {
         TrySyncBackground();

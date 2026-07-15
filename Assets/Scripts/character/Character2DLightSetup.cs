@@ -1,36 +1,36 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class Character2DLightSetup : MonoBehaviour
 {
-    [Header("Light ±¾ÂI¡]¥i¤£¶ñ¡^")]
+    [Header("Light æ›é»ï¼ˆå¯ä¸å¡«ï¼‰")]
     [SerializeField] private Transform lightAnchor;
 
-    [Header("Light ª«¥ó¦WºÙ")]
+    [Header("Light ç‰©ä»¶åç¨±")]
     [SerializeField] private string lightObjectName = "CharacterLight2D";
 
-    [Header("§Ú¤è / ¼Ä¤èÃC¦â")]
-    [SerializeField] private Color myLightColor = new Color(0.35f, 0.65f, 1f, 0.9f);     // ÂÅ¥ú
-    [SerializeField] private Color enemyLightColor = new Color(1f, 0.35f, 0.35f, 0.9f);  // ¬õ¥ú
+    [Header("æˆ‘æ–¹ / æ•µæ–¹é¡è‰²")]
+    [SerializeField] private Color myLightColor = new Color(0.35f, 0.65f, 1f, 0.9f);     // è—å…‰
+    [SerializeField] private Color enemyLightColor = new Color(1f, 0.35f, 0.35f, 0.9f);  // ç´…å…‰
 
-    [Header("Light ±j«×")]
+    [Header("Light å¼·åº¦")]
     [SerializeField] private float myIntensity = 0.8f;
     [SerializeField] private float enemyIntensity = 0.8f;
 
-    [Header("Light ¥b®|")]
+    [Header("Light åŠå¾‘")]
     [SerializeField] private float pointLightOuterRadius = 2.2f;
     [SerializeField] private float pointLightInnerRadius = 0.8f;
     [SerializeField] private float falloffIntensity = 0.5f;
 
-    [Header("¦ì¸m°¾²¾")]
+    [Header("ä½ç½®åç§»")]
     [SerializeField] private Vector3 localOffset = new Vector3(0f, 0.8f, 0f);
 
-    [Header("Sorting Layer¡]¥i¿ï¡^")]
+    [Header("Sorting Layerï¼ˆå¯é¸ï¼‰")]
     [SerializeField] private bool useTargetSortingLayers = false;
     [SerializeField] private int[] targetSortingLayerIDs;
 
-    [Header("«Ø¥ß®É¦Û°Ê®M¥Î")]
+    [Header("å»ºç«‹æ™‚è‡ªå‹•å¥—ç”¨")]
     [SerializeField] private bool applyOnStart = true;
 
     private Light2D runtimeLight;
@@ -75,10 +75,28 @@ public class Character2DLightSetup : MonoBehaviour
         runtimeLight.pointLightInnerRadius = pointLightInnerRadius;
         runtimeLight.falloffIntensity = falloffIntensity;
 
-        //if (useTargetSortingLayers && targetSortingLayerIDs != null && targetSortingLayerIDs.Length > 0)
-            //runtimeLight.SetTargetSortingLayers(targetSortingLayerIDs);
+        ApplyTargetSortingLayers();
 
         ApplyOwnerColor();
+    }
+
+    private void ApplyTargetSortingLayers()
+    {
+        if (!useTargetSortingLayers ||
+            targetSortingLayerIDs == null ||
+            targetSortingLayerIDs.Length == 0 ||
+            runtimeLight == null)
+        {
+            return;
+        }
+
+        System.Reflection.MethodInfo method = typeof(Light2D).GetMethod(
+            "SetTargetSortingLayers",
+            new System.Type[] { typeof(int[]) }
+        );
+
+        if (method != null)
+            method.Invoke(runtimeLight, new object[] { targetSortingLayerIDs });
     }
 
     [ContextMenu("Apply Owner Color")]
@@ -107,7 +125,7 @@ public class Character2DLightSetup : MonoBehaviour
 
         if (cachedPhotonView == null)
         {
-            Debug.LogWarning($"{name}: §ä¤£¨ì PhotonView¡A¹w³]·í¦¨¼Ä¤è¬õ¥ú");
+            Debug.LogWarning($"{name}: æ‰¾ä¸åˆ° PhotonViewï¼Œé è¨­ç•¶æˆæ•µæ–¹ç´…å…‰");
             return false;
         }
 
