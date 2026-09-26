@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject dragPrefab;
 
-    [Header("行動資料")]
+    [Header("Action Data")]
     [SerializeField] private ActionData actionData;
     [SerializeField] private ActionType actionType = ActionType.None;
 
@@ -20,7 +20,11 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     private CanvasGroup draggingCanvasGroup;
     private CanvasGroup sourceCanvasGroup;
     private Graphic[] graphics;
+    private ActionButtonView buttonView;
     private bool dragBlockedThisTime = false;
+    private bool showingHoverRange;
+    private bool pointerInside;
+    private PaletteInteractionFeedback interactionFeedback;
 
     private void Awake()
     {
@@ -32,25 +36,40 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             sourceCanvasGroup = gameObject.AddComponent<CanvasGroup>();
 
         graphics = GetComponentsInChildren<Graphic>(true);
+        buttonView = GetComponent<ActionButtonView>();
+        if (buttonView == null)
+            buttonView = GetComponentInChildren<ActionButtonView>(true);
+
+        if (buttonView == null)
+            buttonView = gameObject.AddComponent<ActionButtonView>();
+        interactionFeedback = PaletteInteractionFeedback.Ensure(this);
     }
 
     public void Init(ActionData data)
     {
         actionData = data;
 
-        // 不信任 prefab 原本序列化的 actionType，強制依 data 決定
-        if (data is UltimateActionData)
+        // Force the action type from data instead of trusting prefab serialization.
+        actionType = data != null ? data.actionType : ActionType.None;
+        if (actionType == ActionType.None && data is UltimateActionData)
             actionType = ActionType.Ultimate;
-        else
-            actionType = data != null ? data.actionType : ActionType.None;
 
-        // 同步自己身上的 ActionDragData
+        if (data != null && data.sourcePrefab != null)
+            dragPrefab = data.sourcePrefab;
+
+        // Sync the ActionDragData on this object.
         ActionDragData selfDragData = GetComponent<ActionDragData>();
         if (selfDragData == null)
             selfDragData = GetComponentInChildren<ActionDragData>(true);
 
         if (selfDragData != null)
             selfDragData.actionType = actionType;
+
+        if (buttonView == null)
+            buttonView = GetComponentInChildren<ActionButtonView>(true);
+
+        if (buttonView != null)
+            buttonView.Bind(data);
 
         Debug.Log($"ActionDragSource.Init -> {gameObject.name}, final actionType={actionType}, dataType={(data != null ? data.GetType().Name : "NULL")}", this);
     }
@@ -70,12 +89,21 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         return actionType;
     }
 
+    private void OnDisable()
+    {
+        pointerInside = false;
+        ClearHoveredAttackRange();
+    }
+
+    private void OnDestroy()
+    {
+        pointerInside = false;
+        ClearHoveredAttackRange();
+    }
+
     private bool IsUltimateAction()
     {
         if (actionType == ActionType.Ultimate)
-            return true;
-
-        if (actionData is UltimateActionData)
             return true;
 
         if (actionData != null && actionData.actionType == ActionType.Ultimate)
@@ -90,7 +118,7 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
         return false;
     }
-    private bool CanStartNow()
+    private bool CanUseAsActualAction()
     {
         if (!GlobalDragEnabled)
             return false;
@@ -98,48 +126,55 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         if (actionData == null)
             return false;
 
-        // 非大招直接可用
-        if (!IsUltimateAction())
-            return true;
+        if (TurnPlanningManager.Instance == null)
+            return !IsUltimateAction();
+
+        return TurnPlanningManager.Instance.CanDragOrPlaceAction(actionData);
+    }
+
+    private bool CanStartDragNow()
+    {
+        if (!GlobalDragEnabled)
+            return false;
+
+        if (actionData == null)
+            return false;
 
         if (TurnPlanningManager.Instance == null)
-            return false;
+            return !IsUltimateAction();
 
-        // 這裡不要再呼叫 CanDragOrPlaceAction，避免每幀刷 log
-        if (!TurnPlanningManager.Instance.CanUseUltimate())
-            return false;
-
-        if (TurnPlanningManager.Instance.HasQueuedUltimate())
-            return false;
-
-        return true;
+        return TurnPlanningManager.Instance.CanStartActionPaletteDrag(actionData);
     }
     private void Update()
     {
         if (sourceCanvasGroup == null)
             return;
 
-        bool canUse = true;
+        bool canUse = CanUseAsActualAction();
+        bool canDrag = CanStartDragNow();
+        interactionFeedback.SetAvailability(canUse, canDrag);
+        bool cooldown = TurnPlanningManager.Instance != null && TurnPlanningManager.Instance.IsActionOnCooldown(actionData);
+        bool used = TurnPlanningManager.Instance != null && TurnPlanningManager.Instance.IsActionUsed(actionData);
 
-        if (IsUltimateAction())
-        {
-            canUse = CanStartNow();
-            sourceCanvasGroup.alpha = canUse ? 1f : 0.4f;
-        }
-        else
-        {
-            sourceCanvasGroup.alpha = 1f;
-        }
+        if (showingHoverRange && !canDrag)
+            ClearHoveredAttackRange();
+        else if (pointerInside && canDrag && !showingHoverRange)
+            TryShowHoveredAttackRange();
 
-        sourceCanvasGroup.blocksRaycasts = canUse;
-        sourceCanvasGroup.interactable = canUse;
+        sourceCanvasGroup.alpha = canUse ? 1f : 0.4f;
+
+        sourceCanvasGroup.blocksRaycasts = canDrag;
+        sourceCanvasGroup.interactable = canDrag;
+
+        if (buttonView != null)
+            buttonView.SetAvailability(canUse, cooldown, used);
 
         if (graphics != null)
         {
             for (int i = 0; i < graphics.Length; i++)
             {
                 if (graphics[i] != null)
-                    graphics[i].raycastTarget = canUse;
+                    graphics[i].raycastTarget = canDrag;
             }
         }
     }
@@ -176,11 +211,13 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         if (eventData.button != PointerEventData.InputButton.Left)
             return;
 
-        if (!CanStartNow())
+        if (!CanUseAsActualAction())
             return;
 
         if (canvas == null)
             return;
+
+       
 
         GameObject obj = CreateDraggedObject();
         if (obj == null)
@@ -208,11 +245,23 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         Destroy(obj);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        pointerInside = true;
+        TryShowHoveredAttackRange();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        pointerInside = false;
+        ClearHoveredAttackRange();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         dragBlockedThisTime = false;
 
-        if (!CanStartNow())
+        if (!CanStartDragNow())
         {
             dragBlockedThisTime = true;
             return;
@@ -225,6 +274,8 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         if (draggingObject == null)
             return;
 
+        
+
         draggingRect = draggingObject.GetComponent<RectTransform>();
         draggingCanvasGroup = draggingObject.GetComponent<CanvasGroup>();
 
@@ -236,27 +287,19 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         draggingCanvasGroup.alpha = 0.85f;
         draggingCanvasGroup.blocksRaycasts = false;
 
-        RectTransform sourceRect = GetComponent<RectTransform>();
         if (draggingRect != null)
         {
             draggingRect.localScale = Vector3.one;
             draggingRect.localRotation = Quaternion.identity;
 
-            float width = 100f;
-            float height = 100f;
-
-            if (sourceRect != null)
-            {
-                if (sourceRect.rect.width > 0) width = sourceRect.rect.width;
-                if (sourceRect.rect.height > 0) height = sourceRect.rect.height;
-            }
+            Vector2 dragSize = ActionDragData.ResolveDragSize(draggingObject);
 
             draggingRect.anchorMin = new Vector2(0.5f, 0.5f);
             draggingRect.anchorMax = new Vector2(0.5f, 0.5f);
             draggingRect.pivot = new Vector2(0.5f, 0.5f);
 
-            draggingRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-            draggingRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+            draggingRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, dragSize.x);
+            draggingRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, dragSize.y);
         }
 
         UpdateDraggedPosition(eventData);
@@ -273,6 +316,10 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        interactionFeedback.ResetVisuals();
+        pointerInside = false;
+        ClearHoveredAttackRange();
+
         if (dragBlockedThisTime)
         {
             dragBlockedThisTime = false;
@@ -317,4 +364,32 @@ public class ActionDragSource : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             draggingRect.localPosition = localPoint;
         }
     }
+
+    private void TryShowHoveredAttackRange()
+    {
+        if (!CanStartDragNow())
+        {
+            ClearHoveredAttackRange();
+            return;
+        }
+
+        TurnPlanningManager manager = TurnPlanningManager.Instance;
+        if (manager == null)
+            return;
+
+        showingHoverRange = manager.ShowHoveredAttackRange(actionData);
+    }
+
+    private void ClearHoveredAttackRange()
+    {
+        if (!showingHoverRange)
+            return;
+
+        TurnPlanningManager manager = TurnPlanningManager.Instance;
+        if (manager != null)
+            manager.ClearHoveredAttackRange(actionData);
+
+        showingHoverRange = false;
+    }
+
 }

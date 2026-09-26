@@ -1,9 +1,12 @@
-﻿using Photon.Pun;
+using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterUnit : MonoBehaviourPun
 {
-    [Header("角色資料")]
+    private static readonly List<CharacterUnit> ActiveUnits = new List<CharacterUnit>();
+
+    [Header("Character Data")]
     public string className;
     public string skinName;
 
@@ -11,23 +14,41 @@ public class CharacterUnit : MonoBehaviourPun
     public int currentHP;
     public int slotCount;
 
-    [Header("蓄力狀態")]
+    [Header("Heavy Charge State")]
     public bool isChargingHeavy = false;
     public int heavyReleaseTurn = -1;
 
-    [Header("可選：手動指定 Animator，不指定就自動抓")]
+    [Header("Animator Override")]
     [SerializeField] private Animator animatorOverride;
 
     private DirectionalHealthBarUI healthBarUI;
     private Animator cachedAnimator;
+    private Collider2D[] cachedBodyColliders;
 
     private void Awake()
     {
         cachedAnimator = GetAnimator();
+        CacheBodyColliders();
+    }
+
+    private void OnEnable()
+    {
+        RegisterNonPushingBodyCollision();
+    }
+
+    private void OnDisable()
+    {
+        ActiveUnits.Remove(this);
+    }
+
+    private void OnDestroy()
+    {
+        ActiveUnits.Remove(this);
     }
 
     private void Start()
     {
+        RegisterNonPushingBodyCollision();
         RegisterToTurnPlanningManager();
     }
 
@@ -42,7 +63,7 @@ public class CharacterUnit : MonoBehaviourPun
         BindHPBarByOwner();
         UpdateHPBar();
 
-        Debug.Log($"初始化角色: {className}, Skin={skinName}, HP={maxHP}, Slots={slotCount}");
+        Debug.Log($"Initialized character: {className}, Skin={skinName}, HP={maxHP}, Slots={slotCount}");
     }   
 
     private void RegisterToTurnPlanningManager()
@@ -54,7 +75,72 @@ public class CharacterUnit : MonoBehaviourPun
         }
         else
         {
-            Debug.LogWarning("CharacterUnit: 找不到 TurnPlanningManager，無法自動註冊角色");
+            Debug.LogWarning("CharacterUnit: TurnPlanningManager not found; cannot auto-register character.");
+        }
+    }
+
+    private void RegisterNonPushingBodyCollision()
+    {
+        PruneInactiveUnits();
+
+        if (!ActiveUnits.Contains(this))
+            ActiveUnits.Add(this);
+
+        for (int i = 0; i < ActiveUnits.Count; i++)
+        {
+            CharacterUnit other = ActiveUnits[i];
+            if (other == null || other == this || !other.isActiveAndEnabled)
+                continue;
+
+            IgnoreBodyCollisionWith(other);
+        }
+    }
+
+    private void IgnoreBodyCollisionWith(CharacterUnit other)
+    {
+        Collider2D[] myColliders = GetBodyColliders();
+        Collider2D[] otherColliders = other.GetBodyColliders();
+
+        for (int i = 0; i < myColliders.Length; i++)
+        {
+            Collider2D myCollider = myColliders[i];
+            if (myCollider == null)
+                continue;
+
+            for (int j = 0; j < otherColliders.Length; j++)
+            {
+                Collider2D otherCollider = otherColliders[j];
+                if (otherCollider == null || otherCollider == myCollider)
+                    continue;
+
+                Physics2D.IgnoreCollision(myCollider, otherCollider, true);
+            }
+        }
+    }
+
+    private Collider2D[] GetBodyColliders()
+    {
+        if (cachedBodyColliders == null || cachedBodyColliders.Length == 0)
+            CacheBodyColliders();
+
+        return cachedBodyColliders;
+    }
+
+    private void CacheBodyColliders()
+    {
+        Collider2D rootCollider = GetComponent<Collider2D>();
+        cachedBodyColliders = rootCollider != null
+            ? new[] { rootCollider }
+            : GetComponentsInChildren<Collider2D>(true);
+    }
+
+    private static void PruneInactiveUnits()
+    {
+        for (int i = ActiveUnits.Count - 1; i >= 0; i--)
+        {
+            CharacterUnit unit = ActiveUnits[i];
+            if (unit == null || !unit.isActiveAndEnabled)
+                ActiveUnits.RemoveAt(i);
         }
     }
 
@@ -83,13 +169,13 @@ public class CharacterUnit : MonoBehaviourPun
     {
         if (BattleUIManager.Instance == null)
         {
-            Debug.LogWarning("BattleUIManager.Instance 為空，無法綁定血條");
+            Debug.LogWarning("BattleUIManager.Instance is null; cannot bind health bar.");
             return;
         }
 
         if (photonView == null || photonView.Owner == null)
         {
-            Debug.LogWarning("PhotonView 或 Owner 為空，無法綁定血條");
+            Debug.LogWarning("PhotonView or Owner is null; cannot bind health bar.");
             return;
         }
 
@@ -99,6 +185,8 @@ public class CharacterUnit : MonoBehaviourPun
 
     public void TakeDamage(int damage)
     {
+        if (damage > 0)
+            GetComponent<CharacterShaderFeedback>()?.FlashHit();
         currentHP -= damage;
         if (currentHP < 0)
             currentHP = 0;

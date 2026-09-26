@@ -1,36 +1,36 @@
-﻿using Photon.Pun;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class Character2DLightSetup : MonoBehaviour
 {
-    [Header("Light 掛點（可不填）")]
+    [Header("Optional Light Anchor")]
     [SerializeField] private Transform lightAnchor;
 
-    [Header("Light 物件名稱")]
+    [Header("Light Object Name")]
     [SerializeField] private string lightObjectName = "CharacterLight2D";
 
-    [Header("我方 / 敵方顏色")]
-    [SerializeField] private Color myLightColor = new Color(0.35f, 0.65f, 1f, 0.9f);     // 藍光
-    [SerializeField] private Color enemyLightColor = new Color(1f, 0.35f, 0.35f, 0.9f);  // 紅光
+    [Header("Ally / Enemy Colors")]
+    [SerializeField] private Color myLightColor = new Color(0.35f, 0.65f, 1f, 0.9f);     // Blue light
+    [SerializeField] private Color enemyLightColor = new Color(1f, 0.35f, 0.35f, 0.9f);  // Red light
 
-    [Header("Light 強度")]
+    [Header("Light Intensity")]
     [SerializeField] private float myIntensity = 0.8f;
     [SerializeField] private float enemyIntensity = 0.8f;
 
-    [Header("Light 半徑")]
+    [Header("Light Radius")]
     [SerializeField] private float pointLightOuterRadius = 2.2f;
     [SerializeField] private float pointLightInnerRadius = 0.8f;
     [SerializeField] private float falloffIntensity = 0.5f;
 
-    [Header("位置偏移")]
+    [Header("Position Offset")]
     [SerializeField] private Vector3 localOffset = new Vector3(0f, 0.8f, 0f);
 
-    [Header("Sorting Layer（可選）")]
+    [Header("Optional Sorting Layer")]
     [SerializeField] private bool useTargetSortingLayers = false;
     [SerializeField] private int[] targetSortingLayerIDs;
 
-    [Header("建立時自動套用")]
+    [Header("Apply On Awake")]
     [SerializeField] private bool applyOnStart = true;
 
     private Light2D runtimeLight;
@@ -125,7 +125,7 @@ public class Character2DLightSetup : MonoBehaviour
 
         if (cachedPhotonView == null)
         {
-            Debug.LogWarning($"{name}: 找不到 PhotonView，預設當成敵方紅光");
+            Debug.LogWarning($"{name}: PhotonView not found; defaulting to enemy red light.");
             return false;
         }
 

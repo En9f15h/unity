@@ -104,3 +104,13 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local development backups, validation projects and player statistics
+/CodexBackups/
+/CodexLogs/
+/CodexUnityBatchProject/
+/ShaderProbeResults/
+/Statistics/
+/.savegame/
+/.codex/
+/UpgradeLog.htm

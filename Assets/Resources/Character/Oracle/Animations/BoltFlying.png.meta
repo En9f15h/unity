@@ -1,0 +1,693 @@
+fileFormatVersion: 2
+guid: 05df50f6d3f848841949e759f5d6d034
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3615424757819507570
+    second: BoltFlying_0
+  - first:
+      213: -6196282641818516261
+    second: BoltFlying_1
+  - first:
+      213: 4787158217686958394
+    second: BoltFlying_2
+  - first:
+      213: -5649330879677704377
+    second: BoltFlying_3
+  - first:
+      213: -7322270895233634493
+    second: BoltFlying_4
+  - first:
+      213: -2341296058853461706
+    second: BoltFlying_5
+  - first:
+      213: 3688361713572225025
+    second: BoltFlying_6
+  - first:
+      213: -1355013251748218366
+    second: BoltFlying_7
+  - first:
+      213: -1404276015602942950
+    second: BoltFlying_8
+  - first:
+      213: -3887053320009372165
+    second: BoltFlying_9
+  - first:
+      213: 6441650157660981374
+    second: BoltFlying_10
+  - first:
+      213: 9187289981525077501
+    second: BoltFlying_11
+  - first:
+      213: 3102071797695949339
+    second: BoltFlying_12
+  - first:
+      213: 3146469828240860666
+    second: BoltFlying_13
+  - first:
+      213: 6641744931465959021
+    second: BoltFlying_14
+  - first:
+      213: -572620893785008021
+    second: BoltFlying_15
+  - first:
+      213: -1749822098717748262
+    second: BoltFlying_16
+  - first:
+      213: 7573494848320091106
+    second: BoltFlying_17
+  - first:
+      213: 4235905183813100977
+    second: BoltFlying_18
+  - first:
+      213: 3276655534967843300
+    second: BoltFlying_19
+  - first:
+      213: 5365312145037345166
+    second: BoltFlying_20
+  - first:
+      213: -6352655997181045425
+    second: BoltFlying_21
+  - first:
+      213: 2648880455047358878
+    second: BoltFlying_22
+  - first:
+      213: -8725927354627715733
+    second: BoltFlying_23
+  - first:
+      213: 208629547854869623
+    second: BoltFlying_24
+  - first:
+      213: 1163429986429075543
+    second: BoltFlying_25
+  - first:
+      213: -4994359787206565536
+    second: BoltFlying_26
+  - first:
+      213: -4862942520636938878
+    second: BoltFlying_27
+  - first:
+      213: 4587559000956901765
+    second: BoltFlying_28
+  - first:
+      213: 2796009483922064140
+    second: BoltFlying_29
+  - first:
+      213: -6449845930757511732
+    second: BoltFlying_30
+  - first:
+      213: 1788021272186401921
+    second: BoltFlying_31
+  - first:
+      213: 4343117024123711734
+    second: BoltFlying_32
+  - first:
+      213: 2653886851576206298
+    second: BoltFlying_33
+  - first:
+      213: -5482631393072563971
+    second: BoltFlying_34
+  - first:
+      213: 8728866474129492769
+    second: BoltFlying_35
+  - first:
+      213: 1329738786262502961
+    second: BoltFlying_36
+  - first:
+      213: 1315195923745469917
+    second: BoltFlying_37
+  - first:
+      213: -1011501590632811108
+    second: BoltFlying_38
+  - first:
+      213: 3361461619375749108
+    second: BoltFlying_39
+  - first:
+      213: 6248377750618854443
+    second: BoltFlying_40
+  - first:
+      213: 8953603330250668111
+    second: BoltFlying_41
+  - first:
+      213: 1793551087586205420
+    second: BoltFlying_42
+  - first:
+      213: -4100398685837101978
+    second: BoltFlying_43
+  - first:
+      213: -837041076403182040
+    second: BoltFlying_44
+  - first:
+      213: -3980522610151688509
+    second: BoltFlying_45
+  - first:
+      213: -6542119601697522276
+    second: BoltFlying_46
+  - first:
+      213: 510211907313282537
+    second: BoltFlying_47
+  - first:
+      213: -3617492725428018104
+    second: BoltFlying_48
+  - first:
+      213: -5324884961637359224
+    second: BoltFlying_49
+  - first:
+      213: 1538412056678660410
+    second: BoltFlying_50
+  - first:
+      213: -5517990973487519280
+    second: BoltFlying_51
+  - first:
+      213: 3618003636337881779
+    second: BoltFlying_52
+  - first:
+      213: 2008124236480381407
+    second: BoltFlying_53
+  - first:
+      213: -616378734354144667
+    second: BoltFlying_54
+  - first:
+      213: -6743757352867940592
+    second: BoltFlying_55
+  - first:
+      213: 908963368159970123
+    second: BoltFlying_56
+  - first:
+      213: 1306610310729902771
+    second: BoltFlying_57
+  - first:
+      213: -8309874236128681252
+    second: BoltFlying_58
+  - first:
+      213: -4658430883813986353
+    second: BoltFlying_59
+  - first:
+      213: 2969182270995166498
+    second: BoltFlying_60
+  - first:
+      213: 2871554124573133786
+    second: BoltFlying_61
+  - first:
+      213: 4671325921309350272
+    second: BoltFlying_62
+  - first:
+      213: -3824724659763215288
+    second: BoltFlying_63
+  - first:
+      213: -852675269612596116
+    second: BoltFlying_64
+  - first:
+      213: 101680080891733003
+    second: BoltFlying_65
+  - first:
+      213: 8667156798163307311
+    second: BoltFlying_66
+  - first:
+      213: 8225973602513662220
+    second: BoltFlying_67
+  - first:
+      213: -6449978771551496846
+    second: BoltFlying_68
+  - first:
+      213: 306355976050271539
+    second: BoltFlying_69
+  - first:
+      213: 2452472626219199948
+    second: BoltFlying_70
+  - first:
+      213: 3438624436262394427
+    second: BoltFlying_71
+  - first:
+      213: 7339327543820100578
+    second: BoltFlying_72
+  - first:
+      213: -4781464640849923584
+    second: BoltFlying_73
+  - first:
+      213: 8025668417525014204
+    second: BoltFlying_74
+  - first:
+      213: 2992564170434047864
+    second: BoltFlying_75
+  - first:
+      213: 3694477309332847627
+    second: BoltFlying_76
+  - first:
+      213: -2353162327129862749
+    second: BoltFlying_77
+  - first:
+      213: -1362565199682893629
+    second: BoltFlying_78
+  - first:
+      213: 4234044154386868731
+    second: BoltFlying_79
+  - first:
+      213: -7324898278395576027
+    second: BoltFlying_80
+  - first:
+      213: 8545075178384265239
+    second: BoltFlying_81
+  - first:
+      213: -4990572745969550619
+    second: BoltFlying_82
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BoltFlying_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 313
+        width: 239
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 114.96484, y: -12.958994}
+        - {x: 114.96484, y: -3.4187303}
+        - {x: 113.9043, y: -2.358701}
+        - {x: 84.208984, y: 15.661797}
+        - {x: 82.08789, y: 15.661797}
+        - {x: 72.54297, y: 32.622265}
+        - {x: 66.17969, y: 34.742325}
+        - {x: 65.11914, y: 32.622265}
+        - {x: 14.212892, y: 41.1025}
+        - {x: -6.998046, y: 34.742325}
+        - {x: -17.603514, y: 29.442177}
+        - {x: 9.970704, y: 45.342617}
+        - {x: 6.789063, y: 48.522705}
+        - {x: 0.425782, y: 49.582733}
+        - {x: -23.966795, y: 49.582733}
+        - {x: -116.234375, y: -12.958994}
+        - {x: -116.234375, y: -54}
+        - {x: 92.69336, y: -54}
+      physicsShape: []
+      tessellationDetail: 0.067
+      bones: []
+      spriteID: e8cf30e865e63ddc0800000000000000
+      internalID: -3615424757819507570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_1
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 310
+        width: 238
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 116.54005, y: -13.308919}
+        - {x: 116.54005, y: 0.471462}
+        - {x: 61.39161, y: 52.412895}
+        - {x: 53.96778, y: 33.33237}
+        - {x: 15.788095, y: 56.653015}
+        - {x: -57.389637, y: 56.653015}
+        - {x: -69.05566, y: 28.032223}
+        - {x: -118.90135, y: 19.551989}
+        - {x: -118.90135, y: -1.6485965}
+        - {x: -106.1748, y: -29.209358}
+        - {x: -75.41894, y: -40.86968}
+        - {x: 8.364267, y: -54.650063}
+        - {x: 61.39161, y: -54.650063}
+      physicsShape: []
+      tessellationDetail: 0.067
+      bones: []
+      spriteID: bd40d7e34c1620aa0800000000000000
+      internalID: -6196282641818516261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_2
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 295
+        width: 261
+        height: 145
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 25.25686, y: -70.71011}
+        - {x: 67.678734, y: -59.04979}
+        - {x: 107.979515, y: -29.36897}
+        - {x: 129.19046, y: -8.168385}
+        - {x: 129.19046, y: 2.431908}
+        - {x: 74.042015, y: 45.89311}
+        - {x: 29.499048, y: 57.553432}
+        - {x: -19.286106, y: 55.433372}
+        - {x: -86.100555, y: 71.33381}
+        - {x: -90.34274, y: 71.33381}
+        - {x: -94.58493, y: 68.153725}
+        - {x: -115.79587, y: 23.632494}
+        - {x: -115.79587, y: 10.912143}
+        - {x: -114.73532, y: 9.852113}
+        - {x: -114.73532, y: -2.2322145}
+        - {x: -116.856415, y: -1.8082092}
+        - {x: -125.34079, y: -1.8082092}
+        - {x: -128.52243, y: -6.0483265}
+        - {x: -128.52243, y: -10.288444}
+        - {x: -122.15915, y: -13.468532}
+        - {x: -112.80706, y: -13.468532}
+        - {x: -110.49313, y: -19.828707}
+        - {x: -102.00876, y: -71.77014}
+        - {x: -94.58493, y: -72.5}
+        - {x: 14.651393, y: -72.5}
+      - - {x: 50.709988, y: -48.449497}
+        - {x: 52.83108, y: -47.38947}
+        - {x: 50.709988, y: -49.509525}
+        - {x: 47.239113, y: -50.37682}
+      - - {x: 45.937527, y: -51.09957}
+        - {x: 43.28616, y: -53.749645}
+        - {x: 41.165066, y: -53.749645}
+      physicsShape: []
+      tessellationDetail: 0.067
+      bones: []
+      spriteID: a31c2d819076f6240800000000000000
+      internalID: 4787158217686958394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_3
+      rect:
+        serializedVersion: 2
+        x: 827
+        y: 281
+        width: 253
+        height: 161
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 55.982426, y: -56.089325}
+        - {x: 59.164066, y: -44.429}
+        - {x: 66.5879, y: -51.849205}
+        - {x: 72.95118, y: -45.48903}
+        - {x: 124.91797, y: -2.0278301}
+        - {x: 124.91797, y: 17.052696}
+        - {x: 79.31446, y: 80.5}
+        - {x: -109.46288, y: 80.5}
+        - {x: -126.43163, y: 61.57393}
+        - {x: -126.43163, y: -80.46999}
+        - {x: 23.105474, y: -80.46999}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7475a221f7b8991b0800000000000000
+      internalID: -5649330879677704377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_4
+      rect:
+        serializedVersion: 2
+        x: 1094
+        y: 276
+        width: 267
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 87.0108, y: -73.80965}
+        - {x: 129.43268, y: -17.628098}
+        - {x: 129.43268, y: 3.5724876}
+        - {x: 80.64752, y: 52.333836}
+        - {x: 8.5303335, y: 85.19474}
+        - {x: -111.31146, y: 85.19474}
+        - {x: -133.5, y: -5.3721924}
+        - {x: -111.31146, y: -81.22986}
+        - {x: -107.069275, y: -84.40994}
+        - {x: 25.499083, y: -84.40994}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34fea647a61126a90800000000000000
+      internalID: -7322270895233634493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_5
+      rect:
+        serializedVersion: 2
+        x: 1369
+        y: 288
+        width: 264
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 68.76958, y: -53.329422}
+        - {x: 121.79692, y: -22.588575}
+        - {x: 121.79692, y: 35.713036}
+        - {x: 65.58794, y: 67.513916}
+        - {x: -85.00972, y: 67.513916}
+        - {x: -118.94722, y: 18.752567}
+        - {x: -118.94722, y: -40.609074}
+        - {x: -93.494095, y: -68.16983}
+        - {x: 31.650436, y: -68.16983}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6317402a3ab028fd0800000000000000
+      internalID: -2341296058853461706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_6
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 271
+        width: 272
+        height: 155
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 81.48048, y: -45.418736}
+        - {x: 126.023445, y: 10.762816}
+        - {x: 126.023445, y: 27.723286}
+        - {x: 100.57032, y: 68.004395}
+        - {x: -123.20507, y: 68.004395}
+        - {x: -123.20507, y: 26.663256}
+        - {x: -115.04834, y: -77.5}
+        - {x: -51.087883, y: -65.55929}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 100af9ccf61bf2330800000000000000
+      internalID: 3688361713572225025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoltFlying_7
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 270
+        width: 258
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: -39.224567, y: -88.289894}
+        - {x: 71.0723, y: -44.828697}
+        - {x: 119.85746, y: -11.967788}
+        - {x: 119.85746, y: 3.932651}
+        - {x: 67.89066, y: 45.273792}
+        - {x: 12.742228, y: 47.393852}
+        - {x: -63.617146, y: 90.85505}
+        - {x: -116.64449, y: 90.85505}
+        - {x: -116.64449, y: 85.55491}
+        - {x: -115.58395, y: 84.49487}
+        - {x: -116.64449, y: 81.31479}
+        - {x: -116.64449, y: -92.530014}
+        - {x: -115.58395, y: -94.65007}
+        - {x: -58.31441, y: -94.65007}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d30e0cf68da1984b9995e4479750982
+      internalID: -1355013251748218366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c84f2529bb31bf94c83fd5f8ad181600
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":272.0,"y":455.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BoltFlying_0: -3615424757819507570
+      BoltFlying_1: -6196282641818516261
+      BoltFlying_2: 4787158217686958394
+      BoltFlying_3: -5649330879677704377
+      BoltFlying_4: -7322270895233634493
+      BoltFlying_5: -2341296058853461706
+      BoltFlying_6: 3688361713572225025
+      BoltFlying_7: -1355013251748218366
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

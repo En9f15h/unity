@@ -8,25 +8,20 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Photon.Pun.UtilityScripts
 {
     /// <summary>
-    /// Event system spawner. Will add an EventSystem GameObject with an EventSystem component and a StandaloneInputModule component.
+    /// Event system spawner. Will add an EventSystem GameObject with a compatible input module.
     /// Use this in additive scene loading context where you would otherwise get a "Multiple EventSystem in scene... this is not supported" error from Unity.
     /// </summary>
     public class EventSystemSpawner : MonoBehaviour
     {
         void OnEnable()
         {
-            #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
-            Debug.LogError("PUN Demos are not compatible with the New Input System, unless you enable \"Both\" in: Edit > Project Settings > Player > Active Input Handling. Pausing App.");
-            Debug.Break();
-            return;
-            #endif
-
             #if UNITY_6000_0_OR_NEWER
             EventSystem sceneEventSystem = FindFirstObjectByType<EventSystem>();
             #else
@@ -37,8 +32,24 @@ namespace Photon.Pun.UtilityScripts
                 GameObject eventSystem = new GameObject("EventSystem");
 
                 eventSystem.AddComponent<EventSystem>();
-                eventSystem.AddComponent<StandaloneInputModule>();
+                AddCompatibleInputModule(eventSystem);
             }
+        }
+
+        static void AddCompatibleInputModule(GameObject eventSystem)
+        {
+            #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+            Type inputSystemUiModule = Type.GetType("UnityEngine.InputSystem.UI.InputSystemUIInputModule, Unity.InputSystem");
+            if (inputSystemUiModule != null)
+            {
+                eventSystem.AddComponent(inputSystemUiModule);
+                return;
+            }
+
+            Debug.LogError("InputSystemUIInputModule was not found. Add an EventSystem with an InputSystemUIInputModule to the scene.");
+            #else
+            eventSystem.AddComponent<StandaloneInputModule>();
+            #endif
         }
     }
 }

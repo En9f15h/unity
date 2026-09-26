@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class BattleUIManager : MonoBehaviour
@@ -24,10 +25,14 @@ public class BattleUIManager : MonoBehaviour
 
         Instance = this;
         ResolveAssignedUI();
+        RefreshPerspectiveLabels();
+        if (GetComponent<ActionUsageMatchHUD>() == null) gameObject.AddComponent<ActionUsageMatchHUD>();
     }
 
     public DirectionalHealthBarUI GetBarByOwner(bool ownerIsMaster)
     {
+        RefreshPerspectiveLabels();
+
         DirectionalHealthBarUI bar = ownerIsMaster ? masterHPBar : clientHPBar;
         if (bar != null)
             bar.ResolveReferences();
@@ -55,6 +60,40 @@ public class BattleUIManager : MonoBehaviour
             sceneEnemyEnergyBar = layout.EnemyEnergyBar;
 
         ResolveAssignedUI();
+        RefreshPerspectiveLabels();
+    }
+
+    public void RefreshPerspectiveLabels()
+    {
+        bool localPlayerIsMaster = IsLocalPlayerMaster();
+
+        // MasterHP / ClientHP 沿用現有 ownerIsMaster 對應，不改變血量同步或戰鬥邏輯。
+        if (masterHPBar != null)
+            masterHPBar.SetPerspectiveLabel(localPlayerIsMaster ? "YOU" : "ENEMY", localPlayerIsMaster);
+
+        if (clientHPBar != null)
+            clientHPBar.SetPerspectiveLabel(localPlayerIsMaster ? "ENEMY" : "YOU", !localPlayerIsMaster);
+    }
+
+    public void SetReadyIndicatorByOwner(bool ownerIsMaster, bool active)
+    {
+        DirectionalHealthBarUI bar = ownerIsMaster ? masterHPBar : clientHPBar;
+        if (bar == null)
+            return;
+
+        bar.ResolveReferences();
+        bar.SetReadyIndicatorActive(active);
+    }
+
+    public void SetReadyIndicators(bool masterReady, bool clientReady)
+    {
+        SetReadyIndicatorByOwner(true, masterReady);
+        SetReadyIndicatorByOwner(false, clientReady);
+    }
+
+    public void HideAllReadyIndicators()
+    {
+        SetReadyIndicators(false, false);
     }
 
     public EnergyBarUI CreateMyEnergyBar(GameObject energyBarPrefab)
@@ -63,6 +102,15 @@ public class BattleUIManager : MonoBehaviour
         {
             Debug.LogWarning("BattleUIManager: myEnergyRoot is not assigned");
             return null;
+        }
+
+        EnergyBarUI existingUi = myEnergyRoot.GetComponent<EnergyBarUI>();
+        if (existingUi != null)
+        {
+            existingUi.gameObject.SetActive(true);
+            existingUi.ResolveReferences();
+            Debug.Log("Using layout-authored my energy bar: " + existingUi.name);
+            return existingUi;
         }
 
         if (energyBarPrefab == null)
@@ -143,5 +191,14 @@ public class BattleUIManager : MonoBehaviour
 
         if (sceneEnemyEnergyBar != null)
             sceneEnemyEnergyBar.ResolveReferences();
+    }
+
+    private bool IsLocalPlayerMaster()
+    {
+        if (PhotonNetwork.LocalPlayer != null)
+            return PhotonNetwork.LocalPlayer.IsMasterClient;
+
+        // Editor 單機測試沒有 Photon LocalPlayer 時，預設左側 MasterHP 是自己。
+        return true;
     }
 }

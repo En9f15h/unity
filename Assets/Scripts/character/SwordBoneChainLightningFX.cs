@@ -3,26 +3,34 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class SwordBoneChainLightningFX : MonoBehaviour
 {
-    [Header("劍身起點 / 終點")]
+    [Header("Sword Start / End Points")]
     [SerializeField] private Transform swordStartPoint;
     [SerializeField] private Transform swordEndPoint;
 
-    [Header("抖動")]
+    [Header("Jitter")]
     [SerializeField] private int pointCount = 6;
     [SerializeField] private float jitter = 0.05f;
+    [SerializeField] private float forwardJitter = 0.015f;
     [SerializeField] private float redrawInterval = 0.03f;
 
-    [Header("生命時間")]
+    [Header("Lifetime")]
     [SerializeField] private float lifeTime = 0.8f;
     [SerializeField] private float fadeOutDuration = 0.25f;
+    [SerializeField] private bool useUnscaledTime = true;
 
-    [Header("是否固定首尾")]
+    [Header("Pin Endpoints")]
     [SerializeField] private bool keepFirstPointStable = true;
     [SerializeField] private bool keepLastPointStable = true;
+
+    [Header("Visual Boost")]
+    [SerializeField] private float alphaFlickerStrength = 0.22f;
+    [SerializeField] private float widthPulseStrength = 0.18f;
+    [SerializeField] private float pulseFrequency = 34f;
 
     private LineRenderer lr;
     private float timer;
     private float redrawTimer;
+    private bool warnedMissingPoints;
 
     private Gradient originalGradient;
     private float originalStartWidth;
@@ -32,6 +40,7 @@ public class SwordBoneChainLightningFX : MonoBehaviour
     {
         swordStartPoint = startPoint;
         swordEndPoint = endPoint;
+        warnedMissingPoints = false;
         GenerateLightning();
     }
 
@@ -49,6 +58,7 @@ public class SwordBoneChainLightningFX : MonoBehaviour
     {
         timer = 0f;
         redrawTimer = 0f;
+        warnedMissingPoints = false;
 
         if (lr == null)
             lr = GetComponent<LineRenderer>();
@@ -60,8 +70,9 @@ public class SwordBoneChainLightningFX : MonoBehaviour
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        redrawTimer += Time.deltaTime;
+        float deltaTime = GetDeltaTime();
+        timer += deltaTime;
+        redrawTimer += deltaTime;
 
         if (redrawTimer >= redrawInterval)
         {
@@ -70,14 +81,17 @@ public class SwordBoneChainLightningFX : MonoBehaviour
         }
 
         float fadeStart = Mathf.Max(0f, lifeTime - fadeOutDuration);
+        float alpha = 1f;
+        float widthScale = 1f;
 
         if (timer >= fadeStart)
         {
             float t = Mathf.InverseLerp(fadeStart, lifeTime, timer);
-            float alpha = Mathf.Lerp(1f, 0f, t);
-            float widthScale = Mathf.Lerp(1f, 0.2f, t);
-            SetVisual(alpha, widthScale);
+            alpha = Mathf.Lerp(1f, 0f, t);
+            widthScale = Mathf.Lerp(1f, 0.2f, t);
         }
+
+        SetVisual(GetFlickeredAlpha(alpha), GetPulsedWidth(widthScale));
 
         if (timer >= lifeTime)
         {
@@ -93,7 +107,13 @@ public class SwordBoneChainLightningFX : MonoBehaviour
         if (swordStartPoint == null || swordEndPoint == null)
         {
             lr.positionCount = 0;
-            Debug.LogWarning("[SwordBoneChainLightningFX] swordStartPoint 或 swordEndPoint 沒指定: " + name, this);
+
+            if (!warnedMissingPoints)
+            {
+                Debug.LogWarning("[SwordBoneChainLightningFX] swordStartPoint or swordEndPoint is not assigned: " + name, this);
+                warnedMissingPoints = true;
+            }
+
             return;
         }
 
@@ -102,6 +122,8 @@ public class SwordBoneChainLightningFX : MonoBehaviour
 
         Vector3 start = swordStartPoint.position;
         Vector3 end = swordEndPoint.position;
+        Vector3 swordDir = (end - start).normalized;
+        Vector3 perpendicular = new Vector3(-swordDir.y, swordDir.x, 0f);
 
         for (int i = 0; i < pointCount; i++)
         {
@@ -114,8 +136,9 @@ public class SwordBoneChainLightningFX : MonoBehaviour
 
             if (!keepStable)
             {
-                pos.x += Random.Range(-jitter, jitter);
-                pos.y += Random.Range(-jitter, jitter);
+                float envelope = Mathf.Sin(t * Mathf.PI);
+                pos += perpendicular * Random.Range(-jitter, jitter) * envelope;
+                pos += swordDir * Random.Range(-forwardJitter, forwardJitter) * envelope;
             }
 
             lr.SetPosition(i, pos);
@@ -124,16 +147,20 @@ public class SwordBoneChainLightningFX : MonoBehaviour
 
     private void SetVisual(float alpha, float widthScale)
     {
+        if (lr == null)
+            return;
+
         Gradient g = new Gradient();
 
         GradientColorKey[] colorKeys = originalGradient.colorKeys;
-        GradientAlphaKey[] alphaKeys = new GradientAlphaKey[originalGradient.alphaKeys.Length];
+        GradientAlphaKey[] sourceAlphaKeys = originalGradient.alphaKeys;
+        GradientAlphaKey[] alphaKeys = new GradientAlphaKey[sourceAlphaKeys.Length];
 
         for (int i = 0; i < alphaKeys.Length; i++)
         {
             alphaKeys[i] = new GradientAlphaKey(
-                originalGradient.alphaKeys[i].alpha * alpha,
-                originalGradient.alphaKeys[i].time
+                sourceAlphaKeys[i].alpha * Mathf.Clamp01(alpha),
+                sourceAlphaKeys[i].time
             );
         }
 
@@ -142,5 +169,27 @@ public class SwordBoneChainLightningFX : MonoBehaviour
 
         lr.startWidth = originalStartWidth * widthScale;
         lr.endWidth = originalEndWidth * widthScale;
+    }
+
+    private float GetFlickeredAlpha(float baseAlpha)
+    {
+        if (alphaFlickerStrength <= 0f)
+            return baseAlpha;
+
+        return Mathf.Clamp01(baseAlpha * Random.Range(1f - alphaFlickerStrength, 1f + alphaFlickerStrength));
+    }
+
+    private float GetPulsedWidth(float baseWidthScale)
+    {
+        if (widthPulseStrength <= 0f)
+            return baseWidthScale;
+
+        float pulse = Mathf.Sin(Time.unscaledTime * pulseFrequency) * widthPulseStrength;
+        return Mathf.Max(0.01f, baseWidthScale * (1f + pulse));
+    }
+
+    private float GetDeltaTime()
+    {
+        return useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
     }
 }

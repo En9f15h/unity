@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTable_id
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: id
+  m_SharedData: {fileID: 11400000, guid: 74bcbce3d26b6ef449e146675fc314d4, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 196255469568
+    m_Localized: Keluar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881660358656
+    m_Localized: Mulai!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23305515749376
+    m_Localized: Kata Sandi (opsional)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23621502029824
+    m_Localized: Nama Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23776011800576
+    m_Localized: Server
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23933419835392
+    m_Localized: Kata Sandi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24057604788224
+    m_Localized: Nama
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24226882703360
+    m_Localized: Daftar Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27620112388096
+    m_Localized: Gabung Acak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27769500913664
+    m_Localized: Buat / Gabung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27977068630016
+    m_Localized: Buat Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28113870049280
+    m_Localized: Gabung Room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28592888926208
+    m_Localized: Gabung Acak hanya memilih room tanpa kata sandi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29415748456448
+    m_Localized: Tampilkan Pilihan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29935712129024
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32341095141376
+    m_Localized: Ejek lawan dan dapat +1 Energi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32550441242624
+    m_Localized: "Hindari serangan rendah/cepat; damage berat \xBD."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32912925577216
+    m_Localized: Bergerak sebelum cek serangan; bisa menghindar atau terkena.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33679145226240
+    m_Localized: Ungkap 1 aksi lawan hingga laga berakhir.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33971504992256
+    m_Localized: Damage -3, kecuali serangan berat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34226413817856
+    m_Localized: Teleport ke belakang lawan lalu berbalik.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34490659164160
+    m_Localized: Menghilang di tempat untuk hindari serangan berat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34968004513792
+    m_Localized: Sihir berat ber-charge; tembus guard ringan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35438840303616
+    m_Localized: Semakin jauh, semakin besar damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35665538240512
+    m_Localized: Jarak 2, damage besar, risiko tinggi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35848435060736
+    m_Localized: Guard kuat; lemah terhadap serangan rendah.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36180397445120
+    m_Localized: Pantulkan serangan; gagal melawan serangan berat.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36395649126400
+    m_Localized: Serangan rendah, damage kecil, pecahkan guard.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36657872818176
+    m_Localized: Damage tinggi, jarak jauh; perlu charge.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36844502568960
+    m_Localized: Serangan dekat cepat; hentikan charge.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000000
+    m_Localized: Petarung jarak dekat seimbang dengan pertahanan dan mobilitas baik.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000001
+    m_Localized: Peramal yang mengatur jarak dan membaca niat lawan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000002
+    m_Localized: 'ROOM: --'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000003
+    m_Localized: 'ROOM: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000004
+    m_Localized: Region tidak tersedia.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000005
+    m_Localized: Mengganti region...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000006
+    m_Localized: Sudah berada di region ini.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000007
+    m_Localized: Menghubungkan...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000008
+    m_Localized: Gagal mengganti region.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000009
+    m_Localized: Region berhasil diganti.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000010
+    m_Localized: Berhasil masuk lobi.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000011
+    m_Localized: Gagal membuat room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000012
+    m_Localized: Kata sandi salah.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000013
+    m_Localized: Gagal bergabung ke room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000014
+    m_Localized: Masukkan nama room.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000015
+    m_Localized: Tidak ada room terbuka.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389117774712832
+    m_Localized: Ksatria
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390464662196224
+    m_Localized: Peramal
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

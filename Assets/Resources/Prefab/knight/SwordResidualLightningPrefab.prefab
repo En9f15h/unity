@@ -4782,7 +4782,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: e635b908dd88b8441a23006cbb77c861, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4845,6 +4845,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2873842470804021631}
+  - component: {fileID: 5576399282356080879}
   m_Layer: 0
   m_Name: SwordResidualLightningPrefab
   m_TagString: Untagged
@@ -4870,6 +4871,19 @@ Transform:
   - {fileID: 6979036139371613616}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5576399282356080879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925881486358111424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243479f6fc1fb940a599a61174a92e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEffectShaderDriver
+  duration: 0.6
 --- !u!1 &4433790965290456142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,11 +4933,16 @@ MonoBehaviour:
   swordEndPoint: {fileID: 0}
   pointCount: 6
   jitter: 0.04
+  forwardJitter: 0.015
   redrawInterval: 0.025
   lifeTime: 0.8
   fadeOutDuration: 0.25
+  useUnscaledTime: 1
   keepFirstPointStable: 1
   keepLastPointStable: 1
+  alphaFlickerStrength: 0.22
+  widthPulseStrength: 0.18
+  pulseFrequency: 34
 --- !u!120 &5656664320366722579
 LineRenderer:
   serializedVersion: 3
@@ -4950,7 +4969,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 69805054351782a4e9588efad98d9556, type: 2}
+  - {fileID: 2100000, guid: 7f2c462ce0573ff4ebeb3f1eb7d25501, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5093,11 +5112,16 @@ MonoBehaviour:
   swordEndPoint: {fileID: 0}
   pointCount: 6
   jitter: 0.05
+  forwardJitter: 0.015
   redrawInterval: 0.03
   lifeTime: 0.8
   fadeOutDuration: 0.25
+  useUnscaledTime: 1
   keepFirstPointStable: 1
   keepLastPointStable: 1
+  alphaFlickerStrength: 0.22
+  widthPulseStrength: 0.18
+  pulseFrequency: 34
 --- !u!120 &109370548360076674
 LineRenderer:
   serializedVersion: 3
@@ -5124,7 +5148,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6fd27573b0feac34ab73804c1bf478e5, type: 2}
+  - {fileID: 2100000, guid: 7f2c462ce0573ff4ebeb3f1eb7d25501, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

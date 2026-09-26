@@ -1,0 +1,608 @@
+fileFormatVersion: 2
+guid: 390f53207b172a04fa2875f9987aa3b1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 277174159503074818
+    second: Fade Evade Animation_0
+  - first:
+      213: 7100457282595975630
+    second: Fade Evade Animation_1
+  - first:
+      213: 9026828710898504772
+    second: Fade Evade Animation_2
+  - first:
+      213: 1915586857677655196
+    second: Fade Evade Animation_3
+  - first:
+      213: -1970220683740430341
+    second: Fade Evade Animation_4
+  - first:
+      213: 3910316509088746423
+    second: Fade Evade Animation_5
+  - first:
+      213: -2898517740530698584
+    second: Fade Evade Animation_6
+  - first:
+      213: 9206499805082337724
+    second: Fade Evade Animation_7
+  - first:
+      213: -3235921486282467576
+    second: Fade Evade Animation_8
+  - first:
+      213: -5138289416527878117
+    second: Fade Evade Animation_9
+  - first:
+      213: -3352492262128986868
+    second: Fade Evade Animation_10
+  - first:
+      213: 7576173338475982456
+    second: Fade Evade Animation_11
+  - first:
+      213: -6021206562868513568
+    second: Fade Evade Animation_12
+  - first:
+      213: -7010043574340791646
+    second: Fade Evade Animation_13
+  - first:
+      213: -2533141610760172911
+    second: Fade Evade Animation_14
+  - first:
+      213: -1099874232210110731
+    second: Fade Evade Animation_15
+  - first:
+      213: -4730031080472727106
+    second: Fade Evade Animation_16
+  - first:
+      213: 6111933312773385995
+    second: Fade Evade Animation_17
+  - first:
+      213: -6197841586156148572
+    second: Fade Evade Animation_18
+  - first:
+      213: -1337901668625706550
+    second: Fade Evade Animation_19
+  - first:
+      213: -7060376768475252400
+    second: Fade Evade Animation_20
+  - first:
+      213: 3870338260226604601
+    second: Fade Evade Animation_21
+  - first:
+      213: 8094475905830633146
+    second: Fade Evade Animation_22
+  - first:
+      213: 9139013065999406449
+    second: Fade Evade Animation_23
+  - first:
+      213: 4975403339002008056
+    second: Fade Evade Animation_24
+  - first:
+      213: -279280140350378791
+    second: Fade Evade Animation_25
+  - first:
+      213: -7598418639371428960
+    second: Fade Evade Animation_26
+  - first:
+      213: -5732557523187870968
+    second: Fade Evade Animation_27
+  - first:
+      213: -7866777280395247326
+    second: Fade Evade Animation_28
+  - first:
+      213: 1100444038226553917
+    second: Fade Evade Animation_29
+  - first:
+      213: -8276412212472879551
+    second: Fade Evade Animation_30
+  - first:
+      213: 1201298416400913703
+    second: Fade Evade Animation_31
+  - first:
+      213: 2796218872210139043
+    second: Fade Evade Animation_32
+  - first:
+      213: 4466220473771419016
+    second: Fade Evade Animation_33
+  - first:
+      213: 5754396007117101068
+    second: Fade Evade Animation_34
+  - first:
+      213: 7811766723579179754
+    second: Fade Evade Animation_35
+  - first:
+      213: -4091628257419731450
+    second: Fade Evade Animation_36
+  - first:
+      213: 1948191451679761107
+    second: Fade Evade Animation_37
+  - first:
+      213: -4397999476535325483
+    second: Fade Evade Animation_38
+  - first:
+      213: -2181191900636216530
+    second: Fade Evade Animation_39
+  - first:
+      213: 94205027487862206
+    second: Fade Evade Animation_40
+  - first:
+      213: -8224874026305727025
+    second: Fade Evade Animation_41
+  - first:
+      213: 4334808587724401962
+    second: Fade Evade Animation_42
+  - first:
+      213: -7332886979801596769
+    second: Fade Evade Animation_43
+  - first:
+      213: 3366460762243243655
+    second: Fade Evade Animation_44
+  - first:
+      213: 3735366273358417940
+    second: Fade Evade Animation_45
+  - first:
+      213: -2837289317081851410
+    second: Fade Evade Animation_46
+  - first:
+      213: -2503580476990498732
+    second: Fade Evade Animation_47
+  - first:
+      213: 7487362367815137677
+    second: Fade Evade Animation_48
+  - first:
+      213: 763936121919151123
+    second: Fade Evade Animation_49
+  - first:
+      213: -7299857523415471514
+    second: Fade Evade Animation_50
+  - first:
+      213: 1336173114042341268
+    second: Fade Evade Animation_51
+  - first:
+      213: -1901820171048670169
+    second: Fade Evade Animation_52
+  - first:
+      213: -4447784324949227620
+    second: Fade Evade Animation_53
+  - first:
+      213: -8244607489154056622
+    second: Fade Evade Animation_54
+  - first:
+      213: 2836693739511229799
+    second: Fade Evade Animation_55
+  - first:
+      213: 2917417394934951612
+    second: Fade Evade Animation_56
+  - first:
+      213: 961023248319157085
+    second: Fade Evade Animation_57
+  - first:
+      213: 915764205491967000
+    second: Fade Evade Animation_58
+  - first:
+      213: 1700323156728621647
+    second: Fade Evade Animation_59
+  - first:
+      213: 8888519799033003117
+    second: Fade Evade Animation_60
+  - first:
+      213: 8476317024757405894
+    second: Fade Evade Animation_61
+  - first:
+      213: 6727153230387577586
+    second: Fade Evade Animation_62
+  - first:
+      213: 5676458753137996734
+    second: Fade Evade Animation_63
+  - first:
+      213: 1805620046604265527
+    second: Fade Evade Animation_64
+  - first:
+      213: 5576964677946838896
+    second: Fade Evade Animation_65
+  - first:
+      213: 2810638251123190028
+    second: Fade Evade Animation_66
+  - first:
+      213: -7220735492649890761
+    second: Fade Evade Animation_67
+  - first:
+      213: -1636914263821025335
+    second: Fade Evade Animation_68
+  - first:
+      213: 5435499792880579993
+    second: Fade Evade Animation_69
+  - first:
+      213: -6501995634021949857
+    second: Fade Evade Animation_70
+  - first:
+      213: -8796721220422027035
+    second: Fade Evade Animation_71
+  - first:
+      213: -4258863031544691290
+    second: Fade Evade Animation_72
+  - first:
+      213: -6405980824841290404
+    second: Fade Evade Animation_73
+  - first:
+      213: 6898567833602746109
+    second: Fade Evade Animation_74
+  - first:
+      213: 1590691595734409114
+    second: Fade Evade Animation_75
+  - first:
+      213: 1696342703781346322
+    second: Fade Evade Animation_76
+  - first:
+      213: -488249511406711636
+    second: Fade Evade Animation_77
+  - first:
+      213: 7542956209563266454
+    second: Fade Evade Animation_78
+  - first:
+      213: -1571789610197956429
+    second: Fade Evade Animation_79
+  - first:
+      213: -7199597236260686473
+    second: Fade Evade Animation_80
+  - first:
+      213: 1519129130623565389
+    second: Fade Evade Animation_81
+  - first:
+      213: 8914638626416592586
+    second: Fade Evade Animation_82
+  - first:
+      213: -8475323403274953161
+    second: Fade Evade Animation_83
+  - first:
+      213: 1398177857871532020
+    second: Fade Evade Animation_84
+  - first:
+      213: 3506453558470648092
+    second: Fade Evade Animation_85
+  - first:
+      213: -4658032482037524282
+    second: Fade Evade Animation_86
+  - first:
+      213: 4022310204451972378
+    second: Fade Evade Animation_87
+  - first:
+      213: -4207781470165075720
+    second: Fade Evade Animation_88
+  - first:
+      213: 2215373397000512647
+    second: Fade Evade Animation_89
+  - first:
+      213: 2237599621241656082
+    second: Fade Evade Animation_90
+  - first:
+      213: 119901498583145519
+    second: Fade Evade Animation_91
+  - first:
+      213: -5130677396949086399
+    second: Fade Evade Animation_92
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fade Evade Animation_0
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 418
+        width: 116
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2062916fd68b8d300800000000000000
+      internalID: 277174159503074818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_1
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 419
+        width: 175
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79e6b4c693e403a498fa6da47d670824
+      internalID: 7100457282595975630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_2
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 422
+        width: 189
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76b83c61363e7c428e4c3f8ebbf1a94
+      internalID: 9026828710898504772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_3
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 421
+        width: 184
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad50d6112d9da66479ac2396e5a226dd
+      internalID: 1915586857677655196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_4
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 431
+        width: 194
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a22f863e608cd3438e7a9cc7d0010c6
+      internalID: -1970220683740430341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_5
+      rect:
+        serializedVersion: 2
+        x: 982
+        y: 443
+        width: 172
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec81cd2ebab643c4388768d6202b5f7c
+      internalID: 3910316509088746423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_6
+      rect:
+        serializedVersion: 2
+        x: 1159
+        y: 444
+        width: 161
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad279f6bcc03eb4dacb1a5ea04a30ba
+      internalID: -2898517740530698584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Evade Animation_7
+      rect:
+        serializedVersion: 2
+        x: 1334
+        y: 450
+        width: 156
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6415b292311ae2c4b9a355a0bde24d77
+      internalID: 9206499805082337724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 0b6d7f2a3e60e6d4fb336e39b60b03c5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1536.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Fade Evade Animation_0: 277174159503074818
+      Fade Evade Animation_1: 7100457282595975630
+      Fade Evade Animation_2: 9026828710898504772
+      Fade Evade Animation_3: 1915586857677655196
+      Fade Evade Animation_4: -1970220683740430341
+      Fade Evade Animation_5: 3910316509088746423
+      Fade Evade Animation_6: -2898517740530698584
+      Fade Evade Animation_7: 9206499805082337724
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

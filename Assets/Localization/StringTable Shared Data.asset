@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: StringTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: StringTable
+  m_TableCollectionNameGuidString: 74bcbce3d26b6ef449e146675fc314d4
+  m_Entries:
+  - m_Id: 196255469568
+    m_Key: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22881660358656
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23305515749376
+    m_Key: Password (optional)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23621502029824
+    m_Key: RoomName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23776011800576
+    m_Key: Server
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23933419835392
+    m_Key: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24057604788224
+    m_Key: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24226882703360
+    m_Key: RoomList
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27620112388096
+    m_Key: RandomJoin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27769500913664
+    m_Key: CreateJoin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 27977068630016
+    m_Key: Ceate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28113870049280
+    m_Key: join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28592888926208
+    m_Key: noPassRandomJoin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29415748456448
+    m_Key: Show Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29935712129024
+    m_Key: SKIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32341095141376
+    m_Key: DanceInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32550441242624
+    m_Key: JumpInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32912925577216
+    m_Key: MoveInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33679145226240
+    m_Key: SightInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33971504992256
+    m_Key: WardInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34226413817856
+    m_Key: ShiftInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34490659164160
+    m_Key: FadeInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34968004513792
+    m_Key: RiftInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35438840303616
+    m_Key: BoltInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35665538240512
+    m_Key: UltimateInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35848435060736
+    m_Key: DefenseInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36180397445120
+    m_Key: ParryInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36395649126400
+    m_Key: LowAttackInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36657872818176
+    m_Key: HeavyAttackInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36844502568960
+    m_Key: LightAttackInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000000
+    m_Key: KnightInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000001
+    m_Key: OracleInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000002
+    m_Key: LobbyRoomsLoading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000003
+    m_Key: LobbyRoomsCount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000004
+    m_Key: LobbyRegionUnavailable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000005
+    m_Key: LobbyChangingRegion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000006
+    m_Key: LobbyAlreadyInRegion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000007
+    m_Key: LobbyConnecting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000008
+    m_Key: LobbyChangeRegionFailed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000009
+    m_Key: LobbyRegionChanged
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000010
+    m_Key: LobbyJoined
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000011
+    m_Key: LobbyCreateRoomFailed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000012
+    m_Key: LobbyWrongPassword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000013
+    m_Key: LobbyJoinRoomFailed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000014
+    m_Key: LobbyEnterRoomName
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37000000000015
+    m_Key: LobbyNoOpenRoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 389117774712832
+    m_Key: Knight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 390464662196224
+    m_Key: Oracle
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2991320957794648346
+  references:
+    version: 2
+    RefIds:
+    - rid: 2991320957794648346
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1787815863119

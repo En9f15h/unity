@@ -1,0 +1,776 @@
+fileFormatVersion: 2
+guid: a9105eb0cfde97743bf0bc740d29d932
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7700507432975461951
+    second: Fade Dissolve Animation_0
+  - first:
+      213: -8714856769754552846
+    second: Fade Dissolve Animation_1
+  - first:
+      213: 6971675321769718326
+    second: Fade Dissolve Animation_2
+  - first:
+      213: 1550962926560318081
+    second: Fade Dissolve Animation_3
+  - first:
+      213: -3154358430124160297
+    second: Fade Dissolve Animation_4
+  - first:
+      213: -1661153336268390310
+    second: Fade Dissolve Animation_5
+  - first:
+      213: -8127960776242231715
+    second: Fade Dissolve Animation_6
+  - first:
+      213: -1955809270371961919
+    second: Fade Dissolve Animation_7
+  - first:
+      213: 1349753882490350054
+    second: Fade Dissolve Animation_8
+  - first:
+      213: 2669242432690253788
+    second: Fade Dissolve Animation_9
+  - first:
+      213: 5952905941236901770
+    second: Fade Dissolve Animation_10
+  - first:
+      213: 258592867412752275
+    second: Fade Dissolve Animation_11
+  - first:
+      213: -8217439594003417464
+    second: Fade Dissolve Animation_12
+  - first:
+      213: -7709306848254088257
+    second: Fade Dissolve Animation_13
+  - first:
+      213: -1549326853328650735
+    second: Fade Dissolve Animation_14
+  - first:
+      213: -8144034632977829160
+    second: Fade Dissolve Animation_15
+  - first:
+      213: 3277720355039998348
+    second: Fade Dissolve Animation_16
+  - first:
+      213: -6614803453155123235
+    second: Fade Dissolve Animation_17
+  - first:
+      213: 1984569143257409642
+    second: Fade Dissolve Animation_18
+  - first:
+      213: 4503017694337415008
+    second: Fade Dissolve Animation_19
+  - first:
+      213: -6052898908119901502
+    second: Fade Dissolve Animation_20
+  - first:
+      213: 1417714648278297093
+    second: Fade Dissolve Animation_21
+  - first:
+      213: -1245669181519921263
+    second: Fade Dissolve Animation_22
+  - first:
+      213: 3965012954710578281
+    second: Fade Dissolve Animation_23
+  - first:
+      213: 851295788533765922
+    second: Fade Dissolve Animation_24
+  - first:
+      213: 7901902571704281125
+    second: Fade Dissolve Animation_25
+  - first:
+      213: -8668300338409127453
+    second: Fade Dissolve Animation_26
+  - first:
+      213: -7501287693312937983
+    second: Fade Dissolve Animation_27
+  - first:
+      213: -5382519667127428752
+    second: Fade Dissolve Animation_28
+  - first:
+      213: -4324968613905740304
+    second: Fade Dissolve Animation_29
+  - first:
+      213: 3725006889754477694
+    second: Fade Dissolve Animation_30
+  - first:
+      213: 842245877505683836
+    second: Fade Dissolve Animation_31
+  - first:
+      213: -351168648887455735
+    second: Fade Dissolve Animation_32
+  - first:
+      213: 8494050431959807027
+    second: Fade Dissolve Animation_33
+  - first:
+      213: -1816500331855922496
+    second: Fade Dissolve Animation_34
+  - first:
+      213: 1540616790848998564
+    second: Fade Dissolve Animation_35
+  - first:
+      213: 1301687921953419766
+    second: Fade Dissolve Animation_36
+  - first:
+      213: 2882057593384172864
+    second: Fade Dissolve Animation_37
+  - first:
+      213: 3334331384532167925
+    second: Fade Dissolve Animation_38
+  - first:
+      213: 2587778778685803415
+    second: Fade Dissolve Animation_39
+  - first:
+      213: -1186769207147944940
+    second: Fade Dissolve Animation_40
+  - first:
+      213: -2451899722537762573
+    second: Fade Dissolve Animation_41
+  - first:
+      213: 530533313465191082
+    second: Fade Dissolve Animation_42
+  - first:
+      213: -8506268369972519609
+    second: Fade Dissolve Animation_43
+  - first:
+      213: 6275088130180418149
+    second: Fade Dissolve Animation_44
+  - first:
+      213: 465824579058936163
+    second: Fade Dissolve Animation_45
+  - first:
+      213: -8332747135692911658
+    second: Fade Dissolve Animation_46
+  - first:
+      213: 2000578343875512937
+    second: Fade Dissolve Animation_47
+  - first:
+      213: -923498587731654933
+    second: Fade Dissolve Animation_48
+  - first:
+      213: 1834136490780893667
+    second: Fade Dissolve Animation_49
+  - first:
+      213: 1731254447203034426
+    second: Fade Dissolve Animation_50
+  - first:
+      213: 1261697471289484776
+    second: Fade Dissolve Animation_51
+  - first:
+      213: 4115840802810478596
+    second: Fade Dissolve Animation_52
+  - first:
+      213: -3410087017390049991
+    second: Fade Dissolve Animation_53
+  - first:
+      213: 4450975736788827774
+    second: Fade Dissolve Animation_54
+  - first:
+      213: 923099557994979544
+    second: Fade Dissolve Animation_55
+  - first:
+      213: 5969813857698342101
+    second: Fade Dissolve Animation_56
+  - first:
+      213: 1797557937082406442
+    second: Fade Dissolve Animation_57
+  - first:
+      213: 8148375233697790291
+    second: Fade Dissolve Animation_58
+  - first:
+      213: -8659822390440349331
+    second: Fade Dissolve Animation_59
+  - first:
+      213: -8068688612557913544
+    second: Fade Dissolve Animation_60
+  - first:
+      213: 2827088401478662501
+    second: Fade Dissolve Animation_61
+  - first:
+      213: 1997632521564964396
+    second: Fade Dissolve Animation_62
+  - first:
+      213: 4119981325414408737
+    second: Fade Dissolve Animation_63
+  - first:
+      213: 3973855147306654190
+    second: Fade Dissolve Animation_64
+  - first:
+      213: 8977770160659611386
+    second: Fade Dissolve Animation_65
+  - first:
+      213: 5445352048902505391
+    second: Fade Dissolve Animation_66
+  - first:
+      213: 4899858307228952951
+    second: Fade Dissolve Animation_67
+  - first:
+      213: 1412318717611350141
+    second: Fade Dissolve Animation_68
+  - first:
+      213: -5450709051230780979
+    second: Fade Dissolve Animation_69
+  - first:
+      213: 1503957033981485367
+    second: Fade Dissolve Animation_70
+  - first:
+      213: -3218617419269760511
+    second: Fade Dissolve Animation_71
+  - first:
+      213: 2144307653701322006
+    second: Fade Dissolve Animation_72
+  - first:
+      213: 971166929300553896
+    second: Fade Dissolve Animation_73
+  - first:
+      213: -7135057888506726581
+    second: Fade Dissolve Animation_74
+  - first:
+      213: 3710167921318032851
+    second: Fade Dissolve Animation_75
+  - first:
+      213: 1368737235305912408
+    second: Fade Dissolve Animation_76
+  - first:
+      213: 151213040990797150
+    second: Fade Dissolve Animation_77
+  - first:
+      213: -8964973884488405141
+    second: Fade Dissolve Animation_78
+  - first:
+      213: 7586890182435804012
+    second: Fade Dissolve Animation_79
+  - first:
+      213: 3688280591010945077
+    second: Fade Dissolve Animation_80
+  - first:
+      213: -6121182421359236870
+    second: Fade Dissolve Animation_81
+  - first:
+      213: -206821552869345880
+    second: Fade Dissolve Animation_82
+  - first:
+      213: -6712759361199391433
+    second: Fade Dissolve Animation_83
+  - first:
+      213: 2657419339020470147
+    second: Fade Dissolve Animation_84
+  - first:
+      213: -8299166172707787038
+    second: Fade Dissolve Animation_85
+  - first:
+      213: 5376734997197481926
+    second: Fade Dissolve Animation_86
+  - first:
+      213: -7958039706510627667
+    second: Fade Dissolve Animation_87
+  - first:
+      213: 8970888682403450246
+    second: Fade Dissolve Animation_88
+  - first:
+      213: 7145187441428801192
+    second: Fade Dissolve Animation_89
+  - first:
+      213: -7248296584122169231
+    second: Fade Dissolve Animation_90
+  - first:
+      213: 5476749718147961221
+    second: Fade Dissolve Animation_91
+  - first:
+      213: 7824854961926123373
+    second: Fade Dissolve Animation_92
+  - first:
+      213: 1576176225745434885
+    second: Fade Dissolve Animation_93
+  - first:
+      213: 7756708926111790852
+    second: Fade Dissolve Animation_94
+  - first:
+      213: -4614741105731006130
+    second: Fade Dissolve Animation_95
+  - first:
+      213: -7495754080131875484
+    second: Fade Dissolve Animation_96
+  - first:
+      213: 8408858888412273724
+    second: Fade Dissolve Animation_97
+  - first:
+      213: -6190544798627329820
+    second: Fade Dissolve Animation_98
+  - first:
+      213: 1026045258561421927
+    second: Fade Dissolve Animation_99
+  - first:
+      213: -96308530746263072
+    second: Fade Dissolve Animation_100
+  - first:
+      213: 5265969479900840952
+    second: Fade Dissolve Animation_101
+  - first:
+      213: 5725814830648145741
+    second: Fade Dissolve Animation_102
+  - first:
+      213: -49121110648895156
+    second: Fade Dissolve Animation_103
+  - first:
+      213: -7871090992524111987
+    second: Fade Dissolve Animation_104
+  - first:
+      213: -504372414446526545
+    second: Fade Dissolve Animation_105
+  - first:
+      213: -2783530539128064427
+    second: Fade Dissolve Animation_106
+  - first:
+      213: -218698388345380684
+    second: Fade Dissolve Animation_107
+  - first:
+      213: 5223412603654990094
+    second: Fade Dissolve Animation_108
+  - first:
+      213: -5058317135653965491
+    second: Fade Dissolve Animation_109
+  - first:
+      213: -1254235504930638874
+    second: Fade Dissolve Animation_110
+  - first:
+      213: 5930379007052742590
+    second: Fade Dissolve Animation_111
+  - first:
+      213: -2106776868241999184
+    second: Fade Dissolve Animation_112
+  - first:
+      213: 4799024377577373548
+    second: Fade Dissolve Animation_113
+  - first:
+      213: 2501489135440083842
+    second: Fade Dissolve Animation_114
+  - first:
+      213: -4051312407861630813
+    second: Fade Dissolve Animation_115
+  - first:
+      213: 3267265788702424328
+    second: Fade Dissolve Animation_116
+  - first:
+      213: -932541776078681276
+    second: Fade Dissolve Animation_117
+  - first:
+      213: -5266490778041717751
+    second: Fade Dissolve Animation_118
+  - first:
+      213: -6322314272989470263
+    second: Fade Dissolve Animation_119
+  - first:
+      213: 6281818197213638475
+    second: Fade Dissolve Animation_120
+  - first:
+      213: 1123202237477266682
+    second: Fade Dissolve Animation_121
+  - first:
+      213: -2215917663287242173
+    second: Fade Dissolve Animation_122
+  - first:
+      213: -8187335118152847466
+    second: Fade Dissolve Animation_123
+  - first:
+      213: 8402830835501475409
+    second: Fade Dissolve Animation_124
+  - first:
+      213: 3234181066459827723
+    second: Fade Dissolve Animation_125
+  - first:
+      213: -7580139172965875891
+    second: Fade Dissolve Animation_126
+  - first:
+      213: 8365398971909062310
+    second: Fade Dissolve Animation_127
+  - first:
+      213: 5271093200530391974
+    second: Fade Dissolve Animation_128
+  - first:
+      213: -1135818216206247803
+    second: Fade Dissolve Animation_129
+  - first:
+      213: 7373814708198611296
+    second: Fade Dissolve Animation_130
+  - first:
+      213: 5726192708827080527
+    second: Fade Dissolve Animation_131
+  - first:
+      213: 2517301716907507084
+    second: Fade Dissolve Animation_132
+  - first:
+      213: -7842295071045131947
+    second: Fade Dissolve Animation_133
+  - first:
+      213: -7437239102875702589
+    second: Fade Dissolve Animation_134
+  - first:
+      213: 87841114607897760
+    second: Fade Dissolve Animation_135
+  - first:
+      213: 874935028201133458
+    second: Fade Dissolve Animation_136
+  - first:
+      213: -5147748197454235890
+    second: Fade Dissolve Animation_137
+  - first:
+      213: -8157890073179811357
+    second: Fade Dissolve Animation_138
+  - first:
+      213: -1510068113004839782
+    second: Fade Dissolve Animation_139
+  - first:
+      213: -5300885844688468221
+    second: Fade Dissolve Animation_140
+  - first:
+      213: -4036552273930212152
+    second: Fade Dissolve Animation_141
+  - first:
+      213: -1645456123736455596
+    second: Fade Dissolve Animation_142
+  - first:
+      213: -8009049026682615527
+    second: Fade Dissolve Animation_143
+  - first:
+      213: -5091446196036858986
+    second: Fade Dissolve Animation_144
+  - first:
+      213: 1704644971097652445
+    second: Fade Dissolve Animation_145
+  - first:
+      213: 5292596441484115804
+    second: Fade Dissolve Animation_146
+  - first:
+      213: 6324607082531640189
+    second: Fade Dissolve Animation_147
+  - first:
+      213: -2560000895416271420
+    second: Fade Dissolve Animation_148
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_0
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 441
+        width: 119
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c11e3be94d422590800000000000000
+      internalID: -7700507432975461951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_1
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 439
+        width: 120
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c21e12466b2e545b5211dceedbe743
+      internalID: -8714856769754552846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_2
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 428
+        width: 132
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97ef582c6bb5f984c91cde309ef36d95
+      internalID: 6971675321769718326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_3
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 434
+        width: 147
+        height: 206
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdbc07a89f5850945874e9a241165d41
+      internalID: 1550962926560318081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_4
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 436
+        width: 143
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b393fc7454b71bf44a6a47cf246a47c4
+      internalID: -3154358430124160297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_5
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 433
+        width: 154
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a640af08cf88f94299fe2e965a9e365
+      internalID: -1661153336268390310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_6
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 435
+        width: 138
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291a5bd9340e6d946818cf408655b652
+      internalID: -8127960776242231715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fade Dissolve Animation_7
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 465
+        width: 97
+        height: 148
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92f3b50f038398347ad5f1531229d8bb
+      internalID: -1323939153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 1c9c43002e96be54783a0721fb645085
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1536.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Fade Dissolve Animation_0: -7700507432975461951
+      Fade Dissolve Animation_1: -8714856769754552846
+      Fade Dissolve Animation_2: 6971675321769718326
+      Fade Dissolve Animation_3: 1550962926560318081
+      Fade Dissolve Animation_4: -3154358430124160297
+      Fade Dissolve Animation_5: -1661153336268390310
+      Fade Dissolve Animation_6: -8127960776242231715
+      Fade Dissolve Animation_7: -1323939153
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

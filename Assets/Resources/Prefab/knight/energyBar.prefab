@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -4458661825302570499}
   - component: {fileID: -6877062685838785416}
   - component: {fileID: -1725682582869468153}
+  - component: {fileID: 4668633195719965272}
   m_Layer: 0
   m_Name: energyBar
   m_TagString: Untagged
@@ -94,6 +95,20 @@ MonoBehaviour:
   energyText: {fileID: 1271831514138792062}
   useImageFillAmount: 1
   rotate90Degrees: 1
+--- !u!114 &4668633195719965272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958131594077356885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed78aa852c24f3643b940f902bf0b8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIShaderFeedback
+  styleMaterial: {fileID: 2100000, guid: 6f5c9643312f2874c93cfb8de8055222, type: 2}
+  pulseOnEnable: 0
 --- !u!1 &6308882263557536917
 GameObject:
   m_ObjectHideFlags: 0

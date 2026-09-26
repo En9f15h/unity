@@ -1,0 +1,262 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9175be6e8db4ef4bb1a6d83d59a1c20, type: 3}
+  m_Name: OracleConfig
+  m_EditorClassIdentifier: Assembly-CSharp::OracleClassConfig
+  className: Oracle
+  photonResourceFolder: Oracle
+  maxHP: 25
+  slotCount: 5
+  skinNames:
+  - Oracle_0
+  - Oracle_Realistic
+  skinPrefabs:
+  - {fileID: 4642981395163973544, guid: eecf6feb7d9d210449d37a5e00218f44, type: 3}
+  - {fileID: 4642981395163973544, guid: a614698a85a1063499f3945d737e60f2, type: 3}
+  lightAttack:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+    damage: 1
+    minRange: 0
+    range: 1
+    canBeParried: 0
+    canBeDefended: 1
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 1
+  heavyAttack:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+    damage: 1
+    minRange: 0
+    range: 1
+    canBeParried: 0
+    canBeDefended: 1
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 1
+  lowAttack:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+    damage: 1
+    minRange: 0
+    range: 1
+    canBeParried: 0
+    canBeDefended: 1
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 1
+  parry:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+  defense:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+  dance:
+    actionName: Dance
+    actionType: 8
+    sourcePrefab: {fileID: 5595256244740900512, guid: 98ebb12706afc0548a6444e13e1ae550, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 21300000, guid: 69d363a8e6edeed4ead43f91ba964396, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 21300000, guid: 69d363a8e6edeed4ead43f91ba964396, type: 3}
+    tooltipTitle: Dance
+    tooltipDescription: Gain 1 energy.
+    rangeText: 
+    energyGain: 1
+  ultimate:
+    actionName: 
+    actionType: -1
+    sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
+    damage: 0
+    minRange: 0
+    range: 0
+    canBeParried: 0
+    canBeDefended: 1
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 1
+  energyBarPrefab: {fileID: 307612638332315480, guid: b0bb3764c15b4894b9f736b3d6a7245e, type: 3}
+  gameplayUiPrefab: {fileID: 4782544926118438106, guid: 24ef2a7d03d48b148839d41ed2db7eb4, type: 3}
+  bolt:
+    actionName: Bolt
+    actionType: 10
+    sourcePrefab: {fileID: 3389671049484401335, guid: 2fb004f467f221c4b871801009a998c2, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 1398867081139694098, guid: c4863b117343de646b65d0f58e483abd, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 1398867081139694098, guid: c4863b117343de646b65d0f58e483abd, type: 3}
+    tooltipTitle: Bolt
+    tooltipDescription: Damage 1-3. A ranged projectile that hits jumping targets;
+      damage increases with distance.
+    rangeText: 2-4
+    damage: 3
+    minRange: 2
+    range: 4
+    canBeParried: 1
+    canBeDefended: 1
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 0
+  rift:
+    actionName: Rift
+    actionType: 11
+    sourcePrefab: {fileID: 1031105406047485505, guid: 4cc49db2c49c47147bad08e0157e110d, type: 3}
+    slotCost: 2
+    iconSprite: {fileID: -6613502331250607294, guid: 92b5bd95768275447acfde610c443055, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: -6613502331250607294, guid: 92b5bd95768275447acfde610c443055, type: 3}
+    tooltipTitle: Rift
+    tooltipDescription: A charged rift that ignores Parry and partially pierces Defense.
+      Jump avoids it.
+    rangeText: 2-3
+    damage: 5
+    minRange: 2
+    range: 3
+    canBeParried: 0
+    canBeDefended: 1
+    jumpInteraction: 1
+    requiresCharge: 1
+    chargeTurns: 1
+  shift:
+    actionName: Shift
+    actionType: 12
+    sourcePrefab: {fileID: 5479656511133443337, guid: 5acf647960911fe4d82715270956e67f, type: 3}
+    slotCost: 2
+    iconSprite: {fileID: -9095335120657161191, guid: aab57a55df4b5c649b2621ede209ea68, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 21300000, guid: f8b027b1c0ad1d84682b85a2a93caf58, type: 3}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: -9095335120657161191, guid: aab57a55df4b5c649b2621ede209ea68, type: 3}
+    tooltipTitle: Shift
+    tooltipDescription: Vanish and shift behind the enemy after the swap point. Costs
+      2 slots, once per turn, and close Light Attack interrupts it.
+    rangeText: Swap
+  ward:
+    actionName: Ward
+    actionType: 13
+    sourcePrefab: {fileID: 5561020722314616836, guid: 7abef26090ac6884392a66fd30fbf0e4, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: -1799386721170512200, guid: ce88f08e40f43234399fd066b415bfc5, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: -1799386721170512200, guid: ce88f08e40f43234399fd066b415bfc5, type: 3}
+    tooltipTitle: Ward
+    tooltipDescription: Blocks Light Attack. Heavy Attack breaks through, and Low
+      Attack bypasses it.
+    rangeText: 
+  fade:
+    actionName: Fade
+    actionType: 14
+    sourcePrefab: {fileID: 3886907299234240593, guid: 7e349f51be92a294ba27be2a723307ee, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 9165722133502582153, guid: 6dbb091d00fc53943a3621add390a16f, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 21300000, guid: f8b027b1c0ad1d84682b85a2a93caf58, type: 3}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 9165722133502582153, guid: 6dbb091d00fc53943a3621add390a16f, type: 3}
+    tooltipTitle: Fade
+    tooltipDescription: Evade Heavy Release, Rift Release, and Knight Ultimate. Does
+      not move.
+    rangeText: 
+  sight:
+    actionName: Sight
+    actionType: 15
+    sourcePrefab: {fileID: 631990540767205942, guid: 963b9dda97622894b9a6081b801eeed8, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: -6637021777585855951, guid: ad9d96144a022f5479c1fdd918ccd32e, type: 3}
+    disabledOverlaySprite: {fileID: 21300000, guid: c76463cc846251140bde2eec199c2187, type: 3}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 21300000, guid: 38137f38fe69d6c4fa46920734193fc1, type: 3}
+    lockedContinuationSprite: {fileID: -6637021777585855951, guid: ad9d96144a022f5479c1fdd918ccd32e, type: 3}
+    tooltipTitle: Sight
+    tooltipDescription: Once per match. Starting next round, permanently reveal one
+      fixed enemy action slot after the enemy is ready.
+    rangeText: Full
+    damage: 0
+    minRange: 0
+    range: 0
+    canBeParried: 0
+    canBeDefended: 0
+    jumpInteraction: 0
+    requiresCharge: 0
+    chargeTurns: 0
+  sightSelectedSlotFrame: {fileID: 5683445998929532565, guid: 1dc45c8ecd2a2f54593d4befbb2e6911, type: 3}
+  sightUsedOverlay: {fileID: 1795892983113366990, guid: 91ef6e7c3b50a9541bb1bdcb3e32c2ae, type: 3}
+  shiftCooldownOverlay: {fileID: 1111326198, guid: 91ef6e7c3b50a9541bb1bdcb3e32c2ae, type: 3}
+  riftSecondarySlotLockedIcon: {fileID: 4071451017490246045, guid: 6eb9bb5728423e14292cca4f545a28ed, type: 3}

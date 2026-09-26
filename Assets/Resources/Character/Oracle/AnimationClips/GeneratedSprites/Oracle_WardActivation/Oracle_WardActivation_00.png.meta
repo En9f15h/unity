@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: e22e230a910ee3d49b0d966fdf2339c0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4173349879629996038
+    second: Oracle_WardActivation_00_0
+  - first:
+      213: -5604602194002549690
+    second: Oracle_WardActivation_00_1
+  - first:
+      213: -3991344034359048123
+    second: Oracle_WardActivation_00_2
+  - first:
+      213: 2469448863417441672
+    second: Oracle_WardActivation_00_3
+  - first:
+      213: -2170700871335019068
+    second: Oracle_WardActivation_00_4
+  - first:
+      213: -7712985203421746526
+    second: Oracle_WardActivation_00_5
+  - first:
+      213: 7746570015251071212
+    second: Oracle_WardActivation_00_6
+  - first:
+      213: -6657030609051892908
+    second: Oracle_WardActivation_00_7
+  - first:
+      213: 792274510469844053
+    second: Oracle_WardActivation_00_8
+  - first:
+      213: -4060965739455583364
+    second: Oracle_WardActivation_00_9
+  - first:
+      213: -4731411743354273833
+    second: Oracle_WardActivation_00_10
+  - first:
+      213: -7428028329913413388
+    second: Oracle_WardActivation_00_11
+  - first:
+      213: -8694516047984079126
+    second: Oracle_WardActivation_00_12
+  - first:
+      213: 1955142242238975546
+    second: Oracle_WardActivation_00_13
+  - first:
+      213: 5129978693656654169
+    second: Oracle_WardActivation_00_14
+  - first:
+      213: -3396140442928837417
+    second: Oracle_WardActivation_00_15
+  - first:
+      213: 2942928609765836177
+    second: Oracle_WardActivation_00_16
+  - first:
+      213: -1936459702844490575
+    second: Oracle_WardActivation_00_17
+  - first:
+      213: 6574433172351033084
+    second: Oracle_WardActivation_00_18
+  - first:
+      213: -6875159289667060289
+    second: Oracle_WardActivation_00_19
+  - first:
+      213: -8464318107159432079
+    second: Oracle_WardActivation_00_20
+  - first:
+      213: 1844045210044768575
+    second: Oracle_WardActivation_00_21
+  - first:
+      213: 4574808786915348925
+    second: Oracle_WardActivation_00_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 189
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aff1c3555684516c0800000000000000
+      internalID: -4173349879629996038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_1
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 464
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6446a1fbff37832b0800000000000000
+      internalID: -5604602194002549690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_2
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 470
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54887af6fb5eb98c0800000000000000
+      internalID: -3991344034359048123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_3
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 87
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88d1df658ae354220800000000000000
+      internalID: 2469448863417441672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_4
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 444
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cdf172fe0f10e1e0800000000000000
+      internalID: -2170700871335019068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_5
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 459
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aae33892d8f5f490800000000000000
+      internalID: -7712985203421746526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_6
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 503
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce08bb2c268518b60800000000000000
+      internalID: 7746570015251071212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_7
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 518
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4534f887ee97d93a0800000000000000
+      internalID: -6657030609051892908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_8
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 443
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55cc6293879befa00800000000000000
+      internalID: 792274510469844053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_9
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 457
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7be7b60d2d84a7c0800000000000000
+      internalID: -4060965739455583364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_10
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 487
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dfb1476616a65eb0800000000000000
+      internalID: -4731411743354273833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_11
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 553
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f019fdd6975ae890800000000000000
+      internalID: -7428028329913413388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_12
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 463
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeec9f948bfd65780800000000000000
+      internalID: -8694516047984079126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_13
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 542
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ec302b28f022b10800000000000000
+      internalID: 1955142242238975546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_14
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 534
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9513abc2178513740800000000000000
+      internalID: 5129978693656654169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_15
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 493
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dc83ebb24c7ed0d0800000000000000
+      internalID: -3396140442928837417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_16
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 511
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1954d607af167d820800000000000000
+      internalID: 2942928609765836177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_17
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 533
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bc781af8205025e0800000000000000
+      internalID: -1936459702844490575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_18
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 447
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe178d23241d3b50800000000000000
+      internalID: 6574433172351033084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_19
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 561
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbdfa2d5d078690a0800000000000000
+      internalID: -6875159289667060289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_20
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 471
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 174fad40783b88a80800000000000000
+      internalID: -8464318107159432079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_21
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 519
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f31aa7e295d579910800000000000000
+      internalID: 1844045210044768575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_WardActivation_00_22
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 479
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db1dc637a5cfc7f30800000000000000
+      internalID: 4574808786915348925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_WardActivation_00_0: -4173349879629996038
+      Oracle_WardActivation_00_1: -5604602194002549690
+      Oracle_WardActivation_00_10: -4731411743354273833
+      Oracle_WardActivation_00_11: -7428028329913413388
+      Oracle_WardActivation_00_12: -8694516047984079126
+      Oracle_WardActivation_00_13: 1955142242238975546
+      Oracle_WardActivation_00_14: 5129978693656654169
+      Oracle_WardActivation_00_15: -3396140442928837417
+      Oracle_WardActivation_00_16: 2942928609765836177
+      Oracle_WardActivation_00_17: -1936459702844490575
+      Oracle_WardActivation_00_18: 6574433172351033084
+      Oracle_WardActivation_00_19: -6875159289667060289
+      Oracle_WardActivation_00_2: -3991344034359048123
+      Oracle_WardActivation_00_20: -8464318107159432079
+      Oracle_WardActivation_00_21: 1844045210044768575
+      Oracle_WardActivation_00_22: 4574808786915348925
+      Oracle_WardActivation_00_3: 2469448863417441672
+      Oracle_WardActivation_00_4: -2170700871335019068
+      Oracle_WardActivation_00_5: -7712985203421746526
+      Oracle_WardActivation_00_6: 7746570015251071212
+      Oracle_WardActivation_00_7: -6657030609051892908
+      Oracle_WardActivation_00_8: 792274510469844053
+      Oracle_WardActivation_00_9: -4060965739455583364
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EnergyBarUI : MonoBehaviour
 {
-    [Header("Fill 顯示")]
+    [Header("Fill Display")]
     [SerializeField] private RectTransform fillRect;
     [SerializeField] private Image fillImage;
     [SerializeField] private Text energyText;
 
-    [Header("顯示方式")]
+    [Header("Display Mode")]
     [SerializeField] private bool useImageFillAmount = true;
     [SerializeField] private bool rotate90Degrees = false;
 
@@ -17,14 +17,17 @@ public class EnergyBarUI : MonoBehaviour
     private float fullWidth;
     private bool hasResolvedReferences;
 
-    private void Awake()
+    public int CurrentEnergy => currentEnergy;
+    public int MaxEnergy => maxEnergy;
+
+    protected virtual void Awake()
     {
         ResolveReferences();
         CacheFullWidth();
         ApplyRotation();
     }
 
-    public void ResolveReferences()
+    public virtual void ResolveReferences()
     {
         if (hasResolvedReferences)
             return;
@@ -44,7 +47,7 @@ public class EnergyBarUI : MonoBehaviour
         hasResolvedReferences = true;
     }
 
-    public void Init(int maxEnergy, int currentEnergy)
+    public virtual void Init(int maxEnergy, int currentEnergy)
     {
         ResolveReferences();
         this.maxEnergy = Mathf.Max(1, maxEnergy);
@@ -53,15 +56,21 @@ public class EnergyBarUI : MonoBehaviour
         CacheFullWidth();
         ApplyRotation();
         RefreshUI();
+        OnEnergyChanged();
     }
 
-    public void SetEnergy(int currentEnergy, int maxEnergy)
+    public virtual void SetEnergy(int currentEnergy, int maxEnergy)
     {
         ResolveReferences();
         this.maxEnergy = Mathf.Max(1, maxEnergy);
         this.currentEnergy = Mathf.Clamp(currentEnergy, 0, this.maxEnergy);
         CacheFullWidth();
         RefreshUI();
+        OnEnergyChanged();
+    }
+
+    protected virtual void OnEnergyChanged()
+    {
     }
 
     private void CacheFullWidth()
@@ -73,6 +82,8 @@ public class EnergyBarUI : MonoBehaviour
     private void RefreshUI()
     {
         float percent = (float)currentEnergy / maxEnergy;
+        if (fillImage != null)
+            UIShaderFeedback.Ensure(fillImage, "UI_Cyan").SetState(percent, currentEnergy >= maxEnergy);
 
         if (useImageFillAmount && fillImage != null)
         {

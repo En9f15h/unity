@@ -1,0 +1,378 @@
+fileFormatVersion: 2
+guid: 1d4b5ef74c5001f4bbf0060b2ceb2f8c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1532458918210270572
+    second: Shift Vanish Animation_0
+  - first:
+      213: -3161844325557606603
+    second: Shift Vanish Animation_1
+  - first:
+      213: -1075992064358639174
+    second: Shift Vanish Animation_2
+  - first:
+      213: -3869563456825817895
+    second: Shift Vanish Animation_3
+  - first:
+      213: -299021815552630911
+    second: Shift Vanish Animation_4
+  - first:
+      213: 4417903059515096352
+    second: Shift Vanish Animation_5
+  - first:
+      213: 7126556365878649126
+    second: Shift Vanish Animation_6
+  - first:
+      213: 4818455309493618972
+    second: Shift Vanish Animation_7
+  - first:
+      213: 1607685448872128542
+    second: Shift Vanish Animation_8
+  - first:
+      213: -4323197012905361304
+    second: Shift Vanish Animation_9
+  - first:
+      213: -5981106425094267022
+    second: Shift Vanish Animation_10
+  - first:
+      213: 1757502472967725969
+    second: Shift Vanish Animation_11
+  - first:
+      213: -5315295445058870601
+    second: Shift Vanish Animation_12
+  - first:
+      213: -5553119987982649721
+    second: Shift Vanish Animation_13
+  - first:
+      213: 4053317587414180111
+    second: Shift Vanish Animation_14
+  - first:
+      213: -8950645507447726419
+    second: Shift Vanish Animation_15
+  - first:
+      213: 1432605455681139730
+    second: Shift Vanish Animation_16
+  - first:
+      213: -1824900358445014662
+    second: Shift Vanish Animation_17
+  - first:
+      213: -3339942770028907963
+    second: Shift Vanish Animation_18
+  - first:
+      213: -2172603874585675210
+    second: Shift Vanish Animation_19
+  - first:
+      213: -6966096230387430124
+    second: Shift Vanish Animation_20
+  - first:
+      213: 4148511108334034177
+    second: Shift Vanish Animation_21
+  - first:
+      213: -2509730602318878299
+    second: Shift Vanish Animation_22
+  - first:
+      213: -95064623610318511
+    second: Shift Vanish Animation_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shift Vanish Animation_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 447
+        width: 189
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c657dcc4443644510800000000000000
+      internalID: 1532458918210270572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_1
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 443
+        width: 169
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dfd76f87ada101489949f3d092af31b
+      internalID: -3161844325557606603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_2
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 441
+        width: 165
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c61f668cc4e264043924499029a99b33
+      internalID: -1075992064358639174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_3
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 444
+        width: 144
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c917b96fd6799884cb37f2bc0795d25b
+      internalID: -3869563456825817895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_4
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 446
+        width: 131
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f99aa81e8ad6b714c99c5bde4c172fb0
+      internalID: -299021815552630911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_5
+      rect:
+        serializedVersion: 2
+        x: 1023
+        y: 457
+        width: 99
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f01761d574d01bf4fb845926691b028a
+      internalID: 4417903059515096352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Vanish Animation_6
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 487
+        width: 37
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1bd7b079162e2240a630e48efe356c2
+      internalID: 7126556365878649126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7788d54467654fd49a9fd3885c3e9307
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1536.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":4,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Shift Vanish Animation_0: 1532458918210270572
+      Shift Vanish Animation_1: -3161844325557606603
+      Shift Vanish Animation_2: -1075992064358639174
+      Shift Vanish Animation_3: -3869563456825817895
+      Shift Vanish Animation_4: -299021815552630911
+      Shift Vanish Animation_5: 4417903059515096352
+      Shift Vanish Animation_6: 7126556365878649126
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

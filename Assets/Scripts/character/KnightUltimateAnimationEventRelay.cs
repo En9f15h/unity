@@ -10,8 +10,8 @@ public class KnightUltimateAnimationEventRelay : MonoBehaviour
             knightUltimateVFX = GetComponentInParent<KnightUltimateVFX>(true);
     }
 
-    // µ¹ Animation Event ©I¥s
-    public void OnUltimateLightningCue()
+    // Legacy manual relay entry point; KnightUltimateVFX now receives AnimationEvents directly.
+    public void RelayUltimateLightningCue()
     {
         if (knightUltimateVFX != null)
             knightUltimateVFX.PlayUltimateLightning();

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -38,14 +39,29 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: backGround
+    uniqueID: 3832062757
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: effect
+  - name: Effect
     uniqueID: 3154534451
     locked: 0
   - name: charactor
     uniqueID: 4242009283
+    locked: 0
+  - name: 
+    uniqueID: 2521610431
+    locked: 0
+  - name: 
+    uniqueID: 2689179295
+    locked: 0
+  - name: 
+    uniqueID: 3472093161
+    locked: 0
+  - name: 
+    uniqueID: 1715085917
     locked: 0
   m_RenderingLayers:
   - Default

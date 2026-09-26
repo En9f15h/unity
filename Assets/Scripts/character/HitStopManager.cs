@@ -1,20 +1,20 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class HitStopManager : MonoBehaviour
 {
     public static HitStopManager Instance;
 
-    [Header("節拍設定")]
+    [Header("Beat Settings")]
     [SerializeField] private float bpm = 120f;
 
-    [Tooltip("停幾拍。120 BPM 時，1 拍 = 0.5 秒")]
+    [Tooltip("Number of beats to pause. At 120 BPM, 1 beat = 0.5 seconds.")]
     [SerializeField] private float stopBeats = 1f;
 
-    [Header("一般 Hit Stop 設定")]
+    [Header("General Hit Stop Settings")]
     [SerializeField] private float stopTimeScale = 0f;
 
-    [Header("跳舞慢動作設定")]
+    [Header("Dance Slow Motion Settings")]
     [SerializeField] private float danceSlowTimeScale = 0.2f;
 
     private bool isTimeEffectPlaying = false;
@@ -46,14 +46,14 @@ public class HitStopManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 播放跳舞慢動作，並且讓整體動作「額外增加 extraDuration 秒」
-    /// 例如 extraDuration = 0.5f，就會讓原本 1 秒的動作變成 1.5 秒。
+    /// Plays dance slow motion and extends the total action duration by extraDuration seconds.
+    /// Example: extraDuration = 0.5f makes a 1-second action last 1.5 seconds.
     /// </summary>
     public void PlayDanceSlowMotionWithExtraTime(float extraDuration)
     {
         if (danceSlowTimeScale >= 1f)
         {
-            Debug.LogWarning("danceSlowTimeScale 必須小於 1，否則不會變慢");
+            Debug.LogWarning("danceSlowTimeScale must be lower than 1 or the action will not slow down.");
             return;
         }
 

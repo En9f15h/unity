@@ -11,8 +11,15 @@ public class StartManager:MonoBehaviourPunCallbacks
     Text loading;
     [SerializeField]
     Animator animator;
+
+    private void Start()
+    {
+        AudioManager.Instance.PlayStartSceneBGM();
+    }
+
     public void StartClick()
     {
+        AudioManager.Instance.PlayStartSceneButton();
         PhotonNetwork.ConnectUsingSettings();
         Console.WriteLine("Start");
         loading.text = "Loading...";
@@ -34,6 +41,6 @@ public class StartManager:MonoBehaviourPunCallbacks
 
         yield return new WaitForSeconds(stateInfo.length);
 
-        SceneManager.LoadScene("LobbyScene");
+        SceneTransitionManager.RequestSceneTransition("LobbyScene");
     }
 }

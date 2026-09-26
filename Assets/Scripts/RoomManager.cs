@@ -10,7 +10,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     private const string RoomPropStageIndex = BackgroundSpriteSync.ROOM_PROP_BG_INDEX;
-    [Header("基本UI")]
+    [Header("Basic UI")]
     [SerializeField] Text RoomName;
     [SerializeField] Text PlayerList;
     [SerializeField] Button ButtonLeave;
@@ -22,28 +22,28 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject ReadyStateObject;
     [SerializeField] GameObject NotReadyStateObject;
 
-    [Header("選角UI")]
+    [Header("Character Selection UI")]
     [SerializeField] Text ClassText;
     [SerializeField] Text SkinText;
     [SerializeField] Image PreviewImage;
 
-    [Header("選角按鈕")]
+    [Header("Class Buttons")]
     [SerializeField] Button PrevClassButton;
     [SerializeField] Button NextClassButton;
     [SerializeField] Button PrevSkinButton;
     [SerializeField] Button NextSkinButton;
 
-    [Header("職業名稱")]
+    [Header("Class Names")]
     [SerializeField] string[] classNames;
 
-    [Header("每個職業的造型名稱")]
+    [Header("Skin Names Per Class")]
     [SerializeField] string[] knightSkins;
-    [SerializeField] string[] fortuneTellerSkins;
+    [SerializeField] string[] oracleSkins;
     [SerializeField] string[] warriorSkins;
 
-    [Header("預覽圖")]
+    [Header("Preview Images")]
     [SerializeField] Sprite[] knightSkinSprites;
-    [SerializeField] Sprite[] fortuneTellerSkinSprites;
+    [SerializeField] Sprite[] oracleSkinSprites;
     [SerializeField] Sprite[] warriorSkinSprites;
 
     [Header("Stage Selection")]
@@ -64,7 +64,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom == null)
         {
-            SceneManager.LoadScene("LobbyScene");
+            SceneTransitionManager.RequestSceneTransition("LobbyScene");
             return;
         }
 
@@ -213,9 +213,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private string GetPlayerDisplayName(Player player)
     {
         if (player == null)
-            return "P?";
+            return "UNKNOWN";
 
-        return player.IsMasterClient ? "P1" : "P2";
+        return player.IsMasterClient ? "HOST" : "CLIENT";
     }
 
     private void SetReady(bool value)
@@ -319,9 +319,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("所有玩家都 READY，進入 GameScene");
+            Debug.Log("All players are READY; loading CharacterSelectScene.");
             EnsureRoomStageSelection();
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.AutomaticallySyncScene = true;
+            SceneTransitionManager.RequestSceneTransition("CharacterSelectScene");
         }
     }
 
@@ -332,7 +333,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        SceneManager.LoadScene("LobbyScene");
+        SceneTransitionManager.RequestSceneTransition("LobbyScene");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -689,7 +690,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         switch (classIndex)
         {
             case 0: return knightSkins;
-            case 1: return fortuneTellerSkins;
+            case 1: return oracleSkins;
             case 2: return warriorSkins;
             default: return knightSkins;
         }
@@ -708,7 +709,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         switch (classIndex)
         {
             case 0: return knightSkinSprites;
-            case 1: return fortuneTellerSkinSprites;
+            case 1: return oracleSkinSprites;
             case 2: return warriorSkinSprites;
             default: return knightSkinSprites;
         }

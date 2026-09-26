@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab00770439040434793f9ce675ed3fdf, type: 3}
+  m_Name: StageAtmospherePalette
+  m_EditorClassIdentifier: Assembly-CSharp::StageAtmospherePalette
+  entries:
+  - background: {fileID: 6332600815343343693, guid: 7fb51085f5362f34b86e4577e944da11, type: 3}
+    color: {r: 0.5, g: 0.56, b: 0.6, a: 1}
+    density: 0.055
+  - background: {fileID: -4317840480375461725, guid: 72bfdb9f53d01334dad29fca908df4a0, type: 3}
+    color: {r: 0.76, g: 0.65, b: 0.4, a: 1}
+    density: 0.05
+  - background: {fileID: -5506467863988536157, guid: 1f2b0a7730f6c954b90c30310d0fe329, type: 3}
+    color: {r: 0.35, g: 0.48, b: 0.62, a: 1}
+    density: 0.09

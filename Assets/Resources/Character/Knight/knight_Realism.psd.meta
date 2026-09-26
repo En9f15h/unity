@@ -51,15 +51,15 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 500, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -112,6 +112,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -124,7 +150,7 @@ TextureImporter:
         width: 24
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,7 +172,7 @@ TextureImporter:
         width: 385
         height: 507
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +185,85 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    outline: []
+    outline:
+    - - {x: 124, y: -242}
+      - {x: 124, y: -237}
+      - {x: 141, y: -237}
+      - {x: 308, y: -98}
+      - {x: 329, y: 96}
+      - {x: 329, y: 252}
+      - {x: 303, y: 257}
+      - {x: -47, y: 257}
+      - {x: -47, y: -237}
+      - {x: 116, y: -237}
+      - {x: 116, y: -243}
+      - {x: 117, y: -246}
+      - {x: 120, y: -246}
+    - - {x: 34, y: -214}
+      - {x: 30, y: -212}
+      - {x: 27, y: -210}
+      - {x: 22, y: -208}
+      - {x: 18, y: -205}
+      - {x: 17, y: -205}
+      - {x: 8, y: -195}
+      - {x: 6, y: -189}
+      - {x: 3, y: -184}
+      - {x: 3, y: -176}
+      - {x: 5, y: -176}
+      - {x: 5, y: -152}
+      - {x: 6, y: -145}
+      - {x: 8, y: -137}
+      - {x: 11, y: -134}
+      - {x: 11, y: -133}
+      - {x: 8, y: -130}
+      - {x: 8, y: -113}
+      - {x: 9, y: -112}
+      - {x: 11, y: -102}
+      - {x: 12, y: -99}
+      - {x: 19, y: -92}
+      - {x: 20, y: -85}
+      - {x: 19, y: -84}
+      - {x: 19, y: -70}
+      - {x: 20, y: -68}
+      - {x: 19, y: -60}
+      - {x: 19, y: -42}
+      - {x: 21.142853, y: -39.142853}
+      - {x: 25, y: -43}
+      - {x: 26, y: -47}
+      - {x: 27, y: -50}
+      - {x: 32, y: -59}
+      - {x: 33, y: -64}
+      - {x: 37, y: -71}
+      - {x: 38, y: -79}
+      - {x: 39, y: -91}
+      - {x: 38, y: -92}
+      - {x: 36, y: -100}
+      - {x: 35, y: -107}
+      - {x: 33, y: -114}
+      - {x: 32, y: -122}
+      - {x: 32, y: -126}
+      - {x: 33, y: -132}
+      - {x: 34, y: -142}
+      - {x: 35, y: -154}
+      - {x: 36, y: -161}
+      - {x: 37, y: -167}
+      - {x: 38, y: -168}
+      - {x: 38, y: -182}
+      - {x: 37, y: -183}
+      - {x: 37, y: -194}
+      - {x: 35, y: -197}
+      - {x: 34.052628, y: -214.05263}
+    - - {x: -52, y: -68}
+      - {x: -52, y: -62}
+      - {x: -54, y: -60}
+      - {x: -58, y: -60}
+      - {x: -58, y: -67}
+      - {x: -55, y: -69}
     customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []

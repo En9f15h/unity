@@ -421,6 +421,10 @@ GameObject:
   - component: {fileID: -4912386976670041350}
   - component: {fileID: -2669104668910639464}
   - component: {fileID: -330311122722671346}
+  - component: {fileID: 3564593341647935811}
+  - component: {fileID: 8079560525964508945}
+  - component: {fileID: 8880509363776335301}
+  - component: {fileID: 4501874876374535833}
   m_Layer: 0
   m_Name: knight_0
   m_TagString: Player
@@ -563,6 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterFacing
   visualRoot: {fileID: 0}
+  applyAfterAnimator: 1
 --- !u!114 &-2669104668910639464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +620,71 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3564593341647935811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642981395163973544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0a05ec6cf1f614794f4a64621ba8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterShaderFeedback
+  bodyRenderers:
+  - {fileID: 9017384466392866303}
+  characterMaterial: {fileID: 2100000, guid: 571dc54973001ba409e380576e082abb, type: 2}
+  hitDuration: 0.13
+  hitColor: {r: 1.5, g: 1.1, b: 0.8, a: 1}
+--- !u!114 &8079560525964508945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642981395163973544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47054a1c2cbd45a42b0c1d6c4716269b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightSlashShaderVFX
+  swordTip: {fileID: 1069702349582561760}
+  swordBase: {fileID: 3130254622758722177}
+  slashMaterial: {fileID: 2100000, guid: 8d45c3960b2b74646a66ebdd3b09edf4, type: 2}
+  trailWidth: 0.035
+--- !u!114 &8880509363776335301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642981395163973544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892b1cc223caccf468da7d56da945bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterGroundPresentation
+  bodyCollider: {fileID: 5548124153199797056}
+  footAnchors:
+  - {fileID: 4785588977491283099}
+  - {fileID: 4657758254004863293}
+  shadowMaterial: {fileID: 2100000, guid: aa8c98ce2ff1dbe4b97ba0b788e0b659, type: 2}
+  dustMaterial: {fileID: 2100000, guid: b4806a098bc1c014e9bdd9c23f285c75, type: 2}
+  shadowOpacity: 0.34
+--- !u!114 &4501874876374535833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642981395163973544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b2c06b5b46e6e49818532ab4b754af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatImpactPresentation
+  impactMaterial: {fileID: 2100000, guid: 855d290eb0ca19b41a84b0ddc9bb3e3c, type: 2}
 --- !u!1 &4707068899640648037
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +763,7 @@ GameObject:
   - component: {fileID: 9017384466392866303}
   - component: {fileID: 6626419654164530362}
   - component: {fileID: 8938007518817739666}
+  - component: {fileID: 9121729462993653710}
   m_Layer: 0
   m_Name: visualRoot
   m_TagString: Untagged
@@ -755,6 +826,7 @@ MonoBehaviour:
   lightningStrikePoint: {fileID: 1069702349582561760}
   lightningStrikePrefab: {fileID: 189910444467699779, guid: cee4dea152bff594e88a2d16947e6ce3, type: 3}
   lightningStrikeLifeTime: 1
+  lightningStrikeRandomScale: 0.08
   swordLightningAttachPoint: {fileID: 3130254622758722177}
   swordResidualLightningTemplate: {fileID: 5495758265874652802}
   swordResidualLifeTime: 0.8
@@ -763,6 +835,12 @@ MonoBehaviour:
   swordResidualLocalPosition: {x: 0, y: 0, z: 0}
   swordResidualLocalEuler: {x: 0, y: 0, z: 0}
   swordResidualLocalScale: {x: 1, y: 1, z: 1}
+  shakeCameraOnLightning: 1
+  lightningShakeDuration: 0.12
+  lightningShakeStrength: 0.12
+  preventDuplicateCue: 1
+  duplicateCueWindow: 0.05
+  debugLogs: 0
 --- !u!212 &9017384466392866303
 SpriteRenderer:
   serializedVersion: 2
@@ -789,7 +867,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 571dc54973001ba409e380576e082abb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -813,7 +891,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -867,6 +945,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   knightUltimateVFX: {fileID: 6660208123342803101}
+--- !u!114 &9121729462993653710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299164298477738694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 2
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.817
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 2.24
+  m_LightVolumeIntensity: 0.01
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 25a368e400000000336006bcc3ecd7fcbfb84c969f9e49a0e9eff3ce5d223a66
+  m_LightCookieSprite: {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 1
+  m_ShadowVolumeIntensity: 1
+  m_LocalBounds:
+    m_Center: {x: 0.58315, y: 0.7531998, z: 0}
+    m_Extent: {x: 4.36005, y: 5.5599003, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 2.78
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.9971636, y: -2.001584, z: 0}
+  - {x: 2.1630614, y: -2.0276616, z: 0}
+  - {x: 0.673996, y: 2.4412675, z: 0}
+  - {x: 0.40371546, y: 3.5327954, z: 0}
+  - {x: 0.1529954, y: 2.46, z: 0}
 --- !u!1 &5408219297754189633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,6 +1482,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8270534533477406076}
     m_Modifications:
+    - target: {fileID: 109370548360076674, guid: ec26c307cd23c684db5948c567635a9c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f2c462ce0573ff4ebeb3f1eb7d25501, type: 2}
     - target: {fileID: 2873842470804021631, guid: ec26c307cd23c684db5948c567635a9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.13611239
@@ -1403,6 +1538,14 @@ PrefabInstance:
       propertyPath: swordStartPoint
       value: 
       objectReference: {fileID: 3130254622758722177}
+    - target: {fileID: 5656664320366722579, guid: ec26c307cd23c684db5948c567635a9c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7f2c462ce0573ff4ebeb3f1eb7d25501, type: 2}
+    - target: {fileID: 6128991469434547412, guid: ec26c307cd23c684db5948c567635a9c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e635b908dd88b8441a23006cbb77c861, type: 2}
     - target: {fileID: 8757185262106820730, guid: ec26c307cd23c684db5948c567635a9c, type: 3}
       propertyPath: swordEndPoint
       value: 

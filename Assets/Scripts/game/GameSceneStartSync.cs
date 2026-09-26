@@ -26,6 +26,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
     private const string PROP_SCENE_READY = "GameSceneReady";
     private const string ROOM_PROP_BEAT_START_TS = "beatStartTs";
     private const string ROOM_PROP_BPM = "beatBpm";
+    private const string ROOM_PROP_BATTLE_BGM_INDEX = "battleBgmIndex";
 
     private bool localSceneReadySent = false;
     private bool waitRoutineStarted = false;
@@ -34,7 +35,31 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
     private bool bgmScheduled = false;
 
     private int beatStartServerTimestamp = -1;
+    private int battleBgmIndex = -1;
     private Coroutine waitRoutine;
+
+    public static void ClearPhotonSyncStateForLeavingGameScene()
+    {
+        if (PhotonNetwork.LocalPlayer != null)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+            {
+                { PROP_SCENE_READY, false }
+            });
+        }
+
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable
+            {
+                { ROOM_PROP_BEAT_START_TS, null },
+                { ROOM_PROP_BPM, null },
+                { ROOM_PROP_BATTLE_BGM_INDEX, null }
+            });
+        }
+
+        Debug.Log("[GameSceneStartSync] Cleared GameScene sync state.");
+    }
 
     private void Awake()
     {
@@ -139,7 +164,8 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         Hashtable props = new Hashtable
         {
-            { PROP_SCENE_READY, true }
+            { PROP_SCENE_READY, true },
+            { LocalActionUsage.SnapshotKey, LocalActionUsage.SerializeEntrySnapshot() }
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(props);
@@ -181,6 +207,19 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         return BothPlayersSceneReady();
     }
 
+    public bool HasLocalSceneReadyBeenSent()
+    {
+        return localSceneReadySent;
+    }
+
+    public bool HasPreparedBeatStart()
+    {
+        if (beatStartReady)
+            return true;
+
+        return TryReadBeatAnchor();
+    }
+
     private bool TryCreateBeatAnchor()
     {
         if (!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom == null)
@@ -189,19 +228,24 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         if (!BothPlayersSceneReady())
             return false;
 
-        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BEAT_START_TS, out object existingTs))
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BEAT_START_TS, out object existingTs) &&
+            existingTs != null)
         {
             beatStartServerTimestamp = System.Convert.ToInt32(existingTs);
+            TryReadBattleBGMIndex();
             beatStartReady = true;
             return true;
         }
 
-        int startTs = PhotonNetwork.ServerTimestamp + BeatDurationMs() * leadInBeats;
+        int startLeadBeats = GetStartLeadInBeats();
+        int startTs = PhotonNetwork.ServerTimestamp + BeatDurationMs() * startLeadBeats;
+        battleBgmIndex = SelectBattleBGMIndex();
 
         Hashtable props = new Hashtable
         {
             { ROOM_PROP_BEAT_START_TS, startTs },
-            { ROOM_PROP_BPM, bpm }
+            { ROOM_PROP_BPM, bpm },
+            { ROOM_PROP_BATTLE_BGM_INDEX, battleBgmIndex }
         };
 
         PhotonNetwork.CurrentRoom.SetCustomProperties(props);
@@ -210,8 +254,20 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         beatStartServerTimestamp = startTs;
         beatStartReady = true;
 
-        Debug.Log($"Created beat anchor: startTs={startTs}, bpm={bpm}");
+        Debug.Log($"Created beat anchor: startTs={startTs}, bpm={bpm}, leadInBeats={startLeadBeats}");
         return true;
+    }
+
+    private int GetStartLeadInBeats()
+    {
+        int safeLeadInBeats = Mathf.Max(1, leadInBeats);
+        float transitionOutSeconds = SceneTransitionManager.GetActiveOutDurationSeconds(gameObject.scene.name);
+        if (transitionOutSeconds <= 0f)
+            return safeLeadInBeats;
+
+        float beatSeconds = 60f / Mathf.Max(1f, bpm);
+        int transitionOutBeats = Mathf.CeilToInt(transitionOutSeconds / beatSeconds);
+        return Mathf.Max(safeLeadInBeats, transitionOutBeats + 1);
     }
 
     private bool TryReadBeatAnchor()
@@ -219,7 +275,8 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom == null)
             return false;
 
-        if (!PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BEAT_START_TS, out object tsObj))
+        if (!PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BEAT_START_TS, out object tsObj) ||
+            tsObj == null)
             return false;
 
         beatStartServerTimestamp = System.Convert.ToInt32(tsObj);
@@ -227,9 +284,33 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BPM, out object bpmObj))
             bpm = System.Convert.ToSingle(bpmObj);
 
+        TryReadBattleBGMIndex();
+
         // Reading the anchor is enough; timestamp sign is not meaningful.
         beatStartReady = true;
         return true;
+    }
+
+    private int SelectBattleBGMIndex()
+    {
+        if (AudioManager.TryGetInstance(out AudioManager audioManager))
+            return audioManager.SelectBattleBGMIndex();
+
+        return -1;
+    }
+
+    private void TryReadBattleBGMIndex()
+    {
+        if (PhotonNetwork.CurrentRoom == null)
+            return;
+
+        if (!PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(ROOM_PROP_BATTLE_BGM_INDEX, out object bgmObj) ||
+            bgmObj == null)
+        {
+            return;
+        }
+
+        battleBgmIndex = System.Convert.ToInt32(bgmObj);
     }
 
     private bool HasValidBeatAnchor()
@@ -249,20 +330,8 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         if (bgmScheduled)
             return true;
 
-        if (bgmSource == null || bgmSource.clip == null)
-        {
-            Debug.LogWarning("StartSyncedBGM: bgmSource or clip is not assigned");
-            return true;
-        }
-
         if (!HasValidBeatAnchor())
             return false;
-
-        if (!bgmSource.gameObject.activeSelf)
-            bgmSource.gameObject.SetActive(true);
-
-        if (!bgmSource.enabled)
-            bgmSource.enabled = true;
 
         int remainMs = beatStartServerTimestamp - PhotonNetwork.ServerTimestamp;
         if (remainMs < 0)
@@ -270,6 +339,26 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         double remainSec = remainMs / 1000.0;
         double dspStart = AudioSettings.dspTime + remainSec;
+
+        if (AudioManager.TryGetInstance(out AudioManager audioManager) &&
+            audioManager.ScheduleBattleBGMIndex(battleBgmIndex, dspStart))
+        {
+            bgmScheduled = true;
+            Debug.Log($"Battle BGM scheduled through AudioManager. index={battleBgmIndex}, remainMs={remainMs}, dspStart={dspStart}, beatStartTs={beatStartServerTimestamp}, nowTs={PhotonNetwork.ServerTimestamp}");
+            return true;
+        }
+
+        if (bgmSource == null || bgmSource.clip == null)
+        {
+            Debug.LogWarning("StartSyncedBGM: AudioManager battle BGM and fallback bgmSource are not assigned");
+            return true;
+        }
+
+        if (!bgmSource.gameObject.activeSelf)
+            bgmSource.gameObject.SetActive(true);
+
+        if (!bgmSource.enabled)
+            bgmSource.enabled = true;
 
         bgmSource.Stop();
         bgmSource.PlayScheduled(dspStart);
@@ -366,14 +455,31 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
     {
         if (propertiesThatChanged.ContainsKey(ROOM_PROP_BEAT_START_TS))
         {
-            beatStartServerTimestamp = System.Convert.ToInt32(propertiesThatChanged[ROOM_PROP_BEAT_START_TS]);
-            beatStartReady = true;
-            Debug.Log("Received beat anchor server timestamp = " + beatStartServerTimestamp);
+            object timestampValue = propertiesThatChanged[ROOM_PROP_BEAT_START_TS];
+            if (timestampValue == null)
+            {
+                beatStartServerTimestamp = -1;
+                beatStartReady = false;
+                battleBgmIndex = -1;
+            }
+            else
+            {
+                beatStartServerTimestamp = System.Convert.ToInt32(timestampValue);
+                beatStartReady = true;
+                Debug.Log("Received beat anchor server timestamp = " + beatStartServerTimestamp);
+            }
         }
 
-        if (propertiesThatChanged.ContainsKey(ROOM_PROP_BPM))
+        if (propertiesThatChanged.ContainsKey(ROOM_PROP_BPM) &&
+            propertiesThatChanged[ROOM_PROP_BPM] != null)
         {
             bpm = System.Convert.ToSingle(propertiesThatChanged[ROOM_PROP_BPM]);
+        }
+
+        if (propertiesThatChanged.ContainsKey(ROOM_PROP_BATTLE_BGM_INDEX))
+        {
+            object bgmValue = propertiesThatChanged[ROOM_PROP_BATTLE_BGM_INDEX];
+            battleBgmIndex = bgmValue == null ? -1 : System.Convert.ToInt32(bgmValue);
         }
     }
 
@@ -386,5 +492,17 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
             TryCreateBeatAnchor();
+    }
+
+    private void OnDestroy()
+    {
+        if (waitRoutine != null)
+        {
+            StopCoroutine(waitRoutine);
+            waitRoutine = null;
+        }
+
+        if (Instance == this)
+            Instance = null;
     }
 }

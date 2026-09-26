@@ -1,0 +1,481 @@
+fileFormatVersion: 2
+guid: cfaf4f2df5da5ba4a9627ef21434d587
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5866885771600019703
+    second: Oracle_ShiftVanish_04_0
+  - first:
+      213: 5362503126824662021
+    second: Oracle_ShiftVanish_04_1
+  - first:
+      213: -7937660838598595138
+    second: Oracle_ShiftVanish_04_2
+  - first:
+      213: 4388819770897813130
+    second: Oracle_ShiftVanish_04_3
+  - first:
+      213: 5872214791689041978
+    second: Oracle_ShiftVanish_04_4
+  - first:
+      213: 4512553224253420686
+    second: Oracle_ShiftVanish_04_5
+  - first:
+      213: -1827634119050643697
+    second: Oracle_ShiftVanish_04_6
+  - first:
+      213: 2554202045512762230
+    second: Oracle_ShiftVanish_04_7
+  - first:
+      213: 9011320711582751435
+    second: Oracle_ShiftVanish_04_8
+  - first:
+      213: 9202036880066320499
+    second: Oracle_ShiftVanish_04_9
+  - first:
+      213: -2299733182920427665
+    second: Oracle_ShiftVanish_04_10
+  - first:
+      213: 3118025636874290715
+    second: Oracle_ShiftVanish_04_11
+  - first:
+      213: 4626242075080943159
+    second: Oracle_ShiftVanish_04_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 553
+        width: 180
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90fbcfd8972a49ea0800000000000000
+      internalID: -5866885771600019703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_1
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 0
+        width: 170
+        height: 587
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5043e4d9e207b6a40800000000000000
+      internalID: 5362503126824662021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_2
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 551
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd2dc7d583c7d190800000000000000
+      internalID: -7937660838598595138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 578
+        width: 10
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e4393245838ec30800000000000000
+      internalID: 4388819770897813130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_4
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 587
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a387b6f9d3c4e7150800000000000000
+      internalID: 5872214791689041978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_5
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 580
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e843ba9bf3fcf9e30800000000000000
+      internalID: 4512553224253420686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 521
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f073a92b370f2a6e0800000000000000
+      internalID: -1827634119050643697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_7
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 527
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6734d574a39527320800000000000000
+      internalID: 2554202045512762230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 486
+        width: 16
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bca92037174ae0d70800000000000000
+      internalID: 9011320711582751435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_9
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 511
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3789566b9c334bf70800000000000000
+      internalID: 9202036880066320499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_10
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 478
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6779d9cad4b510e0800000000000000
+      internalID: -2299733182920427665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_11
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 487
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b160476fbc3754b20800000000000000
+      internalID: 3118025636874290715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_ShiftVanish_04_12
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 443
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7366a2a08a6b33040800000000000000
+      internalID: 4626242075080943159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_ShiftVanish_04_0: -5866885771600019703
+      Oracle_ShiftVanish_04_1: 5362503126824662021
+      Oracle_ShiftVanish_04_10: -2299733182920427665
+      Oracle_ShiftVanish_04_11: 3118025636874290715
+      Oracle_ShiftVanish_04_12: 4626242075080943159
+      Oracle_ShiftVanish_04_2: -7937660838598595138
+      Oracle_ShiftVanish_04_3: 4388819770897813130
+      Oracle_ShiftVanish_04_4: 5872214791689041978
+      Oracle_ShiftVanish_04_5: 4512553224253420686
+      Oracle_ShiftVanish_04_6: -1827634119050643697
+      Oracle_ShiftVanish_04_7: 2554202045512762230
+      Oracle_ShiftVanish_04_8: 9011320711582751435
+      Oracle_ShiftVanish_04_9: 9202036880066320499
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

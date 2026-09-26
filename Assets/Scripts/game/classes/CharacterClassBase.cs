@@ -15,7 +15,7 @@ public abstract class CharacterClassBase
     public abstract ActionData Defense { get; }
     public abstract DanceActionData Dance { get; }
     public abstract UltimateActionData Ultimate { get; }
-    public ActionData[] GetAllActions()
+    public virtual ActionData[] GetAllActions()
     {
         return new ActionData[]
         {

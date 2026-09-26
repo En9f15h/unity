@@ -1,0 +1,845 @@
+fileFormatVersion: 2
+guid: a07d5524abe017b45a6fb7f52de9d717
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6555372043472992030
+    second: Oracle_BoltHit_05_0
+  - first:
+      213: 1247112197492397842
+    second: Oracle_BoltHit_05_1
+  - first:
+      213: -8067746042130612748
+    second: Oracle_BoltHit_05_2
+  - first:
+      213: -6765910768204764579
+    second: Oracle_BoltHit_05_3
+  - first:
+      213: 8429382563254467906
+    second: Oracle_BoltHit_05_4
+  - first:
+      213: -5152763912048205110
+    second: Oracle_BoltHit_05_5
+  - first:
+      213: 3984509943267471686
+    second: Oracle_BoltHit_05_6
+  - first:
+      213: -7509549496202286272
+    second: Oracle_BoltHit_05_7
+  - first:
+      213: 657195114798049833
+    second: Oracle_BoltHit_05_8
+  - first:
+      213: -5505888584947063541
+    second: Oracle_BoltHit_05_9
+  - first:
+      213: 3300754511573710506
+    second: Oracle_BoltHit_05_10
+  - first:
+      213: 2520156464142776750
+    second: Oracle_BoltHit_05_11
+  - first:
+      213: 7107706904057635147
+    second: Oracle_BoltHit_05_12
+  - first:
+      213: 8653187980464532054
+    second: Oracle_BoltHit_05_13
+  - first:
+      213: 1872183601613227136
+    second: Oracle_BoltHit_05_14
+  - first:
+      213: 8982892104959661240
+    second: Oracle_BoltHit_05_15
+  - first:
+      213: 4395559083780677113
+    second: Oracle_BoltHit_05_16
+  - first:
+      213: -7470919112827665686
+    second: Oracle_BoltHit_05_17
+  - first:
+      213: 2974243777465869026
+    second: Oracle_BoltHit_05_18
+  - first:
+      213: -2934441262876022533
+    second: Oracle_BoltHit_05_19
+  - first:
+      213: 7627152207029744670
+    second: Oracle_BoltHit_05_20
+  - first:
+      213: 5976275655252612373
+    second: Oracle_BoltHit_05_21
+  - first:
+      213: -1436669983774744606
+    second: Oracle_BoltHit_05_22
+  - first:
+      213: -7112297440215092659
+    second: Oracle_BoltHit_05_23
+  - first:
+      213: 1439114486199946905
+    second: Oracle_BoltHit_05_24
+  - first:
+      213: 7194325598969806802
+    second: Oracle_BoltHit_05_25
+  - first:
+      213: 7605525513876750456
+    second: Oracle_BoltHit_05_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 551
+        width: 181
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e8044abbd3a605a0800000000000000
+      internalID: -6555372043472992030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 531
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2175796afe1ae4110800000000000000
+      internalID: 1247112197492397842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 594
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fdbdbc28bb990090800000000000000
+      internalID: -8067746042130612748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_3
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 567
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5a2a2fe008aa12a0800000000000000
+      internalID: -6765910768204764579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_4
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 588
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d77aec7ce2bf470800000000000000
+      internalID: 8429382563254467906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_5
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 551
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac22ae2c584bd78b0800000000000000
+      internalID: -5152763912048205110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_6
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 578
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 641387cbea2db4730800000000000000
+      internalID: 3984509943267471686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_7
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 547
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04b26af3588b8c790800000000000000
+      internalID: -7509549496202286272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_8
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 575
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92ae8a59973de1900800000000000000
+      internalID: 657195114798049833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_9
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 541
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b052a51e0872793b0800000000000000
+      internalID: -5505888584947063541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_10
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 547
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa67e197db2aecd20800000000000000
+      internalID: 3300754511573710506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 514
+        width: 34
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea972a7a3f469f220800000000000000
+      internalID: 2520156464142776750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_12
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 537
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4162ff55c5a3a260800000000000000
+      internalID: 7107706904057635147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_13
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 499
+        width: 56
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65aa4462f9c461870800000000000000
+      internalID: 8653187980464532054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_14
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 0
+        width: 65
+        height: 547
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 084c77001155bf910800000000000000
+      internalID: 1872183601613227136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_15
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 528
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b418cba6c4a9ac70800000000000000
+      internalID: 8982892104959661240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_16
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 520
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd1df1b2b9200d30800000000000000
+      internalID: 4395559083780677113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_17
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 62
+        height: 496
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae20b3646a6f15890800000000000000
+      internalID: -7470919112827665686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_18
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 483
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e2e44715f2a64920800000000000000
+      internalID: 2974243777465869026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_19
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 479
+        width: 45
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf8a6000835c647d0800000000000000
+      internalID: -2934441262876022533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_20
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 0
+        width: 45
+        height: 494
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1438db958619d960800000000000000
+      internalID: 7627152207029744670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_21
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 485
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51595277b0fffe250800000000000000
+      internalID: 5976275655252612373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_22
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 487
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2efd3a5f24cef0ce0800000000000000
+      internalID: -1436669983774744606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_23
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 503
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d423f03292b0c4d90800000000000000
+      internalID: -7112297440215092659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_24
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 479
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99e011d1003c8f310800000000000000
+      internalID: 1439114486199946905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_25
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 463
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2df381dd30167d360800000000000000
+      internalID: 7194325598969806802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltHit_05_26
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 193
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8704bc8b8214c8960800000000000000
+      internalID: 7605525513876750456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_BoltHit_05_0: -6555372043472992030
+      Oracle_BoltHit_05_1: 1247112197492397842
+      Oracle_BoltHit_05_10: 3300754511573710506
+      Oracle_BoltHit_05_11: 2520156464142776750
+      Oracle_BoltHit_05_12: 7107706904057635147
+      Oracle_BoltHit_05_13: 8653187980464532054
+      Oracle_BoltHit_05_14: 1872183601613227136
+      Oracle_BoltHit_05_15: 8982892104959661240
+      Oracle_BoltHit_05_16: 4395559083780677113
+      Oracle_BoltHit_05_17: -7470919112827665686
+      Oracle_BoltHit_05_18: 2974243777465869026
+      Oracle_BoltHit_05_19: -2934441262876022533
+      Oracle_BoltHit_05_2: -8067746042130612748
+      Oracle_BoltHit_05_20: 7627152207029744670
+      Oracle_BoltHit_05_21: 5976275655252612373
+      Oracle_BoltHit_05_22: -1436669983774744606
+      Oracle_BoltHit_05_23: -7112297440215092659
+      Oracle_BoltHit_05_24: 1439114486199946905
+      Oracle_BoltHit_05_25: 7194325598969806802
+      Oracle_BoltHit_05_26: 7605525513876750456
+      Oracle_BoltHit_05_3: -6765910768204764579
+      Oracle_BoltHit_05_4: 8429382563254467906
+      Oracle_BoltHit_05_5: -5152763912048205110
+      Oracle_BoltHit_05_6: 3984509943267471686
+      Oracle_BoltHit_05_7: -7509549496202286272
+      Oracle_BoltHit_05_8: 657195114798049833
+      Oracle_BoltHit_05_9: -5505888584947063541
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -8,9 +8,9 @@ public class CharacterClassData : ScriptableObject
     public int maxHP = 30;
     public int slotCount = 5;
 
-    [Header("技能名稱")]
+    [Header("Skill Names")]
     public List<string> skills = new List<string>();
 
-    [Header("此職業可用造型")]
+    [Header("Available Skins For This Class")]
     public List<CharacterAppearanceData> appearances = new List<CharacterAppearanceData>();
 }

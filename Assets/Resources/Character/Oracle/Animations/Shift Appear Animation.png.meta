@@ -1,0 +1,395 @@
+fileFormatVersion: 2
+guid: f240303a19284bc4ebc746540a1dd167
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8092828003366908247
+    second: Shift Appear Animation_0
+  - first:
+      213: 2680437478819595028
+    second: Shift Appear Animation_1
+  - first:
+      213: -6943192118266756946
+    second: Shift Appear Animation_2
+  - first:
+      213: -687768982957468620
+    second: Shift Appear Animation_3
+  - first:
+      213: -3685531294601522131
+    second: Shift Appear Animation_4
+  - first:
+      213: 4012993447741331814
+    second: Shift Appear Animation_5
+  - first:
+      213: 1979991116326503571
+    second: Shift Appear Animation_6
+  - first:
+      213: -7913074125185383590
+    second: Shift Appear Animation_7
+  - first:
+      213: 3518774405932819513
+    second: Shift Appear Animation_8
+  - first:
+      213: -4973027981050210836
+    second: Shift Appear Animation_9
+  - first:
+      213: 833625102384632951
+    second: Shift Appear Animation_10
+  - first:
+      213: 3185506184344649142
+    second: Shift Appear Animation_11
+  - first:
+      213: 8980760914866901241
+    second: Shift Appear Animation_12
+  - first:
+      213: -7899412880666781846
+    second: Shift Appear Animation_13
+  - first:
+      213: 5193350853007533250
+    second: Shift Appear Animation_14
+  - first:
+      213: -4873452705056817048
+    second: Shift Appear Animation_15
+  - first:
+      213: 7698816305506361928
+    second: Shift Appear Animation_16
+  - first:
+      213: 1874707511914748845
+    second: Shift Appear Animation_17
+  - first:
+      213: 4713850194970992679
+    second: Shift Appear Animation_18
+  - first:
+      213: 3652394252147915467
+    second: Shift Appear Animation_19
+  - first:
+      213: -3276125549647775708
+    second: Shift Appear Animation_20
+  - first:
+      213: -9058056935039603243
+    second: Shift Appear Animation_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Shift Appear Animation_0
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 510
+        width: 72
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 751b40101308f4070800000000000000
+      internalID: 8092828003366908247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_1
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 470
+        width: 160
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4138fa77fa3d23520800000000000000
+      internalID: 2680437478819595028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_2
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 440
+        width: 160
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea00b671e83d4af90800000000000000
+      internalID: -6943192118266756946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_3
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 428
+        width: 149
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 434d94301cd8476f0800000000000000
+      internalID: -687768982957468620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_4
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 428
+        width: 133
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d24d0b870dc5adcc0800000000000000
+      internalID: -3685531294601522131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_5
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 429
+        width: 135
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 669979a674401b730800000000000000
+      internalID: 4012993447741331814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_6
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 429
+        width: 122
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394021b0e675a7b10800000000000000
+      internalID: 1979991116326503571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shift Appear Animation_7
+      rect:
+        serializedVersion: 2
+        x: 1270
+        y: 431
+        width: 118
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a538df6220d1f2290800000000000000
+      internalID: -7913074125185383590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 78a112aa8b0fb6d4f897dc9fa1fcac7a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":187.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":4,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Shift Appear Animation_0: 8092828003366908247
+      Shift Appear Animation_1: 2680437478819595028
+      Shift Appear Animation_2: -6943192118266756946
+      Shift Appear Animation_3: -687768982957468620
+      Shift Appear Animation_4: -3685531294601522131
+      Shift Appear Animation_5: 4012993447741331814
+      Shift Appear Animation_6: 1979991116326503571
+      Shift Appear Animation_7: -7913074125185383590
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

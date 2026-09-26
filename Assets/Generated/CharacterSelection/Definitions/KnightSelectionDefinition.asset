@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16a703b19c8ff04ea5809e9f1f3c4d1, type: 3}
+  m_Name: KnightSelectionDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSelectionDefinition
+  characterId: knight
+  combatConfig: {fileID: 11400000, guid: 597f3017c9958234e88164d3889c767f, type: 2}
+  legacyClassIndex: 0
+  displayName: Knight
+  englishName: Knight
+  roleName: Balanced Duelist
+  shortRole: Balanced Duelist
+  description: A balanced melee fighter with steady defense, reliable movement, and
+    direct pressure.
+  cardSprite: {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
+  portraitSprite: {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
+  previewPrefab: {fileID: 8202707046734161173, guid: 39cdd75010a8eb343a78d6ef150e98a8, type: 3}
+  selectionPanelBackgroundSprite: {fileID: -5889013573144646257, guid: f4819c6302124f34480a911c92cb6dd5, type: 3}
+  characterPreviewBackgroundSprite: {fileID: -2493049269115187025, guid: f36ea3d1ad361414490eec068d19bcf7, type: 3}
+  characterInfoBackgroundSprite: {fileID: 7272775194208588188, guid: d638a4bb61c82e94cb18c4da54f297e9, type: 3}
+  radarBackgroundSprite: {fileID: -8958323842677873337, guid: 6ec788e95c0f4bc489400b5fb76b4b23, type: 3}
+  vitality: 5
+  attack: 4
+  defense: 4
+  mobility: 3
+  range: 2
+  prediction: 2
+  vitalityRating: 5
+  attackRating: 4
+  defenseRating: 4
+  mobilityRating: 3
+  rangeRating: 2
+  predictionRating: 2
+  difficultyRating: 2
+  skinNames:
+  - knight_0
+  - knight_Realistic
+  skinPortraits:
+  - {fileID: 4495478712733764576, guid: 4b76b3e5c6eab39469a3f8a195052aa7, type: 3}
+  - {fileID: 21300000, guid: b007b622798243741bc8e1e501a43098, type: 3}
+  skinPreviewPrefabs:
+  - {fileID: 8202707046734161173, guid: 39cdd75010a8eb343a78d6ef150e98a8, type: 3}
+  - {fileID: 5696537226889572613, guid: 5e5d6b03c0eb35b40be0527374e58fea, type: 3}
+  skills:
+  - skillName: knight_lightAttck
+    description: Fast interrupt; weak to blocks and evasion.
+    icon: {fileID: 21300000, guid: f1f64873bfcd14f4ca810c4227b90a78, type: 3}
+    damage: 3
+    range: 0-1
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Check timing, range, and counter rules before confirming.
+  - skillName: knight_heavyAttck
+    description: High damage; weak to Fade and Jump.
+    icon: {fileID: 21300000, guid: 349ce2eca46573043acd9fb98387ae72, type: 3}
+    damage: 7
+    range: 0-2
+    actionSlotCost: 2
+    energyCost: 0
+    counterDescription: Check timing, range, and counter rules before confirming.
+  - skillName: knight_lowAttack
+    description: Breaks guards; weak to Jump.
+    icon: {fileID: 21300000, guid: b9365d953f560894da21f089889c8b4f, type: 3}
+    damage: 2
+    range: 0-1
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Check timing, range, and counter rules before confirming.
+  - skillName: knight_parry
+    description: Reflects key attacks; loses to heavy/guard-break attacks.
+    icon: {fileID: 7017151860428357319, guid: 40a85afbdd523d14d86af1ab7463fda8, type: 3}
+    damage: 0
+    range: 
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Check timing, range, and counter rules before confirming.
+  - skillName: knight_defense
+    description: Reliable block; weak to guard-break attacks.
+    icon: {fileID: 21300000, guid: 37d1985f61303374283e4b2421ae087c, type: 3}
+    damage: 0
+    range: 
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Check timing, range, and counter rules before confirming.
+  - skillName: Ultimate
+    description: High burst; countered by Parry, Defense, Fade, or Jump.
+    icon: {fileID: 21300000, guid: 65974bfb3b368f148a62b31d8223f6ad, type: 3}
+    damage: 10
+    range: 0-2
+    actionSlotCost: 1
+    energyCost: 5
+    counterDescription: Check timing, range, and counter rules before confirming.

@@ -3,25 +3,26 @@ using UnityEngine;
 public enum JumpInteractionType
 {
     None,
-    Evade,      // 被跳躍完全躲掉
-    HalfDamage  // 跳起來時傷害減半
+    Evade,      // Fully evaded while jumping
+    HalfDamage  // Damage is halved while jumping
 }
 
 [System.Serializable]
 public class AttackActionData : ActionData
 {
-    [Header("基礎數值")]
+    [Header("Base Values")]
     public int damage = 1;
+    public int minRange = 0;
     public int range = 1;
 
-    [Header("防禦互動")]
+    [Header("Defense Interaction")]
     public bool canBeParried = false;
     public bool canBeDefended = true;
 
-    [Header("對跳躍的反應")]
+    [Header("Jump Interaction")]
     public JumpInteractionType jumpInteraction = JumpInteractionType.None;
 
-    [Header("蓄力設定")]
-    public bool requiresCharge = false;   // 只有重攻擊會用到
-    public int chargeTurns = 1;           // 第1回合蓄力，第2回合出招 => 1
+    [Header("Charge Settings")]
+    public bool requiresCharge = false;   // Used by heavy attacks.
+    public int chargeTurns = 1;           // Turn 1 charges, turn 2 releases.
 }

@@ -1,0 +1,949 @@
+fileFormatVersion: 2
+guid: 2a61c5d1ac6d18c499838a2b1cd2cd04
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4795908652052740969
+    second: Oracle_BoltProjectileFlight_05_0
+  - first:
+      213: -492789342413384271
+    second: Oracle_BoltProjectileFlight_05_1
+  - first:
+      213: 1770960528371412735
+    second: Oracle_BoltProjectileFlight_05_2
+  - first:
+      213: 8592048818031164524
+    second: Oracle_BoltProjectileFlight_05_3
+  - first:
+      213: -6334248684154824283
+    second: Oracle_BoltProjectileFlight_05_4
+  - first:
+      213: 5418454683308892565
+    second: Oracle_BoltProjectileFlight_05_5
+  - first:
+      213: -4802173720425626771
+    second: Oracle_BoltProjectileFlight_05_6
+  - first:
+      213: 5932013383524470625
+    second: Oracle_BoltProjectileFlight_05_7
+  - first:
+      213: 1996387260329248669
+    second: Oracle_BoltProjectileFlight_05_8
+  - first:
+      213: -1024683235543893604
+    second: Oracle_BoltProjectileFlight_05_9
+  - first:
+      213: 668187913506818957
+    second: Oracle_BoltProjectileFlight_05_10
+  - first:
+      213: -8485529860456256560
+    second: Oracle_BoltProjectileFlight_05_11
+  - first:
+      213: 8698631923314425890
+    second: Oracle_BoltProjectileFlight_05_12
+  - first:
+      213: -8008955665889246467
+    second: Oracle_BoltProjectileFlight_05_13
+  - first:
+      213: -3014123501190025831
+    second: Oracle_BoltProjectileFlight_05_14
+  - first:
+      213: -3782011758434580572
+    second: Oracle_BoltProjectileFlight_05_15
+  - first:
+      213: 2253033149123940123
+    second: Oracle_BoltProjectileFlight_05_16
+  - first:
+      213: -5651312357995734056
+    second: Oracle_BoltProjectileFlight_05_17
+  - first:
+      213: -866319632079895031
+    second: Oracle_BoltProjectileFlight_05_18
+  - first:
+      213: 2988440722499260424
+    second: Oracle_BoltProjectileFlight_05_19
+  - first:
+      213: -3985706512596508185
+    second: Oracle_BoltProjectileFlight_05_20
+  - first:
+      213: -5689854284056631991
+    second: Oracle_BoltProjectileFlight_05_21
+  - first:
+      213: -1580445749100631147
+    second: Oracle_BoltProjectileFlight_05_22
+  - first:
+      213: -8255554914495917015
+    second: Oracle_BoltProjectileFlight_05_23
+  - first:
+      213: 2369675473622492367
+    second: Oracle_BoltProjectileFlight_05_24
+  - first:
+      213: -3907298748703839452
+    second: Oracle_BoltProjectileFlight_05_25
+  - first:
+      213: -10924994995472908
+    second: Oracle_BoltProjectileFlight_05_26
+  - first:
+      213: 9204858066505077651
+    second: Oracle_BoltProjectileFlight_05_27
+  - first:
+      213: 899525534889141288
+    second: Oracle_BoltProjectileFlight_05_28
+  - first:
+      213: -6592269972595604288
+    second: Oracle_BoltProjectileFlight_05_29
+  - first:
+      213: -803494663046296991
+    second: Oracle_BoltProjectileFlight_05_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 558
+        width: 103
+        height: 466
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b73dc528d7e8240800000000000000
+      internalID: 4795908652052740969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 784
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b51a5834b24929f0800000000000000
+      internalID: -492789342413384271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_2
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 760
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffee0d4b737b39810800000000000000
+      internalID: 1770960528371412735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_3
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 752
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6cff8b90e61d3770800000000000000
+      internalID: 8592048818031164524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_4
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 743
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a957fdc16a3818a0800000000000000
+      internalID: -6334248684154824283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_5
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 736
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591ad2683d7323b40800000000000000
+      internalID: 5418454683308892565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_6
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 672
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d63805cb1704b5db0800000000000000
+      internalID: -4802173720425626771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_7
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 637
+        width: 8
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16fc6df3ebeb25250800000000000000
+      internalID: 5932013383524470625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_8
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 768
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d974a0ec2a794bb10800000000000000
+      internalID: 1996387260329248669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_9
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 855
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c99bb1ab60897c1f0800000000000000
+      internalID: -1024683235543893604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_10
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 565
+        width: 81
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8b88cbfd51e54900800000000000000
+      internalID: 668187913506818957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_11
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 978
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dbe888dc875d3a80800000000000000
+      internalID: -8485529860456256560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 503
+        width: 21
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 220870d95afb7b870800000000000000
+      internalID: 8698631923314425890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_13
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 191
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df2c1d051497ad090800000000000000
+      internalID: -8008955665889246467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_14
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 320
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99d696a25aeab26d0800000000000000
+      internalID: -3014123501190025831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_15
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 231
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a7082af758938bc0800000000000000
+      internalID: -3782011758434580572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 216
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1f46b846b1644f10800000000000000
+      internalID: 2253033149123940123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_17
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 200
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8db93e23a518291b0800000000000000
+      internalID: -5651312357995734056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_18
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 186
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9064ee372e63af3f0800000000000000
+      internalID: -866319632079895031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_19
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 168
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80051e0f003197920800000000000000
+      internalID: 2988440722499260424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_20
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 135
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e169b14b0defa8c0800000000000000
+      internalID: -3985706512596508185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_21
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 104
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 945e11fbca39901b0800000000000000
+      internalID: -5689854284056631991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_22
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 72
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59ba41af6f0211ae0800000000000000
+      internalID: -1580445749100631147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_23
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 44
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9249db98b806e6d80800000000000000
+      internalID: -8255554914495917015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_24
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 39
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc46936c947c2e020800000000000000
+      internalID: 2369675473622492367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_25
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 23
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42bed246d7c76c9c0800000000000000
+      internalID: -3907298748703839452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_26
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 23
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f53f1266cf29dff0800000000000000
+      internalID: -10924994995472908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_27
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 27
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3939ced54a93ebf70800000000000000
+      internalID: 9204858066505077651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_28
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 8
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 824e57545b1cb7c00800000000000000
+      internalID: 899525534889141288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_29
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 10
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c407f3236d8384a0800000000000000
+      internalID: -6592269972595604288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_BoltProjectileFlight_05_30
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16a043e6cd969d4f0800000000000000
+      internalID: -803494663046296991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_BoltProjectileFlight_05_0: 4795908652052740969
+      Oracle_BoltProjectileFlight_05_1: -492789342413384271
+      Oracle_BoltProjectileFlight_05_10: 668187913506818957
+      Oracle_BoltProjectileFlight_05_11: -8485529860456256560
+      Oracle_BoltProjectileFlight_05_12: 8698631923314425890
+      Oracle_BoltProjectileFlight_05_13: -8008955665889246467
+      Oracle_BoltProjectileFlight_05_14: -3014123501190025831
+      Oracle_BoltProjectileFlight_05_15: -3782011758434580572
+      Oracle_BoltProjectileFlight_05_16: 2253033149123940123
+      Oracle_BoltProjectileFlight_05_17: -5651312357995734056
+      Oracle_BoltProjectileFlight_05_18: -866319632079895031
+      Oracle_BoltProjectileFlight_05_19: 2988440722499260424
+      Oracle_BoltProjectileFlight_05_2: 1770960528371412735
+      Oracle_BoltProjectileFlight_05_20: -3985706512596508185
+      Oracle_BoltProjectileFlight_05_21: -5689854284056631991
+      Oracle_BoltProjectileFlight_05_22: -1580445749100631147
+      Oracle_BoltProjectileFlight_05_23: -8255554914495917015
+      Oracle_BoltProjectileFlight_05_24: 2369675473622492367
+      Oracle_BoltProjectileFlight_05_25: -3907298748703839452
+      Oracle_BoltProjectileFlight_05_26: -10924994995472908
+      Oracle_BoltProjectileFlight_05_27: 9204858066505077651
+      Oracle_BoltProjectileFlight_05_28: 899525534889141288
+      Oracle_BoltProjectileFlight_05_29: -6592269972595604288
+      Oracle_BoltProjectileFlight_05_3: 8592048818031164524
+      Oracle_BoltProjectileFlight_05_30: -803494663046296991
+      Oracle_BoltProjectileFlight_05_4: -6334248684154824283
+      Oracle_BoltProjectileFlight_05_5: 5418454683308892565
+      Oracle_BoltProjectileFlight_05_6: -4802173720425626771
+      Oracle_BoltProjectileFlight_05_7: 5932013383524470625
+      Oracle_BoltProjectileFlight_05_8: 1996387260329248669
+      Oracle_BoltProjectileFlight_05_9: -1024683235543893604
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

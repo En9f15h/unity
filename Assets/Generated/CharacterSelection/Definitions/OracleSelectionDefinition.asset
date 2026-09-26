@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16a703b19c8ff04ea5809e9f1f3c4d1, type: 3}
+  m_Name: OracleSelectionDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterSelectionDefinition
+  characterId: oracle
+  combatConfig: {fileID: 11400000, guid: 62bb37fa07d64bef8bc512db6f160cb8, type: 2}
+  legacyClassIndex: 1
+  displayName: Oracle
+  englishName: Oracle
+  roleName: Prediction Caster
+  shortRole: Prediction Caster
+  description: A prediction caster who controls spacing, reveals intent, and punishes
+    enemy plans.
+  cardSprite: {fileID: -87254469991454428, guid: e7b58c81447bf194ca6d642ab64f69a2, type: 3}
+  portraitSprite: {fileID: -87254469991454428, guid: e7b58c81447bf194ca6d642ab64f69a2, type: 3}
+  previewPrefab: {fileID: 407150421034008040, guid: 9011f1ad2f2ac5143aa08f97b7b9f6b7, type: 3}
+  selectionPanelBackgroundSprite: {fileID: -5889013573144646257, guid: f4819c6302124f34480a911c92cb6dd5, type: 3}
+  characterPreviewBackgroundSprite: {fileID: -2493049269115187025, guid: f36ea3d1ad361414490eec068d19bcf7, type: 3}
+  characterInfoBackgroundSprite: {fileID: 7272775194208588188, guid: d638a4bb61c82e94cb18c4da54f297e9, type: 3}
+  radarBackgroundSprite: {fileID: -8958323842677873337, guid: 6ec788e95c0f4bc489400b5fb76b4b23, type: 3}
+  vitality: 3
+  attack: 3
+  defense: 3
+  mobility: 4
+  range: 5
+  prediction: 5
+  vitalityRating: 3
+  attackRating: 3
+  defenseRating: 3
+  mobilityRating: 4
+  rangeRating: 5
+  predictionRating: 5
+  difficultyRating: 4
+  skinNames:
+  - Oracle_0
+  - Oracle_Realistic
+  skinPortraits:
+  - {fileID: -87254469991454428, guid: e7b58c81447bf194ca6d642ab64f69a2, type: 3}
+  - {fileID: 7560954041774020315, guid: d1f5b71d06dad3544be6ce361050d275, type: 3}
+  skinPreviewPrefabs:
+  - {fileID: 407150421034008040, guid: 9011f1ad2f2ac5143aa08f97b7b9f6b7, type: 3}
+  - {fileID: 407150421034008040, guid: ea906ef8383bc6c40860e935ab614ba8, type: 3}
+  skills:
+  - skillName: Bolt
+    description: Stronger at longer range; weak to Ward and Parry.
+    icon: {fileID: 1398867081139694098, guid: c4863b117343de646b65d0f58e483abd, type: 3}
+    damage: 3
+    range: 2/3/4
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Stronger at longer range; weak to Ward and Parry.
+  - skillName: Rift
+    description: A charged rift that ignores Parry and partially pierces Defense.
+      Jump avoids it.
+    icon: {fileID: -1799386721170512200, guid: ce88f08e40f43234399fd066b415bfc5, type: 3}
+    damage: 4
+    range: 2-3
+    actionSlotCost: 2
+    energyCost: 0
+    counterDescription: Breaks Ward and Parry; weak to Fade and Jump.
+  - skillName: Shift
+    description: Move behind the enemy. If that space is invalid, exchange positions.
+      Interrupted by Light Attack at close range.
+    icon: {fileID: -9095335120657161191, guid: aab57a55df4b5c649b2621ede209ea68, type: 3}
+    damage: 0
+    range: 1-2
+    actionSlotCost: 2
+    energyCost: 0
+    counterDescription: Repositions to avoid attacks; still vulnerable by range.
+  - skillName: Ward
+    description: Blocks Light Attack. Heavy Attack breaks through, and Low Attack
+      bypasses it.
+    icon: {fileID: -6613502331250607294, guid: 92b5bd95768275447acfde610c443055, type: 3}
+    damage: 0
+    range: 
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Stops fast attacks; weak to guard-break attacks.
+  - skillName: Fade
+    description: Evades Heavy Attack. Light Attack and Low Attack still hit.
+    icon: {fileID: -2627944507539595547, guid: 7dd3b0d9a94f83a41b4469b07712fe38, type: 3}
+    damage: 0
+    range: 
+    actionSlotCost: 1
+    energyCost: 0
+    counterDescription: Evades committed attacks; weak to fast attacks.
+  - skillName: Sight
+    description: Once per match. Starting next round, permanently reveal one fixed
+      enemy action slot after the enemy is ready.
+    icon: {fileID: -6637021777585855951, guid: ad9d96144a022f5479c1fdd918ccd32e, type: 3}
+    damage: 0
+    range: Full
+    actionSlotCost: 1
+    energyCost: 5
+    counterDescription: Reveals enemy actions; provides no direct defense.

@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: ce9a2c5c51696cf44bf08c219e12bd80
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8398127693461589799
+    second: Oracle_RiftWarning_01_0
+  - first:
+      213: -6643422133116115754
+    second: Oracle_RiftWarning_01_1
+  - first:
+      213: -2914857914593661531
+    second: Oracle_RiftWarning_01_2
+  - first:
+      213: 2303488150488532650
+    second: Oracle_RiftWarning_01_3
+  - first:
+      213: 4293420536836242426
+    second: Oracle_RiftWarning_01_4
+  - first:
+      213: 8330719071313789389
+    second: Oracle_RiftWarning_01_5
+  - first:
+      213: -5922704029729170816
+    second: Oracle_RiftWarning_01_6
+  - first:
+      213: -149378554243008161
+    second: Oracle_RiftWarning_01_7
+  - first:
+      213: 1563375403860111323
+    second: Oracle_RiftWarning_01_8
+  - first:
+      213: 3890029114310799042
+    second: Oracle_RiftWarning_01_9
+  - first:
+      213: -7433661230068941481
+    second: Oracle_RiftWarning_01_10
+  - first:
+      213: -4349325248905085993
+    second: Oracle_RiftWarning_01_11
+  - first:
+      213: 3328771441230641661
+    second: Oracle_RiftWarning_01_12
+  - first:
+      213: 4388963300988441492
+    second: Oracle_RiftWarning_01_13
+  - first:
+      213: 3833020976326466157
+    second: Oracle_RiftWarning_01_14
+  - first:
+      213: -1614444733057666636
+    second: Oracle_RiftWarning_01_15
+  - first:
+      213: -4720512721693455298
+    second: Oracle_RiftWarning_01_16
+  - first:
+      213: 9036778791424901479
+    second: Oracle_RiftWarning_01_17
+  - first:
+      213: -4829397646760809384
+    second: Oracle_RiftWarning_01_18
+  - first:
+      213: -1592019415341015483
+    second: Oracle_RiftWarning_01_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 533
+        width: 81
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d0f9d4ab5bd37b80800000000000000
+      internalID: -8398127693461589799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 560
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d465aea4c2ddc3a0800000000000000
+      internalID: -6643422133116115754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_2
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 558
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ada8e59b285c87d0800000000000000
+      internalID: -2914857914593661531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_3
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 543
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa6c03ab442a7ff10800000000000000
+      internalID: 2303488150488532650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_4
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 549
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afbbd711b3b459b30800000000000000
+      internalID: 4293420536836242426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_5
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 535
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc10b397bd8ac9370800000000000000
+      internalID: 8330719071313789389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_6
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 493
+        width: 20
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ad73690145ecda0800000000000000
+      internalID: -5922704029729170816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_7
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 18
+        width: 76
+        height: 520
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f59b8411ffc4dedf0800000000000000
+      internalID: -149378554243008161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_8
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 535
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdf2aad85a932b510800000000000000
+      internalID: 1563375403860111323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_9
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 533
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ce2c648ed82cf530800000000000000
+      internalID: 3890029114310799042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_10
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 524
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75db5291f7456d890800000000000000
+      internalID: -7433661230068941481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 511
+        width: 9
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dbff56dab714a3c0800000000000000
+      internalID: -4349325248905085993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_12
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 495
+        width: 32
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df9740d3dfb223e20800000000000000
+      internalID: 3328771441230641661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_13
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 517
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49354a75edab8ec30800000000000000
+      internalID: 4388963300988441492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_14
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 512
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6a5f8e0540a13530800000000000000
+      internalID: 3833020976326466157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_15
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 501
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1f898a1175899e0800000000000000
+      internalID: -1614444733057666636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_16
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 487
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3ccfb1a0be5d7eb0800000000000000
+      internalID: -4720512721693455298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_17
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 500
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7614aa09e66196d70800000000000000
+      internalID: 9036778791424901479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_18
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 491
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85ce6b17d688afcb0800000000000000
+      internalID: -4829397646760809384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_RiftWarning_01_19
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 492
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54ed211d6c208e9e0800000000000000
+      internalID: -1592019415341015483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_RiftWarning_01_0: -8398127693461589799
+      Oracle_RiftWarning_01_1: -6643422133116115754
+      Oracle_RiftWarning_01_10: -7433661230068941481
+      Oracle_RiftWarning_01_11: -4349325248905085993
+      Oracle_RiftWarning_01_12: 3328771441230641661
+      Oracle_RiftWarning_01_13: 4388963300988441492
+      Oracle_RiftWarning_01_14: 3833020976326466157
+      Oracle_RiftWarning_01_15: -1614444733057666636
+      Oracle_RiftWarning_01_16: -4720512721693455298
+      Oracle_RiftWarning_01_17: 9036778791424901479
+      Oracle_RiftWarning_01_18: -4829397646760809384
+      Oracle_RiftWarning_01_19: -1592019415341015483
+      Oracle_RiftWarning_01_2: -2914857914593661531
+      Oracle_RiftWarning_01_3: 2303488150488532650
+      Oracle_RiftWarning_01_4: 4293420536836242426
+      Oracle_RiftWarning_01_5: 8330719071313789389
+      Oracle_RiftWarning_01_6: -5922704029729170816
+      Oracle_RiftWarning_01_7: -149378554243008161
+      Oracle_RiftWarning_01_8: 1563375403860111323
+      Oracle_RiftWarning_01_9: 3890029114310799042
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

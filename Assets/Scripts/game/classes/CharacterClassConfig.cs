@@ -31,4 +31,48 @@ public class CharacterClassConfig : ScriptableObject
 
     [Header("Class Gameplay UI")]
     public GameObject gameplayUiPrefab;
+
+    public virtual ActionData[] GetClassActions()
+    {
+        return new ActionData[]
+        {
+            lightAttack,
+            heavyAttack,
+            lowAttack,
+            parry,
+            defense,
+            dance,
+            ultimate
+        };
+    }
+
+    public virtual ActionData GetActionData(ActionType actionType)
+    {
+        switch (actionType)
+        {
+            case ActionType.LightAttack:
+                return lightAttack;
+
+            case ActionType.HeavyAttack:
+                return heavyAttack;
+
+            case ActionType.LowAttack:
+                return lowAttack;
+
+            case ActionType.Parry:
+                return parry;
+
+            case ActionType.Defense:
+                return defense;
+
+            case ActionType.Dance:
+                return dance;
+
+            case ActionType.Ultimate:
+                return ultimate;
+
+            default:
+                return null;
+        }
+    }
 }

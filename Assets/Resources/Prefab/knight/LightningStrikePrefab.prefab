@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5475533564862994277}
   - component: {fileID: 4187899821494022600}
+  - component: {fileID: 5004644711515568050}
   m_Layer: 0
   m_Name: LightningStrikePrefab
   m_TagString: Untagged
@@ -51,6 +52,26 @@ MonoBehaviour:
   impactBurst: {fileID: 5622440547560646665}
   impactDelay: 0.2
   destroyDelay: 1
+  useUnscaledTime: 1
+  playUnassignedChildParticles: 1
+  clearBeforePlay: 1
+  shakeCameraOnImpact: 1
+  impactShakeDuration: 0.08
+  impactShakeStrength: 0.08
+  randomZRotation: 4
+--- !u!114 &5004644711515568050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189910444467699779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243479f6fc1fb940a599a61174a92e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatEffectShaderDriver
+  duration: 0.6
 --- !u!1 &1039870761442844181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,7 +4912,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e635b908dd88b8441a23006cbb77c861, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9785,7 +9806,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e635b908dd88b8441a23006cbb77c861, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9898,7 +9919,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6fd27573b0feac34ab73804c1bf478e5, type: 2}
+  - {fileID: 2100000, guid: 7f2c462ce0573ff4ebeb3f1eb7d25501, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10007,6 +10028,7 @@ MonoBehaviour:
   topExtraOffset: 1
   strikeDuration: 0.2
   fadeOutDuration: 0.25
+  useUnscaledTime: 1
   redrawCount: 3
   redrawInterval: 0.03
   branchCount: 5
@@ -10016,3 +10038,7 @@ MonoBehaviour:
   branchHorizontalJitter: 0.15
   branchWidthMultiplier: 0.45
   branchAlphaMultiplier: 0.75
+  branchSpawnChance: 0.85
+  widthPulseStrength: 0.25
+  alphaFlickerStrength: 0.18
+  pulseFrequency: 42

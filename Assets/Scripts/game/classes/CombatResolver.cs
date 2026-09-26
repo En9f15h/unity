@@ -7,6 +7,7 @@ public struct AttackResolutionResult
     public bool blocked;
     public bool evaded;
     public bool outOfRange;
+    public bool tooClose;
     public int damage;
 }
 
@@ -22,6 +23,12 @@ public static class CombatResolver
 
         if (attackData == null)
             return result;
+
+        if (attackData.minRange > 0 && currentDistance < attackData.minRange)
+        {
+            result.tooClose = true;
+            return result;
+        }
 
         if (currentDistance > attackData.range)
         {

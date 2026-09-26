@@ -4,59 +4,59 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class DynamicBattleCamera2D : MonoBehaviour
 {
-    [Header("自動抓角色")]
+    [Header("Auto-Find Characters")]
     [SerializeField] private bool autoFindPlayersOnSyncedStart = true;
     [SerializeField] private string playerTag = "PLAYER";
     [SerializeField] private float retryFindInterval = 0.5f;
-    [Header("子物件跟著縮放")]
+    [Header("Child Scaling With Zoom")]
     [SerializeField] private bool scaleChildrenWithZoom = true;
 
-    [Tooltip("不指定就用 Camera 自己當根節點")]
+    [Tooltip("Uses the Camera transform as the root when not assigned.")]
     [SerializeField] private Transform childrenScaleRoot;
 
-    [Tooltip("true = 只縮放直屬子物件；false = 縮放所有後代")]
+    [Tooltip("true = scale only direct children; false = scale all descendants.")]
     [SerializeField] private bool onlyDirectChildren = true;
 
     [SerializeField] private bool includeInactiveChildren = true;
 
-    [Tooltip("如果你覺得縮放方向反了，可以打開這個")]
+    [Tooltip("Enable this if child scaling moves in the opposite direction.")]
     [SerializeField] private bool invertChildScale = false;
-    [Header("追蹤目標")]
+    [Header("Tracking Targets")]
     [SerializeField] private Transform targetA;
     [SerializeField] private Transform targetB;
 
-    [Header("跟隨設定")]
+    [Header("Follow Settings")]
     [SerializeField] private float followSmoothTime = 0.18f;
     [SerializeField] private Vector3 baseOffset = new Vector3(0f, 0f, -10f);
 
-    [Header("前視設定")]
+    [Header("Look-Ahead Settings")]
     [SerializeField] private bool enableLookAhead = true;
     [SerializeField] private float lookAheadStrength = 0.35f;
     [SerializeField] private float maxLookAheadX = 1.25f;
     [SerializeField] private float velocitySampleSmoothing = 12f;
 
-    [Header("縮放設定")]
+    [Header("Zoom Settings")]
     [SerializeField] private bool autoZoom = true;
     [SerializeField] private float distanceToSizeMultiplier = 0.45f;
     [SerializeField] private float zoomSmoothSpeed = 5f;
 
-    [Tooltip("最小鏡頭大小。數字越小，拉得越近。")]
+    [Tooltip("Minimum camera size. Smaller values zoom closer.")]
     [SerializeField] private float minOrthoSize = 3.5f;
 
-    [Tooltip("最大鏡頭大小。若 <= 0，會在 Start 時自動使用鏡頭原始大小。")]
+    [Tooltip("Maximum camera size. If <= 0, Start uses the initial camera size.")]
     [SerializeField] private float maxOrthoSize = 0f;
 
-    [Header("安全邊距")]
+    [Header("Safe Padding")]
     [SerializeField] private float horizontalPadding = 2f;
     [SerializeField] private float verticalPadding = 1f;
-    [Header("背景邊界限制")]
+    [Header("Background Bounds Limit")]
     [SerializeField] private bool useBackgroundBounds = true;
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
     [SerializeField] private Collider2D backgroundCollider2D;
 
-    [Tooltip("背景內縮邊距，避免鏡頭貼太邊")]
+    [Tooltip("Inset from the background bounds so the camera does not hug the edge.")]
     [SerializeField] private float backgroundPadding = 0f;
-    [Header("場地邊界（可選）")]
+    [Header("Optional Arena Bounds")]
     [SerializeField] private bool useCameraBounds = false;
     [SerializeField] private float minX = -10f;
     [SerializeField] private float maxX = 10f;
@@ -88,7 +88,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
         if (!cam.orthographic)
         {
-            Debug.LogWarning("DynamicBattleCamera2D 建議搭配 Orthographic Camera 使用。");
+            Debug.LogWarning("DynamicBattleCamera2D is intended for an Orthographic Camera.");
         }
 
         if (maxOrthoSize <= 0f)
@@ -284,7 +284,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
         if (players == null || players.Length < 2)
             return false;
 
-        // 取前兩個即可；如果你之後場上超過兩個 PLAYER，再改篩選規則
+        // Use the first two PLAYER-tagged objects; refine this if more battle units are added later.
         targetA = players[0] != null ? players[0].transform : null;
         targetB = players[1] != null ? players[1].transform : null;
 
@@ -293,7 +293,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
         CacheCurrentTargetPositions();
 
-        Debug.Log($"DynamicBattleCamera2D 已自動抓到 PLAYER 目標: {targetA.name}, {targetB.name}");
+        Debug.Log($"DynamicBattleCamera2D found PLAYER targets automatically: {targetA.name}, {targetB.name}");
         return true;
     }
 
@@ -368,10 +368,10 @@ public class DynamicBattleCamera2D : MonoBehaviour
         float extraSize = distanceX * distanceToSizeMultiplier * 0.1f;
         float finalSize = distanceBasedSize + extraSize;
 
-        // 原本設定的最大值
+        // Existing configured maximum value.
         float maxSizeLimit = maxOrthoSize;
 
-        // 如果有背景 bounds，再進一步壓到背景允許範圍內
+        // Clamp further when background bounds are available.
         if (hasBackgroundBounds)
             maxSizeLimit = Mathf.Min(maxSizeLimit, GetMaxOrthoSizeFromBackground());
 
@@ -386,7 +386,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
         float halfHeight = orthoSize;
         float halfWidth = orthoSize * cam.aspect;
 
-        // 優先用背景 bounds
+        // Prefer background bounds when available.
         if (hasBackgroundBounds)
         {
             float left = cachedBackgroundBounds.min.x + backgroundPadding;
@@ -399,7 +399,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
             float minCamY = bottom + halfHeight;
             float maxCamY = top - halfHeight;
 
-            // 如果背景比鏡頭還小，就直接鎖中間
+            // If the background is smaller than the camera, lock to center.
             float clampedX;
             if (minCamX > maxCamX)
                 clampedX = (left + right) * 0.5f;
@@ -415,7 +415,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
             return new Vector3(clampedX, clampedY, desiredPosition.z);
         }
 
-        // 沒背景 bounds 時，退回手動 bounds
+        // Fall back to manual bounds when background bounds are unavailable.
         if (useCameraBounds)
         {
             float clampedX = Mathf.Clamp(desiredPosition.x, minX + halfWidth, maxX - halfWidth);

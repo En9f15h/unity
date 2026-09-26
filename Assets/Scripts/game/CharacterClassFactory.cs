@@ -14,12 +14,21 @@ public static class CharacterClassFactory
                 return new KnightClass(configs[classIndex]);
 
             case 1:
-                return new FortuneTellerClass(configs[classIndex]);
+                if (configs[classIndex] is OracleClassConfig oracleConfig)
+                    return new OracleClass(oracleConfig);
+
+                return new WarriorClass(configs[classIndex]);
 
             case 2:
                 return new WarriorClass(configs[classIndex]);
 
+            case 3:
+                return new WarriorClass(configs[classIndex]);
+
             default:
+                if (configs[classIndex] is OracleClassConfig fallbackOracleConfig)
+                    return new OracleClass(fallbackOracleConfig);
+
                 return new KnightClass(configs[0]);
         }
     }

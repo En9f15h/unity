@@ -4,9 +4,10 @@ using Photon.Realtime;
 using UnityEngine;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+[DefaultExecutionOrder(-100)]
 public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
 {
-    public const string ROOM_PROP_BG_INDEX = "bgSpriteIndex";
+    public const string ROOM_PROP_BG_INDEX = CharacterSelectPhotonKeys.LegacyStageIndex;
 
     [Header("Background SpriteRenderer")]
     [SerializeField] private SpriteRenderer backgroundRenderer;
@@ -104,6 +105,12 @@ public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
         if (index < 0 || index >= backgroundSprites.Length)
         {
             Debug.LogWarning("BackgroundSpriteSync: index out of range = " + index);
+            return;
+        }
+
+        if (backgroundSprites[index] == null)
+        {
+            Debug.LogWarning("BackgroundSpriteSync: background sprite is missing at index = " + index);
             return;
         }
 

@@ -1,0 +1,423 @@
+fileFormatVersion: 2
+guid: 0e2dc0bd3a7a7b8468ec2706a9100a7d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5884424907494526187
+    second: Ward Activation Animation_0
+  - first:
+      213: 843126304517257793
+    second: Ward Activation Animation_1
+  - first:
+      213: -4474775190245576050
+    second: Ward Activation Animation_2
+  - first:
+      213: 701094739872646429
+    second: Ward Activation Animation_3
+  - first:
+      213: 8646843258139703820
+    second: Ward Activation Animation_4
+  - first:
+      213: 6577736545495839807
+    second: Ward Activation Animation_5
+  - first:
+      213: 5241349214057201312
+    second: Ward Activation Animation_6
+  - first:
+      213: 7506846533687353490
+    second: Ward Activation Animation_7
+  - first:
+      213: -6110205709683994752
+    second: Ward Activation Animation_8
+  - first:
+      213: 6995398892889331962
+    second: Ward Activation Animation_9
+  - first:
+      213: -3496125331023817222
+    second: Ward Activation Animation_10
+  - first:
+      213: 6992869360730876806
+    second: Ward Activation Animation_11
+  - first:
+      213: 7696465468020811473
+    second: Ward Activation Animation_12
+  - first:
+      213: 6703260366456449689
+    second: Ward Activation Animation_13
+  - first:
+      213: 3173022316980596394
+    second: Ward Activation Animation_14
+  - first:
+      213: 3624683597175129253
+    second: Ward Activation Animation_15
+  - first:
+      213: -2090418707908279574
+    second: Ward Activation Animation_16
+  - first:
+      213: 4391350641143203549
+    second: Ward Activation Animation_17
+  - first:
+      213: 3390600795864438431
+    second: Ward Activation Animation_18
+  - first:
+      213: -3676055701598002773
+    second: Ward Activation Animation_19
+  - first:
+      213: -6605301601872654086
+    second: Ward Activation Animation_20
+  - first:
+      213: 8600148942839764532
+    second: Ward Activation Animation_21
+  - first:
+      213: 1634361284992042830
+    second: Ward Activation Animation_22
+  - first:
+      213: 7033306367412998408
+    second: Ward Activation Animation_23
+  - first:
+      213: -6103989050263368673
+    second: Ward Activation Animation_24
+  - first:
+      213: 9222835907721536091
+    second: Ward Activation Animation_25
+  - first:
+      213: -6199960283686334343
+    second: Ward Activation Animation_26
+  - first:
+      213: -2876479186691788817
+    second: Ward Activation Animation_27
+  - first:
+      213: -2670814829960097073
+    second: Ward Activation Animation_28
+  - first:
+      213: -7572409236930914925
+    second: Ward Activation Animation_29
+  - first:
+      213: -3154889146645197973
+    second: Ward Activation Animation_30
+  - first:
+      213: 2081839624939059425
+    second: Ward Activation Animation_31
+  - first:
+      213: 3186690411785770045
+    second: Ward Activation Animation_32
+  - first:
+      213: 5487238055378975394
+    second: Ward Activation Animation_33
+  - first:
+      213: -3191406504873115888
+    second: Ward Activation Animation_34
+  - first:
+      213: -8511078839655149708
+    second: Ward Activation Animation_35
+  - first:
+      213: 1303805086952550933
+    second: Ward Activation Animation_36
+  - first:
+      213: -389405070122757083
+    second: Ward Activation Animation_37
+  - first:
+      213: 7156678437604344057
+    second: Ward Activation Animation_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ward Activation Animation_0
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 439
+        width: 202
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bec0caeb64da9a150800000000000000
+      internalID: 5884424907494526187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_1
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 435
+        width: 198
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6455b4dee92c2ed4b9c954f03bbb4988
+      internalID: 843126304517257793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_2
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 435
+        width: 198
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 001d0df4284d66c4a9fb4704bfe93ac8
+      internalID: -4474775190245576050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_3
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 436
+        width: 199
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97be6b7c37be5a948925c8799fbbd3a8
+      internalID: 701094739872646429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_4
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 433
+        width: 181
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6824eeab3cd5c4f4f9c6d43041df9ac2
+      internalID: 8646843258139703820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_5
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 436
+        width: 191
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1072defbbe4d64ab3f7f1c77bb55c3
+      internalID: 6577736545495839807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ward Activation Animation_6
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 440
+        width: 194
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b554646624826754ea00073f4501eb1d
+      internalID: 5241349214057201312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a32748408319a8a4cb21c9a94270cc0d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1536.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":4,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Ward Activation Animation_0: 5884424907494526187
+      Ward Activation Animation_1: 843126304517257793
+      Ward Activation Animation_2: -4474775190245576050
+      Ward Activation Animation_3: 701094739872646429
+      Ward Activation Animation_4: 8646843258139703820
+      Ward Activation Animation_5: 6577736545495839807
+      Ward Activation Animation_6: 5241349214057201312
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

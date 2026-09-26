@@ -4,21 +4,22 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class LightningBoltFX : MonoBehaviour
 {
-    [Header("主雷柱")]
+    [Header("Main Lightning Bolt")]
     [SerializeField] private int pointCount = 10;
     [SerializeField] private float horizontalJitter = 0.25f;
     [SerializeField] private float topExtraOffset = 2.0f;
 
-    [Header("時間")]
-    [Tooltip("從開始到劈到劍上花多久。若動畫事件設在 0.3 秒，這裡設 0.2，就會在 0.5 秒命中")]
+    [Header("Timing")]
+    [Tooltip("Seconds from start until the bolt hits the sword.")]
     [SerializeField] private float strikeDuration = 0.2f;
     [SerializeField] private float fadeOutDuration = 0.25f;
+    [SerializeField] private bool useUnscaledTime = true;
 
-    [Header("刷新")]
+    [Header("Refresh")]
     [SerializeField] private int redrawCount = 6;
     [SerializeField] private float redrawInterval = 0.03f;
 
-    [Header("分岔")]
+    [Header("Branches")]
     [SerializeField] private int branchCount = 5;
     [SerializeField] private int branchPointCount = 4;
     [SerializeField] private float branchLengthMin = 0.6f;
@@ -26,12 +27,20 @@ public class LightningBoltFX : MonoBehaviour
     [SerializeField] private float branchHorizontalJitter = 0.15f;
     [SerializeField] private float branchWidthMultiplier = 0.45f;
     [SerializeField] private float branchAlphaMultiplier = 0.75f;
+    [SerializeField] private float branchSpawnChance = 0.85f;
+
+    [Header("Visual Boost")]
+    [SerializeField] private float widthPulseStrength = 0.25f;
+    [SerializeField] private float alphaFlickerStrength = 0.18f;
+    [SerializeField] private float pulseFrequency = 42f;
 
     private LineRenderer mainLR;
     private readonly List<LineRenderer> branchLRs = new List<LineRenderer>();
 
     private float timer = 0f;
+    private float redrawTimer = 0f;
     private int redrawRemaining;
+    private bool impactDrawn;
 
     private Gradient originalColorGradient;
     private float originalStartWidth;
@@ -60,8 +69,13 @@ public class LightningBoltFX : MonoBehaviour
 
     private void OnEnable()
     {
+        if (mainLR == null)
+            mainLR = GetComponent<LineRenderer>();
+
         timer = 0f;
+        redrawTimer = 0f;
         redrawRemaining = Mathf.Max(1, redrawCount);
+        impactDrawn = false;
 
         CacheWorldPoints();
         EnsureBranchRenderers();
@@ -71,35 +85,48 @@ public class LightningBoltFX : MonoBehaviour
             branchLRs[i].positionCount = 0;
 
         SetOverallVisual(0f, 1f);
-        CancelInvoke();
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
+        float deltaTime = GetDeltaTime();
+        timer += deltaTime;
+        redrawTimer += deltaTime;
 
-        // 劈下階段
-        if (timer <= strikeDuration)
+        if (strikeDuration <= 0f || timer <= strikeDuration)
         {
-            float t = Mathf.InverseLerp(0f, strikeDuration, timer);
-            DrawLightningProgress(t);
+            float t = strikeDuration <= 0f ? 1f : Mathf.Clamp01(timer / strikeDuration);
+            float easedT = 1f - Mathf.Pow(1f - t, 3f);
+            DrawLightningProgress(easedT);
 
-            if (!IsInvoking(nameof(RedrawLightning)))
-                InvokeRepeating(nameof(RedrawLightning), redrawInterval, redrawInterval);
+            if (redrawTimer >= redrawInterval)
+            {
+                redrawTimer = 0f;
+                RedrawLightning();
+            }
 
-            SetOverallVisual(1f, 1f);
+            SetOverallVisual(GetFlickeredAlpha(1f), GetPulsedWidth(1f));
             return;
         }
 
-        // 淡出階段
-        if (IsInvoking(nameof(RedrawLightning)))
-            CancelInvoke(nameof(RedrawLightning));
+        if (!impactDrawn)
+        {
+            DrawLightningProgress(1f);
+            impactDrawn = true;
+            redrawTimer = 0f;
+        }
 
-        float fadeT = Mathf.InverseLerp(strikeDuration, strikeDuration + fadeOutDuration, timer);
+        if (redrawRemaining > 0 && redrawTimer >= redrawInterval)
+        {
+            redrawTimer = 0f;
+            RedrawLightning();
+        }
+
+        float fadeT = Mathf.InverseLerp(strikeDuration, strikeDuration + Mathf.Max(0.01f, fadeOutDuration), timer);
         float alpha = Mathf.Lerp(1f, 0f, fadeT);
         float widthScale = Mathf.Lerp(1f, 0.2f, fadeT);
 
-        SetOverallVisual(alpha, widthScale);
+        SetOverallVisual(GetFlickeredAlpha(alpha), GetPulsedWidth(widthScale));
 
         if (timer >= strikeDuration + fadeOutDuration)
             Destroy(gameObject);
@@ -169,9 +196,6 @@ public class LightningBoltFX : MonoBehaviour
     {
         redrawRemaining--;
         DrawLightningProgress(1f);
-
-        if (redrawRemaining <= 0)
-            CancelInvoke(nameof(RedrawLightning));
     }
 
     private void DrawLightningProgress(float progress)
@@ -190,7 +214,10 @@ public class LightningBoltFX : MonoBehaviour
             Vector3 pos = Vector3.Lerp(topWorld, currentBottom, t);
 
             if (i != 0 && i != pointCount - 1)
-                pos.x += Random.Range(-horizontalJitter, horizontalJitter);
+            {
+                float envelope = Mathf.Sin(t * Mathf.PI);
+                pos.x += Random.Range(-horizontalJitter, horizontalJitter) * envelope;
+            }
 
             cachedMainPoints[i] = pos;
             mainLR.SetPosition(i, pos);
@@ -212,7 +239,7 @@ public class LightningBoltFX : MonoBehaviour
             if (branch == null || !branch.gameObject.activeSelf)
                 continue;
 
-            if (visibleMiddlePointMax <= 1)
+            if (visibleMiddlePointMax <= 1 || Random.value > branchSpawnChance)
             {
                 branch.positionCount = 0;
                 continue;
@@ -260,13 +287,14 @@ public class LightningBoltFX : MonoBehaviour
         Gradient g = new Gradient();
 
         GradientColorKey[] colorKeys = originalColorGradient.colorKeys;
-        GradientAlphaKey[] alphaKeys = new GradientAlphaKey[originalColorGradient.alphaKeys.Length];
+        GradientAlphaKey[] sourceAlphaKeys = originalColorGradient.alphaKeys;
+        GradientAlphaKey[] alphaKeys = new GradientAlphaKey[sourceAlphaKeys.Length];
 
         for (int i = 0; i < alphaKeys.Length; i++)
         {
             alphaKeys[i] = new GradientAlphaKey(
-                originalColorGradient.alphaKeys[i].alpha * alpha,
-                originalColorGradient.alphaKeys[i].time
+                sourceAlphaKeys[i].alpha * Mathf.Clamp01(alpha),
+                sourceAlphaKeys[i].time
             );
         }
 
@@ -275,5 +303,27 @@ public class LightningBoltFX : MonoBehaviour
 
         lr.startWidth = originalStartWidth * widthScale * widthMultiplier;
         lr.endWidth = originalEndWidth * widthScale * widthMultiplier;
+    }
+
+    private float GetFlickeredAlpha(float baseAlpha)
+    {
+        if (alphaFlickerStrength <= 0f)
+            return baseAlpha;
+
+        return Mathf.Clamp01(baseAlpha * Random.Range(1f - alphaFlickerStrength, 1f + alphaFlickerStrength));
+    }
+
+    private float GetPulsedWidth(float baseWidthScale)
+    {
+        if (widthPulseStrength <= 0f)
+            return baseWidthScale;
+
+        float pulse = Mathf.Sin(Time.unscaledTime * pulseFrequency) * widthPulseStrength;
+        return Mathf.Max(0.01f, baseWidthScale * (1f + pulse));
+    }
+
+    private float GetDeltaTime()
+    {
+        return useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
     }
 }

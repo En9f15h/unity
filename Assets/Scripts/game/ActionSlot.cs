@@ -1,32 +1,39 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
-    [Header("第幾格")]
+    [Header("Slot Index")]
     public int slotIndex;
 
-    [Header("顯示序號文字")]
+    [Header("Index Label")]
     [SerializeField] private Text indexText;
 
-    [Header("技能內容容器")]
+    [Header("Skill Content Container")]
     [SerializeField] private RectTransform contentRoot;
 
-    [Header("HeavyAttack 佔用下一格")]
+    [Header("Multi-Slot Extension")]
     [SerializeField] private ActionSlot nextSlot;
 
-    [Header("半透明鎖定遮罩")]
+    [Header("Lock Overlay")]
     [SerializeField] private GameObject lockOverlay;
+    [SerializeField] private Image lockedContinuationImage;
 
-    [Header("目前放入的行動資料")]
+    [Header("Current Action Data")]
     [SerializeField] private ActionData currentActionData;
 
     private ActionType currentActionType = ActionType.None;
     private GameObject currentPlacedObject;
+    private ActionData extensionActionData;
     private bool hasResolvedReferences;
 
     public bool IsOccupiedByHeavyExtension { get; private set; } = false;
+
+    public ActionData GetExtensionActionData()
+    {
+        return extensionActionData;
+    }
 
     private void Awake()
     {
@@ -58,6 +65,9 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
             if (overlay != null)
                 lockOverlay = overlay.gameObject;
         }
+
+        if (lockedContinuationImage == null)
+            lockedContinuationImage = FindComponentByName<Image>("continuation", "extension", "lockedicon", "locked");
 
         hasResolvedReferences = true;
     }
@@ -104,8 +114,37 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     private void RefreshLockOverlay()
     {
+        // Keep legacy prefab references, replacing only their visual presentation.
         if (lockOverlay != null)
-            lockOverlay.SetActive(IsOccupiedByHeavyExtension);
+            lockOverlay.SetActive(false);
+        if (lockedContinuationImage != null)
+        {
+            lockedContinuationImage.gameObject.SetActive(false);
+            lockedContinuationImage.sprite = null;
+        }
+        ActionContinuationPresentation.Refresh(this, IsOccupiedByHeavyExtension,
+            IsOccupiedByHeavyExtension ? GetLockedContinuationSprite(extensionActionData) : null);
+    }
+
+    private Sprite GetLockedContinuationSprite(ActionData actionData)
+    {
+        if (actionData == null)
+            return null;
+
+        if (actionData.lockedContinuationSprite != null)
+            return actionData.lockedContinuationSprite;
+
+        if (actionData.iconSprite != null)
+            return actionData.iconSprite;
+
+        if (actionData.sourcePrefab == null)
+            return null;
+
+        Image image = actionData.sourcePrefab.GetComponent<Image>();
+        if (image == null || image.sprite == null)
+            image = actionData.sourcePrefab.GetComponentInChildren<Image>(true);
+
+        return image != null ? image.sprite : null;
     }
 
     private T FindComponentByName<T>(params string[] tokens) where T : Component
@@ -161,8 +200,24 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void SetHeavyExtensionOccupied(bool value)
     {
+        SetHeavyExtensionOccupied(value, null);
+    }
+
+    public void SetHeavyExtensionOccupied(bool value, ActionData sourceAction)
+    {
+        SetHeavyExtensionOccupied(value, sourceAction, true);
+    }
+
+    public void SetHeavyExtensionOccupied(bool value, ActionData sourceAction, bool notify)
+    {
         IsOccupiedByHeavyExtension = value;
+        extensionActionData = value ? sourceAction : null;
         RefreshLockOverlay();
+        if (value) PlanningSlotFeedback.Confirm(this, true);
+        else GetComponent<PlanningSlotFeedback>()?.Clear();
+
+        if (notify)
+            NotifySlotChanged();
     }
 
     public bool HasPlacedItem()
@@ -190,9 +245,27 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         }
     }
 
-    private bool RequiresTwoSlots(ActionType type)
+    private int GetActionSlotCost(ActionData actionData, ActionType actionType)
     {
-        return type == ActionType.HeavyAttack;
+        if (TurnPlanningManager.Instance != null)
+            return TurnPlanningManager.Instance.GetSlotCostForAction(actionData, actionType);
+
+        if (actionData != null)
+            return actionData.GetSlotCost();
+
+        if (actionType == ActionType.HeavyAttack ||
+            actionType == ActionType.Rift ||
+            actionType == ActionType.Shift)
+        {
+            return 2;
+        }
+
+        return 1;
+    }
+
+    private bool RequiresTwoSlots(ActionData actionData, ActionType actionType)
+    {
+        return GetActionSlotCost(actionData, actionType) >= 2;
     }
 
     private bool CanPlaceHeavyHere(ActionSlot ignoreSlot = null)
@@ -227,7 +300,14 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         if (forAutoFill && HasPlacedItem())
             return false;
 
-        if (RequiresTwoSlots(actionType))
+        if (TurnPlanningManager.Instance != null &&
+            TurnPlanningManager.Instance.WouldCreateConsecutiveJump(actionType, this, fromSlot))
+        {
+            ShowPlacementWarning("[ActionSlot] Jump cannot be used in consecutive action slots.");
+            return false;
+        }
+
+        if (RequiresTwoSlots(actionData, actionType))
         {
             ActionSlot ignore = null;
             if (fromSlot != null && fromSlot.nextSlot == nextSlot)
@@ -240,7 +320,19 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         return true;
     }
 
+    private void ShowPlacementWarning(string message)
+    {
+        Debug.LogWarning(message);
+
+        // Route future placement warning UI from here to avoid scattering object names through drag/drop flow.
+    }
+
     private void ApplyPlacement(GameObject obj, ActionData actionData, ActionType actionType)
+    {
+        ApplyPlacement(obj, actionData, actionType, true);
+    }
+
+    private void ApplyPlacement(GameObject obj, ActionData actionData, ActionType actionType, bool notify)
     {
         RectTransform targetRect = GetTargetRect();
         RectTransform droppedRect = obj.GetComponent<RectTransform>();
@@ -268,23 +360,36 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         if (item != null)
             item.MarkDroppedInSlot(this);
 
-        if (RequiresTwoSlots(actionType) && nextSlot != null)
-            nextSlot.SetHeavyExtensionOccupied(true);
+        if (RequiresTwoSlots(actionData, actionType) && nextSlot != null)
+            nextSlot.SetHeavyExtensionOccupied(true, actionData, false);
+
+        PlanningSlotFeedback.Confirm(this);
+        if (notify)
+            NotifySlotChanged(nextSlot);
     }
 
     public void DetachPlacedItemForDrag(DraggableItem item)
+    {
+        DetachPlacedItemForDrag(item, true);
+    }
+
+    public void DetachPlacedItemForDrag(DraggableItem item, bool notify)
     {
         if (item == null)
             return;
 
         if (currentPlacedObject == item.gameObject)
         {
-            if (RequiresTwoSlots(currentActionType) && nextSlot != null)
-                nextSlot.SetHeavyExtensionOccupied(false);
+            GetComponent<PlanningSlotFeedback>()?.Clear();
+            if (RequiresTwoSlots(currentActionData, currentActionType) && nextSlot != null)
+                nextSlot.SetHeavyExtensionOccupied(false, null, false);
 
             currentPlacedObject = null;
             currentActionData = null;
             currentActionType = ActionType.None;
+
+            if (notify)
+                NotifySlotChanged(nextSlot);
         }
     }
 
@@ -307,100 +412,112 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        // 來源拖曳時要優先吃 clone，不要先吃 pointerDrag
+        // Prefer the drag clone when dragging from a source palette.
         GameObject dropped = ActionDragSource.CurrentDraggedClone;
 
-        // 如果沒有 clone，才代表可能是 slot 裡的物件互相拖曳
+        // Without a clone, this may be an item dragged between slots.
         if (dropped == null)
             dropped = eventData.pointerDrag;
 
         if (dropped == null)
         {
-            Debug.Log("OnDrop 失敗：找不到拖曳物件");
+            Debug.Log("OnDrop failed: dragged object not found.");
             return;
         }
 
         if (IsOccupiedByHeavyExtension)
         {
-            Debug.Log("這格被 HeavyAttack 佔用，不能放置");
+            Debug.Log("This slot is occupied by a multi-slot action and cannot accept another action.");
             return;
         }
 
         DraggableItem incomingItem = dropped.GetComponent<DraggableItem>();
         if (incomingItem == null)
         {
-            Debug.Log("OnDrop 失敗：拖曳物沒有 DraggableItem");
+            Debug.Log("OnDrop failed: dragged object has no DraggableItem.");
             return;
         }
 
         ActionData incomingData = incomingItem.GetActionData();
         ActionType incomingType = incomingItem.GetActionType();
         ActionSlot fromSlot = incomingItem.GetOwnerSlot();
+        ClaimSlot fromClaimSlot = incomingItem.GetOwnerClaimSlot();
+
+        if (fromClaimSlot != null)
+        {
+            fromClaimSlot.RestoreDraggedItem(incomingItem);
+            Debug.Log("Actual action slots do not accept Claim-only dragged items.");
+            return;
+        }
 
         if (incomingData == null)
         {
-            Debug.Log("OnDrop 失敗：incomingData 為空");
+            Debug.Log("OnDrop failed: incomingData is null.");
             return;
         }
 
         if (!CanAcceptAction(incomingData, incomingType, fromSlot, false))
         {
-            Debug.Log("這個行動現在不能放入");
+            Debug.Log("This action cannot be placed now.");
             return;
         }
 
-        // 拖回原位
+        // Dragged back to the original slot.
         if (fromSlot == this)
         {
             RestoreDraggedItem(incomingItem);
             return;
         }
 
-        // 目標為空：直接放
+        // Target slot is empty: place directly.
         if (!HasPlacedItem())
         {
             if (fromSlot != null)
-                fromSlot.DetachPlacedItemForDrag(incomingItem);
+                fromSlot.DetachPlacedItemForDrag(incomingItem, false);
 
-            ApplyPlacement(dropped, incomingData, incomingType);
+            ApplyPlacement(dropped, incomingData, incomingType, false);
+            NotifySlotChanged(nextSlot, fromSlot, fromSlot != null ? fromSlot.nextSlot : null);
             return;
         }
 
-        // 目標有東西：做交換
+        // Target slot is occupied: swap items.
         DraggableItem targetItem = GetTargetRect().GetComponentInChildren<DraggableItem>(true);
         if (targetItem == null)
         {
             if (fromSlot != null)
-                fromSlot.DetachPlacedItemForDrag(incomingItem);
+                fromSlot.DetachPlacedItemForDrag(incomingItem, false);
 
-            ApplyPlacement(dropped, incomingData, incomingType);
+            ApplyPlacement(dropped, incomingData, incomingType, false);
+            NotifySlotChanged(nextSlot, fromSlot, fromSlot != null ? fromSlot.nextSlot : null);
             return;
         }
 
         ActionData targetData = targetItem.GetActionData();
         ActionType targetType = targetItem.GetActionType();
 
-        // 來源是技能欄拖進來：直接覆蓋
+        // Palette source: overwrite the target slot.
         if (fromSlot == null)
         {
-            ClearPlacedItemOnly();
-            ApplyPlacement(dropped, incomingData, incomingType);
+            ClearPlacedItemOnly(false);
+            ApplyPlacement(dropped, incomingData, incomingType, false);
+            NotifySlotChanged(nextSlot);
             return;
         }
 
-        // 交換前檢查來源格能不能接受對方
+        // Check whether the source slot can accept the target action before swapping.
         if (!fromSlot.CanAcceptAction(targetData, targetType, this, false))
         {
-            Debug.Log("交換失敗：來源格不能接受目標行動");
+            Debug.Log("Swap failed: source slot cannot accept the target action.");
             fromSlot.RestoreDraggedItem(incomingItem);
             return;
         }
 
-        this.DetachPlacedItemForDrag(targetItem);
-        fromSlot.DetachPlacedItemForDrag(incomingItem);
+        this.DetachPlacedItemForDrag(targetItem, false);
+        fromSlot.DetachPlacedItemForDrag(incomingItem, false);
 
-        ApplyPlacement(dropped, incomingData, incomingType);
-        fromSlot.ApplyPlacement(targetItem.gameObject, targetData, targetType);
+        ApplyPlacement(dropped, incomingData, incomingType, false);
+        fromSlot.ApplyPlacement(targetItem.gameObject, targetData, targetType, false);
+        NotifySlotChanged(nextSlot, fromSlot, fromSlot.nextSlot);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -414,12 +531,18 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 
     public void ClearPlacedItemOnly()
     {
+        ClearPlacedItemOnly(true);
+    }
+
+    public void ClearPlacedItemOnly(bool notify)
+    {
+        GetComponent<PlanningSlotFeedback>()?.Clear();
         CacheCurrentPlacedObject();
 
-        if (currentPlacedObject != null)
+            if (currentPlacedObject != null)
         {
-            if (RequiresTwoSlots(currentActionType) && nextSlot != null)
-                nextSlot.SetHeavyExtensionOccupied(false);
+            if (RequiresTwoSlots(currentActionData, currentActionType) && nextSlot != null)
+                nextSlot.SetHeavyExtensionOccupied(false, null, false);
 
             Destroy(currentPlacedObject);
         }
@@ -427,5 +550,14 @@ public class ActionSlot : MonoBehaviour, IDropHandler, IPointerClickHandler
         currentPlacedObject = null;
         currentActionData = null;
         currentActionType = ActionType.None;
+
+        if (notify)
+            NotifySlotChanged(nextSlot);
+    }
+
+    private void NotifySlotChanged(params ActionSlot[] relatedSlots)
+    {
+        if (TurnPlanningManager.Instance != null)
+            TurnPlanningManager.Instance.NotifyLocalPlanningSlotsChanged(this, relatedSlots);
     }
 }

@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         if (PhotonNetwork.CurrentRoom == null)
         {
-            SceneManager.LoadScene("StartScene");
+            SceneTransitionManager.RequestSceneTransition("StartScene");
             return;
         }
 
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
         LoadPlayerSelection();
         LoadClassConfig();
+        InitializeTransmittedActions();
         ApplyClassGameplayLayout();
 
         initializeRoutine = StartCoroutine(InitializeWhenSyncedStartReached());
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         GameSceneStartSync.Instance.MarkLocalSceneReady();
+        SceneTransitionManager.NotifyLocalSceneInitializationReady(gameObject.scene.name);
         Debug.Log("GameManager: local GameScene load completed, waiting for remote player");
 
         while (!GameSceneStartSync.Instance.AreBothPlayersSceneReady())
@@ -112,19 +114,31 @@ public class GameManager : MonoBehaviour
         if (currentConfig == null)
             return new ActionData[0];
 
-        return new ActionData[]
+        List<ActionData> actions = new List<ActionData>();
+        ActionData[] classActions = currentConfig.GetClassActions();
+
+        if (classActions != null)
         {
-            currentConfig.lightAttack,
-            currentConfig.heavyAttack,
-            currentConfig.lowAttack,
-            currentConfig.parry,
-            currentConfig.defense,
-            currentConfig.dance,
-            currentConfig.ultimate,
-            moveForwardAction,
-            moveBackwardAction,
-            jumpAction
-        };
+            for (int i = 0; i < classActions.Length; i++)
+            {
+                if (classActions[i] != null)
+                    actions.Add(classActions[i]);
+            }
+        }
+
+        AddSharedAction(actions, moveForwardAction);
+        AddSharedAction(actions, moveBackwardAction);
+        AddSharedAction(actions, jumpAction);
+
+        return actions.ToArray();
+    }
+
+    private void AddSharedAction(List<ActionData> actions, ActionData action)
+    {
+        if (actions == null || action == null)
+            return;
+
+        actions.Add(action);
     }
 
     private Transform GetCurrentSlotRoot()
@@ -166,11 +180,32 @@ public class GameManager : MonoBehaviour
         if (classUiRoot != null)
             return classUiRoot;
 
-        Canvas canvas = FindFirstObjectByType<Canvas>();
+        Canvas canvas = FindSceneCanvas();
         if (canvas != null)
             return canvas.transform;
 
         return transform;
+    }
+
+    private Canvas FindSceneCanvas()
+    {
+        Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            Canvas canvas = canvases[i];
+            if (canvas == null)
+                continue;
+
+            if (canvas.gameObject.scene != gameObject.scene)
+                continue;
+
+            if (canvas.GetComponent<SceneTransitionManager>() != null)
+                continue;
+
+            return canvas;
+        }
+
+        return null;
     }
 
     private void ApplyLayoutReferences(ClassGameplayUILayout layout)
@@ -205,11 +240,64 @@ public class GameManager : MonoBehaviour
 
     private void LoadPlayerSelection()
     {
-        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("classIndex", out object classObj))
-            selectedClassIndex = (int)classObj;
+        bool resolvedClassFromSelectionId = false;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(CharacterSelectPhotonKeys.SelectedCharacterId, out object idObj))
+        {
+            int resolvedIndex = ResolveClassIndexFromCharacterId(idObj as string);
+            if (resolvedIndex >= 0)
+            {
+                selectedClassIndex = resolvedIndex;
+                resolvedClassFromSelectionId = true;
+            }
+        }
 
-        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("skinIndex", out object skinObj))
-            selectedSkinIndex = (int)skinObj;
+        if (!resolvedClassFromSelectionId && TryGetLocalPlayerIntProperty("classIndex", out int legacyClassIndex))
+            selectedClassIndex = legacyClassIndex;
+
+        bool resolvedSkinFromSelection = TryGetLocalPlayerIntProperty(CharacterSelectPhotonKeys.SelectedSkinIndex, out selectedSkinIndex);
+
+        if (!resolvedSkinFromSelection && TryGetLocalPlayerIntProperty("skinIndex", out int legacySkinIndex))
+            selectedSkinIndex = legacySkinIndex;
+    }
+
+    private bool TryGetLocalPlayerIntProperty(string key, out int value)
+    {
+        value = 0;
+        if (PhotonNetwork.LocalPlayer == null || PhotonNetwork.LocalPlayer.CustomProperties == null)
+            return false;
+
+        if (!PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(key, out object raw) || raw == null)
+            return false;
+
+        try
+        {
+            value = System.Convert.ToInt32(raw);
+            return true;
+        }
+        catch (System.Exception)
+        {
+            Debug.LogWarning("GameManager: invalid int player property for key " + key);
+            return false;
+        }
+    }
+
+    private int ResolveClassIndexFromCharacterId(string characterId)
+    {
+        if (string.IsNullOrEmpty(characterId) || classConfigs == null)
+            return -1;
+
+        string normalizedId = NormalizeName(characterId);
+        for (int i = 0; i < classConfigs.Length; i++)
+        {
+            CharacterClassConfig config = classConfigs[i];
+            if (config == null)
+                continue;
+
+            if (NormalizeName(config.className) == normalizedId)
+                return i;
+        }
+
+        return -1;
     }
 
     private void LoadClassConfig()
@@ -227,6 +315,19 @@ public class GameManager : MonoBehaviour
 
         if (currentConfig == null)
             Debug.LogError("GameManager: currentConfig is null");
+    }
+
+    private void InitializeTransmittedActions()
+    {
+        TurnPlanningManager planningManager = TurnPlanningManager.Instance;
+        if (planningManager == null)
+            planningManager = FindFirstObjectByType<TurnPlanningManager>();
+
+        if (planningManager == null)
+            return;
+
+        int slotCount = currentConfig != null ? currentConfig.slotCount : 5;
+        planningManager.InitializeLocalTransmittedActionsForGameScene(slotCount);
     }
 
     private void SpawnCharacterPrefab()
@@ -383,7 +484,7 @@ public class GameManager : MonoBehaviour
         HashSet<ActionDragSource> usedSources = new HashSet<ActionDragSource>();
         Canvas canvas = currentLayout.GetComponentInParent<Canvas>();
         if (canvas == null)
-            canvas = FindFirstObjectByType<Canvas>();
+            canvas = FindSceneCanvas();
 
         int boundCount = 0;
         for (int i = 0; i < actions.Length; i++)
@@ -422,6 +523,16 @@ public class GameManager : MonoBehaviour
             if (source == null || usedSources.Contains(source))
                 continue;
 
+            if (LayoutSourceHasActionType(source, action.actionType))
+                return source;
+        }
+
+        for (int i = 0; i < sources.Length; i++)
+        {
+            ActionDragSource source = sources[i];
+            if (source == null || usedSources.Contains(source))
+                continue;
+
             string sourceName = NormalizeName(source.gameObject.name);
             if (MatchesActionSourceName(sourceName, actionName) || MatchesActionSourceName(sourceName, prefabName))
                 return source;
@@ -430,11 +541,41 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < sources.Length; i++)
         {
             ActionDragSource source = sources[i];
-            if (source != null && !usedSources.Contains(source))
+            if (source != null && !usedSources.Contains(source) && IsUnassignedLayoutSource(source))
                 return source;
         }
 
         return null;
+    }
+
+    private bool LayoutSourceHasActionType(ActionDragSource source, ActionType actionType)
+    {
+        if (source == null || actionType == ActionType.None)
+            return false;
+
+        if (source.GetActionType() == actionType)
+            return true;
+
+        ActionDragData dragData = source.GetComponent<ActionDragData>();
+        if (dragData == null)
+            dragData = source.GetComponentInChildren<ActionDragData>(true);
+
+        return dragData != null && dragData.actionType == actionType;
+    }
+
+    private bool IsUnassignedLayoutSource(ActionDragSource source)
+    {
+        if (source == null)
+            return false;
+
+        if (source.GetActionType() != ActionType.None)
+            return false;
+
+        ActionDragData dragData = source.GetComponent<ActionDragData>();
+        if (dragData == null)
+            dragData = source.GetComponentInChildren<ActionDragData>(true);
+
+        return dragData == null || dragData.actionType == ActionType.None;
     }
 
     private bool MatchesActionSourceName(string sourceName, string actionOrPrefabName)

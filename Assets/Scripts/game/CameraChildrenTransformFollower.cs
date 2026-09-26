@@ -4,27 +4,27 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraChildrenTransformFollower : MonoBehaviour
 {
-    [Header("要調整的子物件根節點")]
+    [Header("Child Root To Adjust")]
     [SerializeField] private Transform childrenRoot;
 
-    [Header("搜尋設定")]
+    [Header("Search Settings")]
     [SerializeField] private bool onlyDirectChildren = true;
     [SerializeField] private bool includeInactiveChildren = true;
 
-    [Header("鏡頭變化時調整")]
+    [Header("Camera Change Adjustment")]
     [SerializeField] private bool adjustPositionWhenCameraMoves = true;
     [SerializeField] private bool adjustPositionWhenCameraZooms = true;
     [SerializeField] private bool adjustScaleWhenCameraZooms = true;
 
-    [Header("位置調整倍率")]
+    [Header("Position Adjustment Multipliers")]
     [SerializeField] private float movePositionFactorX = 0.15f;
     [SerializeField] private float movePositionFactorY = 0.15f;
     [SerializeField] private float zoomPositionFactor = 1f;
 
-    [Header("縮放設定")]
+    [Header("Scale Settings")]
     [SerializeField] private bool invertScaleWithZoom = false;
 
-    [Header("平滑")]
+    [Header("Smoothing")]
     [SerializeField] private bool smoothTransform = true;
     [SerializeField] private float positionSmoothSpeed = 12f;
     [SerializeField] private float scaleSmoothSpeed = 12f;
@@ -64,7 +64,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
         UpdateChildrenTransforms();
     }
 
-    [ContextMenu("重新抓取子物件")]
+    [ContextMenu("Refresh Child Cache")]
     public void CacheChildren()
     {
         trackedChildren.Clear();
@@ -137,7 +137,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
             Vector3 targetLocalPos = originalLocalPositions[i];
             Vector3 targetLocalScale = originalLocalScales[i];
 
-            // 鏡頭移動時調整位置
+            // Adjust position while the camera moves.
             if (adjustPositionWhenCameraMoves)
             {
                 targetLocalPos += new Vector3(
@@ -147,7 +147,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
                 );
             }
 
-            // 鏡頭縮放時調整位置
+            // Adjust position while the camera zooms.
             if (adjustPositionWhenCameraZooms)
             {
                 targetLocalPos = new Vector3(
@@ -157,7 +157,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
                 );
             }
 
-            // 鏡頭縮放時調整大小
+            // Adjust scale while the camera zooms.
             if (adjustScaleWhenCameraZooms)
             {
                 targetLocalScale = originalLocalScales[i] * scaleRatio;
@@ -185,7 +185,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
         }
     }
 
-    [ContextMenu("把目前狀態設成新基準")]
+    [ContextMenu("Set Current State As New Baseline")]
     public void RebuildReference()
     {
         referenceCameraPosition = transform.position;

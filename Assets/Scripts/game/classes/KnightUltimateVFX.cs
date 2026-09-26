@@ -2,71 +2,74 @@ using UnityEngine;
 
 public class KnightUltimateVFX : MonoBehaviour
 {
-    [Header("落雷特效")]
+    [Header("Lightning Strike Effect")]
     [SerializeField] private Transform lightningStrikePoint;
     [SerializeField] private GameObject lightningStrikePrefab;
     [SerializeField] private float lightningStrikeLifeTime = 1.0f;
+    [SerializeField] private float lightningStrikeRandomScale = 0.08f;
 
-    [Header("劍上殘留閃電")]
+    [Header("Sword Residual Lightning")]
     [SerializeField] private Transform swordLightningAttachPoint;
     [SerializeField] private GameObject swordResidualLightningTemplate;
     [SerializeField] private float swordResidualLifeTime = 0.8f;
 
-    [Header("劍身閃電起點 / 終點")]
+    [Header("Sword Lightning Start / End Points")]
     [SerializeField] private Transform swordLightningStartPoint;
     [SerializeField] private Transform swordLightningEndPoint;
 
-    
-    [Header("殘留閃電微調")]
+    [Header("Residual Lightning Adjustment")]
     [SerializeField] private Vector3 swordResidualLocalPosition = Vector3.zero;
     [SerializeField] private Vector3 swordResidualLocalEuler = Vector3.zero;
     [SerializeField] private Vector3 swordResidualLocalScale = Vector3.one;
 
+    [Header("Impact Feel")]
+    [SerializeField] private bool shakeCameraOnLightning = true;
+    [SerializeField] private float lightningShakeDuration = 0.12f;
+    [SerializeField] private float lightningShakeStrength = 0.12f;
+
+    [Header("Trigger Guard")]
+    [SerializeField] private bool preventDuplicateCue = true;
+    [SerializeField] private float duplicateCueWindow = 0.05f;
+    [SerializeField] private bool debugLogs = false;
+
     private GameObject currentSwordResidualInstance;
+    private float lastCueTime = -999f;
 
-    private void Awake()
+    // AnimationEvent is sent to the Animator GameObject.
+    // Keeping KnightUltimateVFX on the same object avoids missing relay receiver issues in prefabs.
+    public void OnUltimateLightningCue()
     {
-      
-    }
-
-
-
-    private Transform FindChildRecursive(Transform root, string targetName)
-    {
-        if (root.name == targetName)
-            return root;
-
-        for (int i = 0; i < root.childCount; i++)
-        {
-            Transform found = FindChildRecursive(root.GetChild(i), targetName);
-            if (found != null)
-                return found;
-        }
-
-        return null;
+        PlayUltimateLightning();
     }
 
     public void PlayUltimateLightning()
     {
-       
+        if (preventDuplicateCue && Time.unscaledTime - lastCueTime < duplicateCueWindow)
+            return;
 
-        Debug.Log("[KnightUltimateVFX] PlayUltimateLightning() 被呼叫", this);
+        lastCueTime = Time.unscaledTime;
+
+        if (debugLogs)
+            Debug.Log("[KnightUltimateVFX] PlayUltimateLightning() called.", this);
 
         PlayLightningStrike();
         PlaySwordResidualLightning();
+
+        if (shakeCameraOnLightning && CameraShake.Instance != null)
+            CameraShake.Instance.Shake(lightningShakeDuration, lightningShakeStrength);
     }
 
     private void PlayLightningStrike()
     {
         if (lightningStrikePoint == null)
         {
-            Debug.LogWarning("[KnightUltimateVFX] lightningStrikePoint 沒有指定", this);
+            Debug.LogWarning("[KnightUltimateVFX] lightningStrikePoint is not assigned.", this);
             return;
         }
 
         if (lightningStrikePrefab == null)
         {
-            Debug.LogWarning("[KnightUltimateVFX] lightningStrikePrefab 沒有指定", this);
+            Debug.LogWarning("[KnightUltimateVFX] lightningStrikePrefab is not assigned.", this);
             return;
         }
 
@@ -76,9 +79,14 @@ public class KnightUltimateVFX : MonoBehaviour
             lightningStrikePoint.rotation
         );
 
+        float randomScale = 1f + Random.Range(-lightningStrikeRandomScale, lightningStrikeRandomScale);
+        fx.transform.localScale *= Mathf.Max(0.1f, randomScale);
         fx.SetActive(true);
 
-        Debug.Log("[KnightUltimateVFX] 已生成落雷特效: " + fx.name, this);
+        PlayParticleSystems(fx);
+
+        if (debugLogs)
+            Debug.Log("[KnightUltimateVFX] Spawned lightning strike effect: " + fx.name, this);
 
         if (lightningStrikeLifeTime > 0f)
             Destroy(fx, lightningStrikeLifeTime);
@@ -88,19 +96,19 @@ public class KnightUltimateVFX : MonoBehaviour
     {
         if (swordLightningAttachPoint == null)
         {
-            Debug.LogWarning("[KnightUltimateVFX] swordLightningAttachPoint 沒有指定", this);
+            Debug.LogWarning("[KnightUltimateVFX] swordLightningAttachPoint is not assigned.", this);
             return;
         }
 
         if (swordResidualLightningTemplate == null)
         {
-            Debug.LogWarning("[KnightUltimateVFX] swordResidualLightningTemplate 沒有指定", this);
+            Debug.LogWarning("[KnightUltimateVFX] swordResidualLightningTemplate is not assigned.", this);
             return;
         }
 
         if (swordLightningStartPoint == null || swordLightningEndPoint == null)
         {
-            Debug.LogWarning("[KnightUltimateVFX] swordLightningStartPoint 或 swordLightningEndPoint 沒有指定", this);
+            Debug.LogWarning("[KnightUltimateVFX] swordLightningStartPoint or swordLightningEndPoint is not assigned.", this);
             return;
         }
 
@@ -127,16 +135,28 @@ public class KnightUltimateVFX : MonoBehaviour
                 chainFXs[i].SetSwordPoints(swordLightningStartPoint, swordLightningEndPoint);
         }
 
-        ParticleSystem[] particleSystems =
-            currentSwordResidualInstance.GetComponentsInChildren<ParticleSystem>(true);
+        PlayParticleSystems(currentSwordResidualInstance);
 
-        for (int i = 0; i < particleSystems.Length; i++)
-        {
-            particleSystems[i].Play(true);
-        }
-
-        Debug.Log("[KnightUltimateVFX] 已生成劍上殘留閃電: " + currentSwordResidualInstance.name, this);
+        if (debugLogs)
+            Debug.Log("[KnightUltimateVFX] Spawned sword residual lightning: " + currentSwordResidualInstance.name, this);
 
         Destroy(currentSwordResidualInstance, swordResidualLifeTime);
+    }
+
+    private void PlayParticleSystems(GameObject root)
+    {
+        if (root == null)
+            return;
+
+        ParticleSystem[] particleSystems = root.GetComponentsInChildren<ParticleSystem>(true);
+        for (int i = 0; i < particleSystems.Length; i++)
+        {
+            if (particleSystems[i] == null)
+                continue;
+
+            particleSystems[i].gameObject.SetActive(true);
+            particleSystems[i].Clear(true);
+            particleSystems[i].Play(true);
+        }
     }
 }

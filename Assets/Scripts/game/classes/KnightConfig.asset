@@ -18,7 +18,7 @@ MonoBehaviour:
   slotCount: 5
   skinNames:
   - knight_0
-  - knight_1
+  - knight_Realistic
   skinPrefabs:
   - {fileID: 4642981395163973544, guid: 64db7be081cf04440abdef9d342ee7dd, type: 3}
   - {fileID: 4642981395163973544, guid: 02d7f247803e7114eb840669d6237617, type: 3}
@@ -26,7 +26,17 @@ MonoBehaviour:
     actionName: knight_lightAttck
     actionType: 0
     sourcePrefab: {fileID: 7403506191802596844, guid: f22921f2edec86c4a8a2961a3c45b926, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
     damage: 3
+    minRange: 0
     range: 1
     canBeParried: 1
     canBeDefended: 1
@@ -37,7 +47,17 @@ MonoBehaviour:
     actionName: knight_heavyAttck
     actionType: 1
     sourcePrefab: {fileID: 9051351247407896745, guid: 3129dc9976cf6564da23fda4b4f53fed, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
     damage: 7
+    minRange: 0
     range: 2
     canBeParried: 0
     canBeDefended: 1
@@ -48,7 +68,17 @@ MonoBehaviour:
     actionName: knight_lowAttack
     actionType: 2
     sourcePrefab: {fileID: 8462044620791014764, guid: 9f69e6a853911fd4fa1717e922c1e68a, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
     damage: 2
+    minRange: 0
     range: 1
     canBeParried: 0
     canBeDefended: 0
@@ -59,20 +89,57 @@ MonoBehaviour:
     actionName: knight_parry
     actionType: 3
     sourcePrefab: {fileID: 3418233483363060740, guid: 6a7a4fd127241f9419d9c43885519dec, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
   defense:
     actionName: knight_defense
     actionType: 4
     sourcePrefab: {fileID: 1016754651926005539, guid: 0060bc2bcf135d84d9812f477f782d73, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
   dance:
     actionName: Dance
     actionType: 8
     sourcePrefab: {fileID: 5595256244740900512, guid: 98ebb12706afc0548a6444e13e1ae550, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
     energyGain: 1
   ultimate:
     actionName: Ultimate
     actionType: 9
     sourcePrefab: {fileID: 5307070120900879462, guid: 58b094eabea8ce243a712946dfa6a0d0, type: 3}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
     damage: 10
+    minRange: 0
     range: 2
     canBeParried: 1
     canBeDefended: 1

@@ -1,0 +1,563 @@
+fileFormatVersion: 2
+guid: 6fcac5b5a39bd1c41acd6b068ad7da6d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5503011562790136496
+    second: Bolt Impact Animation_0
+  - first:
+      213: -2735100235450951815
+    second: Bolt Impact Animation_1
+  - first:
+      213: 7919532113974674703
+    second: Bolt Impact Animation_2
+  - first:
+      213: 8784438086729435816
+    second: Bolt Impact Animation_3
+  - first:
+      213: 5333994378963313063
+    second: Bolt Impact Animation_4
+  - first:
+      213: -6982127895399897610
+    second: Bolt Impact Animation_5
+  - first:
+      213: -3825936514607942028
+    second: Bolt Impact Animation_6
+  - first:
+      213: -777133446811175968
+    second: Bolt Impact Animation_7
+  - first:
+      213: 5796485518451153373
+    second: Bolt Impact Animation_8
+  - first:
+      213: 7242855401466066265
+    second: Bolt Impact Animation_9
+  - first:
+      213: -6939187039656567550
+    second: Bolt Impact Animation_10
+  - first:
+      213: -6076086736783628847
+    second: Bolt Impact Animation_11
+  - first:
+      213: 3787766633510212221
+    second: Bolt Impact Animation_12
+  - first:
+      213: -1196877895074387203
+    second: Bolt Impact Animation_13
+  - first:
+      213: 4197284933514580768
+    second: Bolt Impact Animation_14
+  - first:
+      213: -4403480671314379784
+    second: Bolt Impact Animation_15
+  - first:
+      213: 2849632021673012805
+    second: Bolt Impact Animation_16
+  - first:
+      213: 5180340122879203848
+    second: Bolt Impact Animation_17
+  - first:
+      213: 2470640992146106246
+    second: Bolt Impact Animation_18
+  - first:
+      213: 7681775847866616170
+    second: Bolt Impact Animation_19
+  - first:
+      213: -6187973493583938025
+    second: Bolt Impact Animation_20
+  - first:
+      213: 5633639441127848137
+    second: Bolt Impact Animation_21
+  - first:
+      213: -8647493860991750482
+    second: Bolt Impact Animation_22
+  - first:
+      213: -2042883548151410123
+    second: Bolt Impact Animation_23
+  - first:
+      213: 5292841879637050612
+    second: Bolt Impact Animation_24
+  - first:
+      213: 2624924086523342882
+    second: Bolt Impact Animation_25
+  - first:
+      213: -8922405838734116464
+    second: Bolt Impact Animation_26
+  - first:
+      213: 1669057686164473460
+    second: Bolt Impact Animation_27
+  - first:
+      213: -1717359825238893228
+    second: Bolt Impact Animation_28
+  - first:
+      213: 3087579978299711164
+    second: Bolt Impact Animation_29
+  - first:
+      213: -6556912828569481134
+    second: Bolt Impact Animation_30
+  - first:
+      213: -52607967858345583
+    second: Bolt Impact Animation_31
+  - first:
+      213: -4523799279478973641
+    second: Bolt Impact Animation_32
+  - first:
+      213: -4020727580686550231
+    second: Bolt Impact Animation_33
+  - first:
+      213: -4567101217410193619
+    second: Bolt Impact Animation_34
+  - first:
+      213: -2377518278223735792
+    second: Bolt Impact Animation_35
+  - first:
+      213: 800570900462162479
+    second: Bolt Impact Animation_36
+  - first:
+      213: 6001859689674081627
+    second: Bolt Impact Animation_37
+  - first:
+      213: 522765935102016623
+    second: Bolt Impact Animation_38
+  - first:
+      213: -3920387367478343138
+    second: Bolt Impact Animation_39
+  - first:
+      213: -493610863502100138
+    second: Bolt Impact Animation_40
+  - first:
+      213: -670903490550592685
+    second: Bolt Impact Animation_41
+  - first:
+      213: 7255121409266757535
+    second: Bolt Impact Animation_42
+  - first:
+      213: -959644116884608698
+    second: Bolt Impact Animation_43
+  - first:
+      213: 5847652870458763109
+    second: Bolt Impact Animation_44
+  - first:
+      213: 5906831877797639009
+    second: Bolt Impact Animation_45
+  - first:
+      213: -6722476914384347689
+    second: Bolt Impact Animation_46
+  - first:
+      213: 6917194200742312750
+    second: Bolt Impact Animation_47
+  - first:
+      213: 2815427137076692875
+    second: Bolt Impact Animation_48
+  - first:
+      213: -8763283243456045078
+    second: Bolt Impact Animation_49
+  - first:
+      213: 2945086004398909348
+    second: Bolt Impact Animation_50
+  - first:
+      213: -3734403383446312198
+    second: Bolt Impact Animation_51
+  - first:
+      213: -687567085112792381
+    second: Bolt Impact Animation_52
+  - first:
+      213: 4091114596444029902
+    second: Bolt Impact Animation_53
+  - first:
+      213: 5623956929826320078
+    second: Bolt Impact Animation_54
+  - first:
+      213: -5072295925456053160
+    second: Bolt Impact Animation_55
+  - first:
+      213: -9128628422222595062
+    second: Bolt Impact Animation_56
+  - first:
+      213: 5994549129251530889
+    second: Bolt Impact Animation_57
+  - first:
+      213: -2245520601691052684
+    second: Bolt Impact Animation_58
+  - first:
+      213: 2492355593740552368
+    second: Bolt Impact Animation_59
+  - first:
+      213: -5339781354581442746
+    second: Bolt Impact Animation_60
+  - first:
+      213: -8498079774864359274
+    second: Bolt Impact Animation_61
+  - first:
+      213: 1296970312203502684
+    second: Bolt Impact Animation_62
+  - first:
+      213: 8298716073282171492
+    second: Bolt Impact Animation_63
+  - first:
+      213: -9100763349619597850
+    second: Bolt Impact Animation_64
+  - first:
+      213: -1553753128332470565
+    second: Bolt Impact Animation_65
+  - first:
+      213: -2957677965648283377
+    second: Bolt Impact Animation_66
+  - first:
+      213: 1939119558118015384
+    second: Bolt Impact Animation_67
+  - first:
+      213: -5357442132383473520
+    second: Bolt Impact Animation_68
+  - first:
+      213: 5386508760347830876
+    second: Bolt Impact Animation_69
+  - first:
+      213: 2675645960533872425
+    second: Bolt Impact Animation_70
+  - first:
+      213: 7104815476013408492
+    second: Bolt Impact Animation_71
+  - first:
+      213: -296052053195499171
+    second: Bolt Impact Animation_72
+  - first:
+      213: -5932057656308708825
+    second: Bolt Impact Animation_73
+  - first:
+      213: -1183233740788559033
+    second: Bolt Impact Animation_74
+  - first:
+      213: 7915723886554400364
+    second: Bolt Impact Animation_75
+  - first:
+      213: 8855831520847213451
+    second: Bolt Impact Animation_76
+  - first:
+      213: -3018369885846264851
+    second: Bolt Impact Animation_77
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bolt Impact Animation_0
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 476
+        width: 91
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 055d60dc32061a3b0800000000000000
+      internalID: -5503011562790136496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_1
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 469
+        width: 126
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977dbd8b3d8fa0ad0800000000000000
+      internalID: -2735100235450951815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_2
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 456
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0542c88f74d7ed60800000000000000
+      internalID: 7919532113974674703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_3
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 442
+        width: 179
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8aa8beed5e798e970800000000000000
+      internalID: 8784438086729435816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_4
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 457
+        width: 166
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a1e90080a7260a40800000000000000
+      internalID: 5333994378963313063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_5
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 463
+        width: 140
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5e75a0caf7a1f90800000000000000
+      internalID: -6982127895399897610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_6
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 484
+        width: 72
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4918f5f15344da848b40ab223374c1ce
+      internalID: -3825936514607942028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bolt Impact Animation_7
+      rect:
+        serializedVersion: 2
+        x: 1233
+        y: 493
+        width: 76
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 850b1398cb03e024ab753daf49d68d79
+      internalID: -777133446811175968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 375d315c8eab286409d408a45638fa33
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":197.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Bolt Impact Animation_0: -5503011562790136496
+      Bolt Impact Animation_1: -2735100235450951815
+      Bolt Impact Animation_2: 7919532113974674703
+      Bolt Impact Animation_3: 8784438086729435816
+      Bolt Impact Animation_4: 5333994378963313063
+      Bolt Impact Animation_5: -6982127895399897610
+      Bolt Impact Animation_6: -3825936514607942028
+      Bolt Impact Animation_7: -777133446811175968
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

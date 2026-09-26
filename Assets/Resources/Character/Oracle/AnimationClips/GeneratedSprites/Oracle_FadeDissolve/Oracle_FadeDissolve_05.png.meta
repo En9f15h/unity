@@ -1,0 +1,1417 @@
+fileFormatVersion: 2
+guid: 7ea4c05f45a55854dbfb9ba644cca5dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8047285010651145062
+    second: Oracle_FadeDissolve_05_0
+  - first:
+      213: 1826059965026099533
+    second: Oracle_FadeDissolve_05_1
+  - first:
+      213: 6447464986236755732
+    second: Oracle_FadeDissolve_05_2
+  - first:
+      213: 5748629784487686515
+    second: Oracle_FadeDissolve_05_3
+  - first:
+      213: -3196067195959711342
+    second: Oracle_FadeDissolve_05_4
+  - first:
+      213: -8995118195837457280
+    second: Oracle_FadeDissolve_05_5
+  - first:
+      213: 5176583734449253028
+    second: Oracle_FadeDissolve_05_6
+  - first:
+      213: -2024687680326360482
+    second: Oracle_FadeDissolve_05_7
+  - first:
+      213: 8961999958398888356
+    second: Oracle_FadeDissolve_05_8
+  - first:
+      213: -188974144790754152
+    second: Oracle_FadeDissolve_05_9
+  - first:
+      213: -2995789816777540658
+    second: Oracle_FadeDissolve_05_10
+  - first:
+      213: 8873035642794707652
+    second: Oracle_FadeDissolve_05_11
+  - first:
+      213: -5710785168877855818
+    second: Oracle_FadeDissolve_05_12
+  - first:
+      213: -28901578162523087
+    second: Oracle_FadeDissolve_05_13
+  - first:
+      213: -1354296341203341193
+    second: Oracle_FadeDissolve_05_14
+  - first:
+      213: -6538144509786317200
+    second: Oracle_FadeDissolve_05_15
+  - first:
+      213: 519314476477050032
+    second: Oracle_FadeDissolve_05_16
+  - first:
+      213: 6155152594579519573
+    second: Oracle_FadeDissolve_05_17
+  - first:
+      213: 6626742394346015927
+    second: Oracle_FadeDissolve_05_18
+  - first:
+      213: -3135884456136770514
+    second: Oracle_FadeDissolve_05_19
+  - first:
+      213: 2703670382215059522
+    second: Oracle_FadeDissolve_05_20
+  - first:
+      213: 3897475753067904477
+    second: Oracle_FadeDissolve_05_21
+  - first:
+      213: 7603751431364763555
+    second: Oracle_FadeDissolve_05_22
+  - first:
+      213: -1958388566371718624
+    second: Oracle_FadeDissolve_05_23
+  - first:
+      213: -7542546894587775160
+    second: Oracle_FadeDissolve_05_24
+  - first:
+      213: -6182924944675314887
+    second: Oracle_FadeDissolve_05_25
+  - first:
+      213: -3568325957217186709
+    second: Oracle_FadeDissolve_05_26
+  - first:
+      213: -313895797533733161
+    second: Oracle_FadeDissolve_05_27
+  - first:
+      213: -1817195774947845165
+    second: Oracle_FadeDissolve_05_28
+  - first:
+      213: 518804552504724957
+    second: Oracle_FadeDissolve_05_29
+  - first:
+      213: -7890454616416275890
+    second: Oracle_FadeDissolve_05_30
+  - first:
+      213: 274676983137133086
+    second: Oracle_FadeDissolve_05_31
+  - first:
+      213: 6602936647560043200
+    second: Oracle_FadeDissolve_05_32
+  - first:
+      213: -5881496436627724934
+    second: Oracle_FadeDissolve_05_33
+  - first:
+      213: 1816605566117506417
+    second: Oracle_FadeDissolve_05_34
+  - first:
+      213: -4971611372736864660
+    second: Oracle_FadeDissolve_05_35
+  - first:
+      213: -2357602524395536477
+    second: Oracle_FadeDissolve_05_36
+  - first:
+      213: 8504186762728428751
+    second: Oracle_FadeDissolve_05_37
+  - first:
+      213: 5561523326445286896
+    second: Oracle_FadeDissolve_05_38
+  - first:
+      213: -6334006074248509563
+    second: Oracle_FadeDissolve_05_39
+  - first:
+      213: -7420819377005416409
+    second: Oracle_FadeDissolve_05_40
+  - first:
+      213: 8257508570027477233
+    second: Oracle_FadeDissolve_05_41
+  - first:
+      213: -3636900085434079090
+    second: Oracle_FadeDissolve_05_42
+  - first:
+      213: 3540150431008152727
+    second: Oracle_FadeDissolve_05_43
+  - first:
+      213: 1739234016730496737
+    second: Oracle_FadeDissolve_05_44
+  - first:
+      213: 4617648977309749150
+    second: Oracle_FadeDissolve_05_45
+  - first:
+      213: 7553384070626995015
+    second: Oracle_FadeDissolve_05_46
+  - first:
+      213: 3425233106004774777
+    second: Oracle_FadeDissolve_05_47
+  - first:
+      213: 1695737153680647122
+    second: Oracle_FadeDissolve_05_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 192
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c10dd4bec425090800000000000000
+      internalID: -8047285010651145062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 594
+        width: 22
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4161f10dd7775910800000000000000
+      internalID: 1826059965026099533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_2
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 618
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41f196eae3ff97950800000000000000
+      internalID: 6447464986236755732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_3
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 593
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3717e99d45c37cf40800000000000000
+      internalID: 5748629784487686515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_4
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 598
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 299ea8a91d945a3d0800000000000000
+      internalID: -3196067195959711342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_5
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 583
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ca478b8abea2380800000000000000
+      internalID: -8995118195837457280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_6
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 597
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4aaa9e1da7be6d740800000000000000
+      internalID: 5176583734449253028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_7
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 587
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52a901384dd6e3e0800000000000000
+      internalID: -2024687680326360482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_8
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 534
+        width: 32
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a96e6dba7b6f5c70800000000000000
+      internalID: 8961999958398888356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_9
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 582
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89c830c3401a06df0800000000000000
+      internalID: -188974144790754152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_10
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 587
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecbfd35b801dc66d0800000000000000
+      internalID: -2995789816777540658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_11
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 579
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ca8820e7ea532b70800000000000000
+      internalID: 8873035642794707652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_12
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 563
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb577c55273fb0b0800000000000000
+      internalID: -5710785168877855818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 530
+        width: 22
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134bc24fa22599ff0800000000000000
+      internalID: -28901578162523087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_14
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 568
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 770b6fd27a2943de0800000000000000
+      internalID: -1354296341203341193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_15
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 543
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e140c7538d345a0800000000000000
+      internalID: -6538144509786317200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_16
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 551
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bce121d3c9f43700800000000000000
+      internalID: 519314476477050032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_17
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 559
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5587c326cae7b6550800000000000000
+      internalID: 6155152594579519573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_18
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 551
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bc0401091be6fb50800000000000000
+      internalID: 6626742394346015927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_19
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 538
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2c7c47a3b91b74d0800000000000000
+      internalID: -3135884456136770514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_20
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 535
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2485ca153ed558520800000000000000
+      internalID: 2703670382215059522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_21
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 536
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd7f463c8d961630800000000000000
+      internalID: 3897475753067904477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_22
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 543
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af5dd2f3a3f58960800000000000000
+      internalID: 7603751431364763555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_23
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 537
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a2a3199f762d4e0800000000000000
+      internalID: -1958388566371718624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_24
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 495
+        width: 40
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 847be5ebf8d735790800000000000000
+      internalID: -7542546894587775160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_25
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 529
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 933e9b77586d13aa0800000000000000
+      internalID: -6182924944675314887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_26
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 522
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c834d9272ca7ec0800000000000000
+      internalID: -3568325957217186709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_27
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 519
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de838b6f61d4abf0800000000000000
+      internalID: -313895797533733161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_28
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 510
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db94e2121608c6e0800000000000000
+      internalID: -1817195774947845165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_29
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 500
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd46e3edf9233700800000000000000
+      internalID: 518804552504724957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_30
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 503
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e42ba20f4597f7290800000000000000
+      internalID: -7890454616416275890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_31
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 467
+        width: 17
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e126dd7c249dfc300800000000000000
+      internalID: 274676983137133086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_32
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 488
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ca9938a5e752ab50800000000000000
+      internalID: 6602936647560043200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_33
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 479
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a752413072ab06ea0800000000000000
+      internalID: -5881496436627724934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_34
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 495
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17d6e693321e53910800000000000000
+      internalID: 1816605566117506417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_35
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 500
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6e1ab61cc9410bb0800000000000000
+      internalID: -4971611372736864660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_36
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 499
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aff6d3cefc184fd0800000000000000
+      internalID: -2357602524395536477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_37
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 487
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc4d108bdc0f40670800000000000000
+      internalID: 8504186762728428751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_38
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 471
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f5f1dacfff7e2d40800000000000000
+      internalID: 5561523326445286896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_39
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 463
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5874043d8071918a0800000000000000
+      internalID: -6334006074248509563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_40
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 480
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 720b1430814f30990800000000000000
+      internalID: -7420819377005416409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_41
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 455
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f84b365b40989270800000000000000
+      internalID: 8257508570027477233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_42
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 447
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e882d1434a2278dc0800000000000000
+      internalID: -3636900085434079090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_43
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 456
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79cdfab7f04212130800000000000000
+      internalID: 3540150431008152727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_44
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 449
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee3f749f10032810800000000000000
+      internalID: 1739234016730496737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_45
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 454
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f4efd874f251040800000000000000
+      internalID: 4617648977309749150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_46
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 437
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74be0ddeac203d860800000000000000
+      internalID: 7553384070626995015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_47
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 431
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f825cbc5fd88f20800000000000000
+      internalID: 3425233106004774777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Oracle_FadeDissolve_05_48
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 102
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d32195f4f7788710800000000000000
+      internalID: 1695737153680647122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Oracle_FadeDissolve_05_0: -8047285010651145062
+      Oracle_FadeDissolve_05_1: 1826059965026099533
+      Oracle_FadeDissolve_05_10: -2995789816777540658
+      Oracle_FadeDissolve_05_11: 8873035642794707652
+      Oracle_FadeDissolve_05_12: -5710785168877855818
+      Oracle_FadeDissolve_05_13: -28901578162523087
+      Oracle_FadeDissolve_05_14: -1354296341203341193
+      Oracle_FadeDissolve_05_15: -6538144509786317200
+      Oracle_FadeDissolve_05_16: 519314476477050032
+      Oracle_FadeDissolve_05_17: 6155152594579519573
+      Oracle_FadeDissolve_05_18: 6626742394346015927
+      Oracle_FadeDissolve_05_19: -3135884456136770514
+      Oracle_FadeDissolve_05_2: 6447464986236755732
+      Oracle_FadeDissolve_05_20: 2703670382215059522
+      Oracle_FadeDissolve_05_21: 3897475753067904477
+      Oracle_FadeDissolve_05_22: 7603751431364763555
+      Oracle_FadeDissolve_05_23: -1958388566371718624
+      Oracle_FadeDissolve_05_24: -7542546894587775160
+      Oracle_FadeDissolve_05_25: -6182924944675314887
+      Oracle_FadeDissolve_05_26: -3568325957217186709
+      Oracle_FadeDissolve_05_27: -313895797533733161
+      Oracle_FadeDissolve_05_28: -1817195774947845165
+      Oracle_FadeDissolve_05_29: 518804552504724957
+      Oracle_FadeDissolve_05_3: 5748629784487686515
+      Oracle_FadeDissolve_05_30: -7890454616416275890
+      Oracle_FadeDissolve_05_31: 274676983137133086
+      Oracle_FadeDissolve_05_32: 6602936647560043200
+      Oracle_FadeDissolve_05_33: -5881496436627724934
+      Oracle_FadeDissolve_05_34: 1816605566117506417
+      Oracle_FadeDissolve_05_35: -4971611372736864660
+      Oracle_FadeDissolve_05_36: -2357602524395536477
+      Oracle_FadeDissolve_05_37: 8504186762728428751
+      Oracle_FadeDissolve_05_38: 5561523326445286896
+      Oracle_FadeDissolve_05_39: -6334006074248509563
+      Oracle_FadeDissolve_05_4: -3196067195959711342
+      Oracle_FadeDissolve_05_40: -7420819377005416409
+      Oracle_FadeDissolve_05_41: 8257508570027477233
+      Oracle_FadeDissolve_05_42: -3636900085434079090
+      Oracle_FadeDissolve_05_43: 3540150431008152727
+      Oracle_FadeDissolve_05_44: 1739234016730496737
+      Oracle_FadeDissolve_05_45: 4617648977309749150
+      Oracle_FadeDissolve_05_46: 7553384070626995015
+      Oracle_FadeDissolve_05_47: 3425233106004774777
+      Oracle_FadeDissolve_05_48: 1695737153680647122
+      Oracle_FadeDissolve_05_5: -8995118195837457280
+      Oracle_FadeDissolve_05_6: 5176583734449253028
+      Oracle_FadeDissolve_05_7: -2024687680326360482
+      Oracle_FadeDissolve_05_8: 8961999958398888356
+      Oracle_FadeDissolve_05_9: -188974144790754152
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

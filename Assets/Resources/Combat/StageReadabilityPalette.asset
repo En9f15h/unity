@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb73569d6a0e60144be6739ffd91c526, type: 3}
+  m_Name: StageReadabilityPalette
+  m_EditorClassIdentifier: Assembly-CSharp::StageReadabilityPalette
+  entries:
+  - background: {fileID: 6332600815343343693, guid: 7fb51085f5362f34b86e4577e944da11, type: 3}
+    brightness: 0.88
+    contrast: 0.93
+    saturation: 0.88
+    edgeColor: {r: 0.58, g: 0.7, b: 0.84, a: 1}
+    edgeColorMix: 0.35
+    edgeMultiplier: 1.35
+  - background: {fileID: -4317840480375461725, guid: 72bfdb9f53d01334dad29fca908df4a0, type: 3}
+    brightness: 0.72
+    contrast: 0.9
+    saturation: 0.78
+    edgeColor: {r: 0.46, g: 0.66, b: 0.86, a: 1}
+    edgeColorMix: 0.35
+    edgeMultiplier: 1.3
+  - background: {fileID: -5506467863988536157, guid: 1f2b0a7730f6c954b90c30310d0fe329, type: 3}
+    brightness: 1
+    contrast: 0.992
+    saturation: 0.95
+    edgeColor: {r: 0.64, g: 0.73, b: 0.86, a: 1}
+    edgeColorMix: 0.35
+    edgeMultiplier: 1.5
