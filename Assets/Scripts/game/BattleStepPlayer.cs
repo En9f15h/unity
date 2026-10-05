@@ -77,6 +77,24 @@ public class BattleStepPlayer : MonoBehaviour
         return 60f / bpm;
     }
 
+    public static bool TryPlayForcedReaction(Animator animator, string stateName, float seconds, string fallback = null)
+    {
+        if (animator == null || !animator.isActiveAndEnabled || animator.runtimeAnimatorController == null) return false;
+        if (!animator.HasState(0, Animator.StringToHash(stateName)))
+        {
+            if (string.IsNullOrEmpty(fallback) || !animator.HasState(0, Animator.StringToHash(fallback))) return false;
+            stateName = fallback;
+        }
+        foreach (var parameter in animator.parameters)
+            if (parameter.type == AnimatorControllerParameterType.Trigger) animator.ResetTrigger(parameter.nameHash);
+        animator.Play(stateName, 0, 0f);
+        animator.Update(0f);
+        var clips = animator.GetCurrentAnimatorClipInfo(0);
+        animator.speed = clips.Length > 0 && clips[0].clip != null
+            ? clips[0].clip.length / Mathf.Max(.01f, seconds) : 1f;
+        return true;
+    }
+
     public float GetStepDuration(float stepBeats = -1f)
     {
         float beats = stepBeats > 0f ? stepBeats : defaultStepBeats;
@@ -492,6 +510,7 @@ public class BattleStepPlayer : MonoBehaviour
 
         ResetActionTriggers(animator);
         animator.SetTrigger(triggerName);
+        
         if (unit != null)
             unit.GetComponent<KnightSlashShaderVFX>()?.PlaySlash(action, heavyReleaseNow, stepDuration);
     }

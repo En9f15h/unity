@@ -41,14 +41,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2342506258571659992}
   serializedVersion: 8
-  lengthInSec: 0.5
+  lengthInSec: 0.15
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -5056,9 +5056,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OracleParticleEffect
   effectKind: 0
-  effectScaleInTiles: 1
-  particleLifetimeMultiplier: 1
-  particleSpeedMultiplier: 1
+  effectScaleInTiles: 1.17
+  particleLifetimeMultiplier: 1.14
+  particleSpeedMultiplier: 1.13
   particleSizeMultiplier: 1
   emissionMultiplier: 1
   maxParticleBudget: 120
@@ -5077,3 +5077,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatEffectShaderDriver
   duration: 0.6
+  graphDissolveEnd: 1

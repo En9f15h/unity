@@ -209,6 +209,7 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
     private const string PLAYER_PROP_READY = "turnReady";
     private const string PLAYER_PROP_ACTIONS = "turnActions";
     private const string PLAYER_PROP_SUBMIT_TURN = "submitTurn";
+    private const string PLAYER_PROP_ACTIONS_TURN = "actionsTurn";
     private const int DEFAULT_TRANSMITTED_ACTION_SLOT_COUNT = 5;
 
     private const string ROOM_PROP_SIGHT_PREFIX = "Sight_";
@@ -246,7 +247,7 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
     private void Start()
     {
         PhotonNetwork.AddCallbackTarget(this);
-
+        PhotonNetwork.AutomaticallySyncScene = false;
         if (PhotonNetwork.IsMasterClient)
             ResetSightMatchState();
 
@@ -474,6 +475,7 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
         localSubmitted = false;
         receivedResolution = false;
         isResolving = false;
+        ClearPendingLocalPlan();
         HideLocalShiftReadyIndicator();
         HideAllPlanningReadyIndicators();
 
@@ -490,7 +492,8 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
         {
             { PLAYER_PROP_READY, false },
             { PLAYER_PROP_SUBMIT_TURN, -1 },
-            { PLAYER_PROP_ACTIONS, new int[0] }
+            { PLAYER_PROP_ACTIONS, null },
+            { PLAYER_PROP_ACTIONS_TURN, -1 }
         });
 
         Debug.Log("[TurnPlanningManager] Cleared local transmitted action payload for leaving GameScene.");

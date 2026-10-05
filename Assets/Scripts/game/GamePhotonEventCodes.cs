@@ -8,4 +8,5 @@ public static class GamePhotonEventCodes
     public const byte SceneTransitionRequest = 51;
     public const byte SceneTransitionBegin = 52;
     public const byte SceneTransitionRelease = 53;
+    public const byte CharacterSelectionMessage = 61;
 }

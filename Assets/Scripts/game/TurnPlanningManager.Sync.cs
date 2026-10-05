@@ -60,6 +60,7 @@ public partial class TurnPlanningManager
     private int[] GetPlayerActionsForTurn(Player player, int turnIndex)
     {
         int slotCount = GetTransmittedActionSlotCountForPlayer(player);
+        if (!HasPublishedPlan(player, turnIndex)) return CreateEmptyActionArray(slotCount);
 
         if (player.CustomProperties.TryGetValue(PLAYER_PROP_SUBMIT_TURN, out object turnObj))
         {
@@ -219,6 +220,8 @@ public partial class TurnPlanningManager
             if (TryGetCurrentTurnInfo(out int claimTurnIndex, out double claimTurnStart, out double claimTurnDuration))
                 claimRound = claimTurnIndex;
 
+            ResetLocalTurnProps(claimRound);
+
             ResetClaimsForPlanning(claimRound);
             RefreshSightViewsForPlanningRound();
             PublishInitialSightSnapshotsForCurrentPlanningRound();
@@ -238,11 +241,14 @@ public partial class TurnPlanningManager
 
         if (changedProps.ContainsKey(PLAYER_PROP_READY) ||
             changedProps.ContainsKey(PLAYER_PROP_ACTIONS) ||
-            changedProps.ContainsKey(PLAYER_PROP_SUBMIT_TURN))
+            changedProps.ContainsKey(PLAYER_PROP_SUBMIT_TURN) ||
+            changedProps.ContainsKey(PLAYER_PROP_ACTIONS_TURN))
             {
                 RefreshPlanningReadyIndicatorsFromPhoton();
                 RefreshDebug("Player properties updated: " + GetPlayerDisplayName(targetPlayer));
                 TryShowSightRevealForPlayer(targetPlayer);
+                if (TryGetCurrentTurnInfo(out int turnIndex, out _, out _))
+                    TryPublishLocalPlan(turnIndex);
             }
     }
 

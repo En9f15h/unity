@@ -6,7 +6,9 @@ public class DynamicBattleCamera2D : MonoBehaviour
 {
     [Header("Auto-Find Characters")]
     [SerializeField] private bool autoFindPlayersOnSyncedStart = true;
-    [SerializeField] private string playerTag = "PLAYER";
+    [SerializeField] private string playerTag = "Player";
+    [Tooltip("Track the tagged Root inside each character, rather than its outer player object.")]
+    [SerializeField] private string rootTag = "Root";
     [SerializeField] private float retryFindInterval = 0.5f;
     [Header("Child Scaling With Zoom")]
     [SerializeField] private bool scaleChildrenWithZoom = true;
@@ -100,6 +102,8 @@ public class DynamicBattleCamera2D : MonoBehaviour
             childrenScaleRoot = transform;
 
         CacheZoomScaleChildren();
+
+        SetTargets(targetA, targetB);
 
         if (autoFindPlayersOnSyncedStart)
             autoFindCoroutine = StartCoroutine(WaitForSyncedStartAndFindPlayers());
@@ -284,17 +288,29 @@ public class DynamicBattleCamera2D : MonoBehaviour
         if (players == null || players.Length < 2)
             return false;
 
-        // Use the first two PLAYER-tagged objects; refine this if more battle units are added later.
-        targetA = players[0] != null ? players[0].transform : null;
-        targetB = players[1] != null ? players[1].transform : null;
+        Transform first = null;
+        foreach (GameObject player in players)
+        {
+            if (player.scene != gameObject.scene) continue;
+            Transform root = FindTrackingRoot(player.transform);
+            if (!IsTargetValid(root)) continue;
+            if (first == null) first = root;
+            else if (root != first)
+            {
+                SetTargets(first, root);
+                Debug.Log($"DynamicBattleCamera2D found character Root targets: {targetA.name}, {targetB.name}");
+                return true;
+            }
+        }
+        return false;
+    }
 
-        if (!IsTargetValid(targetA) || !IsTargetValid(targetB))
-            return false;
-
-        CacheCurrentTargetPositions();
-
-        Debug.Log($"DynamicBattleCamera2D found PLAYER targets automatically: {targetA.name}, {targetB.name}");
-        return true;
+    private Transform FindTrackingRoot(Transform character)
+    {
+        if (character == null) return null;
+        foreach (Transform child in character.GetComponentsInChildren<Transform>(true))
+            if (child.CompareTag(rootTag)) return child;
+        return null;
     }
 
     private void CacheCurrentTargetPositions()
@@ -308,7 +324,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
     private bool IsTargetValid(Transform t)
     {
-        return t != null && t.gameObject != null;
+        return t != null && t.gameObject.activeInHierarchy;
     }
 
     private void UpdateTargetVelocities()
@@ -428,21 +444,24 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
     public void SetTargets(Transform a, Transform b)
     {
-        targetA = a;
-        targetB = b;
+        targetA = FindTrackingRoot(a);
+        targetB = FindTrackingRoot(b);
+        smoothedVelocityA = smoothedVelocityB = Vector3.zero;
         CacheCurrentTargetPositions();
     }
 
     public void SetTargetA(Transform a)
     {
-        targetA = a;
+        targetA = FindTrackingRoot(a);
+        smoothedVelocityA = Vector3.zero;
         if (targetA != null)
             lastAPosition = targetA.position;
     }
 
     public void SetTargetB(Transform b)
     {
-        targetB = b;
+        targetB = FindTrackingRoot(b);
+        smoothedVelocityB = Vector3.zero;
         if (targetB != null)
             lastBPosition = targetB.position;
     }

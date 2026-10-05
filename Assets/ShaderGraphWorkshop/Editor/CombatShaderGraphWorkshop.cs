@@ -47,17 +47,23 @@ public static class CombatShaderGraphWorkshop
     {
         var a = Array.CreateInstance(type, items.Length); for (int i = 0; i < items.Length; i++) a.SetValue(items[i], i); return a;
     }
-    sealed class Graph
+    public sealed class Graph
     {
         public readonly object data;
         readonly object category;
         object group;
         float row;
-        public Graph()
+        public Graph(bool sprite = true, bool additive = false)
         {
             data = New("UnityEditor.ShaderGraph.GraphData"); Call(data, "AddContexts"); Set(data, "path", "Combat/Graphs");
             var target = New("UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget");
-            Call(target, "TrySetActiveSubTarget", T("UnityEditor.Rendering.Universal.ShaderGraph.UniversalSpriteUnlitSubTarget"));
+            Call(target, "TrySetActiveSubTarget", T("UnityEditor.Rendering.Universal.ShaderGraph." + (sprite ? "UniversalSpriteUnlitSubTarget" : "UniversalUnlitSubTarget")));
+            if (!sprite)
+            {
+                Set(target, "surfaceType", Enum.Parse(Get(target, "surfaceType").GetType(), "Transparent"));
+                Set(target, "alphaMode", Enum.Parse(Get(target, "alphaMode").GetType(), additive ? "Additive" : "Alpha"));
+                Set(target, "renderFace", Enum.Parse(Get(target, "renderFace").GetType(), "Both"));
+            }
             var descriptors = new List<object>();
             foreach (string name in new[] { "VertexDescription.Position", "VertexDescription.Normal", "VertexDescription.Tangent", "SurfaceDescription.BaseColor", "SurfaceDescription.Alpha" })
             {
@@ -96,7 +102,8 @@ public static class CombatShaderGraphWorkshop
         public object Float(string name, string reference, float value)
         {
             var n = Property("Vector1", name, reference, value); var p = Get(n, "property");
-            Vector2 range = reference == "_Opacity" || reference == "_EffectProgress" ? new Vector2(0, 1) :
+            Vector2 range = reference == "_Opacity" || reference == "_EffectProgress" || reference == "_SkillPattern" || reference == "_SkillPhase" || reference == "_SkillAmount" ? new Vector2(0, 1) :
+                reference == "_SkillDensity" ? new Vector2(8, 64) :
                 reference == "_Softness" || reference == "_EdgeWidth" ? new Vector2(.01f, .2f) :
                 reference == "_NoiseScale" ? new Vector2(.1f, 30) : reference == "_FlowSpeed" ? new Vector2(-3, 3) : new Vector2(0, 5);
             Set(p, "floatType", Enum.Parse(Get(p, "floatType").GetType(), "Slider")); Set(p, "rangeValues", range); return n;

@@ -11,6 +11,52 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public partial class TurnPlanningManager
 {
     private ActionData hoveredAttackRangeAction;
+    private int pendingLocalPlanTurn = -1;
+    private int[] pendingLocalPlan;
+    private bool localPlanPublished;
+
+    private void ClearPendingLocalPlan()
+    {
+        pendingLocalPlanTurn = -1;
+        pendingLocalPlan = null;
+        localPlanPublished = false;
+    }
+
+    private bool AreBothPlayersReady(int turnIndex)
+    {
+        if (!PhotonNetwork.InRoom || PhotonNetwork.PlayerList.Length != 2) return false;
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.IsInactive ||
+                !player.CustomProperties.TryGetValue(PLAYER_PROP_READY, out object ready) || !(ready is bool isReady) || !isReady ||
+                !player.CustomProperties.TryGetValue(PLAYER_PROP_SUBMIT_TURN, out object turn) || !(turn is int submittedTurn) || submittedTurn != turnIndex)
+                return false;
+        }
+        return true;
+    }
+
+    private void TryPublishLocalPlan(int turnIndex)
+    {
+        if (gameEnded || !localSubmitted || localPlanPublished || pendingLocalPlan == null ||
+            pendingLocalPlanTurn != turnIndex || !AreBothPlayersReady(turnIndex)) return;
+
+        // Publish the locked snapshot, never reread editable UI after Ready.
+        localPlanPublished = true;
+        bool queued = PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
+        {
+            { PLAYER_PROP_ACTIONS, (int[])pendingLocalPlan.Clone() },
+            { PLAYER_PROP_ACTIONS_TURN, turnIndex }
+        });
+        if (!queued) localPlanPublished = false;
+    }
+
+    private bool HasPublishedPlan(Player player, int turnIndex)
+    {
+        return player.CustomProperties.TryGetValue(PLAYER_PROP_ACTIONS_TURN, out object turn) &&
+            turn is int publishedTurn && publishedTurn == turnIndex &&
+            player.CustomProperties.TryGetValue(PLAYER_PROP_ACTIONS, out object actions) &&
+            (actions is int[] || actions is object[]);
+    }
 
     private void RefreshPlanningPresentation(bool hasTurn, double remaining = 0, double duration = 1)
     {
@@ -59,6 +105,9 @@ public partial class TurnPlanningManager
         }
 
         RefreshPlanningPresentation(true, remain, turnDur);
+
+        // Every client publishes its own plan only after observing both Ready markers.
+        TryPublishLocalPlan(turnIndex);
 
         bool timeoutReadyToResolve = remain <= -timeoutResolveDelay;
 
@@ -125,11 +174,13 @@ public partial class TurnPlanningManager
 
     private void ResetLocalTurnProps(int turnIndex)
     {
+        ClearPendingLocalPlan();
         Hashtable playerProps = new Hashtable
         {
             { PLAYER_PROP_READY, false },
             { PLAYER_PROP_SUBMIT_TURN, -1 },
-            { PLAYER_PROP_ACTIONS, CreateEmptyActionArray(GetLocalTransmittedActionSlotCount()) }
+            { PLAYER_PROP_ACTIONS, null },
+            { PLAYER_PROP_ACTIONS_TURN, -1 }
         };
 
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProps);
@@ -137,7 +188,7 @@ public partial class TurnPlanningManager
 
     private void SubmitLocalPlan()
     {
-        if (gameEnded)
+        if (gameEnded || localSubmitted || isResolving || !PhotonNetwork.InRoom)
             return;
 
         if (!TryGetCurrentTurnInfo(out int turnIndex, out _, out _))
@@ -145,17 +196,23 @@ public partial class TurnPlanningManager
 
         int[] actions = ReadLocalSlotActions();
         CaptureUsageClaims(turnIndex, actions);
+        pendingLocalPlan = (int[])actions.Clone();
+        pendingLocalPlanTurn = turnIndex;
+        localPlanPublished = false;
+        localSubmitted = true;
 
         Hashtable props = new Hashtable
         {
             { PLAYER_PROP_READY, true },
-            { PLAYER_PROP_ACTIONS, actions },
             { PLAYER_PROP_SUBMIT_TURN, turnIndex }
         };
 
-        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
-
-        localSubmitted = true;
+        if (!PhotonNetwork.LocalPlayer.SetCustomProperties(props))
+        {
+            localSubmitted = false;
+            ClearPendingLocalPlan();
+            return;
+        }
         SetPlayerReadyIndicator(PhotonNetwork.LocalPlayer, true);
 
         if (readyButton != null)
@@ -163,7 +220,8 @@ public partial class TurnPlanningManager
 
         SetPlanningInteractable(false);
         HideLocalShiftReadyIndicator();
-        RefreshDebug("Local plan submitted.");
+        TryPublishLocalPlan(turnIndex);
+        RefreshDebug("Local plan locked; waiting for both players to be ready.");
     }
 
     private int[] ReadLocalSlotActions()
@@ -252,30 +310,12 @@ public partial class TurnPlanningManager
         if (players == null || players.Length < 2)
             return;
 
-        bool allSubmitted = true;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            Player p = players[i];
-
-            bool ready = false;
-            int submitTurn = -999;
-
-            if (p.CustomProperties.TryGetValue(PLAYER_PROP_READY, out object readyObj))
-                ready = (bool)readyObj;
-
-            if (p.CustomProperties.TryGetValue(PLAYER_PROP_SUBMIT_TURN, out object turnObj))
-                submitTurn = (int)turnObj;
-
-            if (!ready || submitTurn != turnIndex)
-            {
-                allSubmitted = false;
-                break;
-            }
-        }
-
-        if (!allSubmitted && !timerExpired)
+        // Timeout auto-readies each local plan in Update; it must never bypass
+        // the reveal barrier or resolve a packet that has not arrived yet.
+        if (!AreBothPlayersReady(turnIndex))
             return;
+        foreach (Player player in players)
+            if (!HasPublishedPlan(player, turnIndex)) return;
 
         if (receivedResolution)
             return;

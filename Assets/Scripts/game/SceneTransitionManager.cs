@@ -33,7 +33,7 @@ public class SceneTransitionManager : MonoBehaviourPunCallbacks, IOnEventCallbac
     private const string PropTransitionSceneReady = "sceneTransitionReady";
 
     private static SceneTransitionManager instance;
-
+    
     [Header("Existing Transition UI")]
     [SerializeField] private Canvas transitionCanvas;
     [SerializeField] private GraphicRaycaster graphicRaycaster;

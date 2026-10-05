@@ -41,8 +41,9 @@ public class HitStopManager : MonoBehaviour
 
     public IEnumerator HitStopByBeat()
     {
-        float duration = GetBeatStopDuration();
-        yield return StartCoroutine(TimeEffectCoroutine(stopTimeScale, duration));
+        // Compatibility entry point: confirmed hits must not pause the global clock.
+        // Impact flashes and camera shake supply feedback without delaying the beat.
+        yield break;
     }
 
     /// <summary>

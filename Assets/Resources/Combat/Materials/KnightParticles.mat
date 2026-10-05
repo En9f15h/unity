@@ -30,9 +30,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Additive: 0.7
+    - _Additive: 0.859
     - _FlowSpeed: 0.8
-    - _Intensity: 1.1
+    - _Intensity: 2.43
     - _Particle: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

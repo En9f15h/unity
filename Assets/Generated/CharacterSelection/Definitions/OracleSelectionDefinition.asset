@@ -51,7 +51,7 @@ MonoBehaviour:
   - {fileID: 407150421034008040, guid: 9011f1ad2f2ac5143aa08f97b7b9f6b7, type: 3}
   - {fileID: 407150421034008040, guid: ea906ef8383bc6c40860e935ab614ba8, type: 3}
   skills:
-  - skillName: Bolt
+  - skillName: Comet
     description: Stronger at longer range; weak to Ward and Parry.
     icon: {fileID: 1398867081139694098, guid: c4863b117343de646b65d0f58e483abd, type: 3}
     damage: 3

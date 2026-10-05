@@ -53,7 +53,8 @@ public sealed class CombatImpactPresentation : MonoBehaviour
         Color color=parry?new Color(1.6f,1.35f,.65f):oracle?new Color(.6f,.85f,1.5f):new Color(1.5f,.95f,.45f);
         block.SetColor("_Color",color); block.SetFloat("_Mode",tier); block.SetFloat("_Progress",0); accent.SetPropertyBlock(block);
         duration=tier==1?.18f:tier==2?.14f:.095f; started=Time.unscaledTime; playing=true; accent.enabled=true;
-        if(!parry) GetComponent<CharacterShaderFeedback>()?.FlashHit(tier==1?.17f:.095f,tier==1?.8f:.48f,color);
+        if(!parry) GetComponent<CharacterShaderFeedback>()?.FlashHit(tier==1?.17f:.095f,tier==1?.95f:.72f,color);
+        else GetComponent<CharacterShaderFeedback>()?.FlashGuard();
         if(!parry && CameraShake.Instance!=null) CameraShake.Instance.Shake(tier==1?.12f:.055f,tier==1?.06f:.018f);
     }
     private void LateUpdate()

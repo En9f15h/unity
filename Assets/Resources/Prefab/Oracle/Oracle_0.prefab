@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 3249763037156918837}
   m_Layer: 0
   m_Name: visualRoot
-  m_TagString: Untagged
+  m_TagString: Root
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -381,7 +381,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 571dc54973001ba409e380576e082abb, type: 2}
+  - {fileID: 2100000, guid: 098c9e9e48be82e4fb818e1f18445114, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1000,7 +1000,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterShaderFeedback
   bodyRenderers:
   - {fileID: 6721742752936955890}
-  characterMaterial: {fileID: 2100000, guid: 571dc54973001ba409e380576e082abb, type: 2}
+  characterMaterial: {fileID: 2100000, guid: 098c9e9e48be82e4fb818e1f18445114, type: 2}
   hitDuration: 0.13
   hitColor: {r: 1.5, g: 1.1, b: 0.8, a: 1}
 --- !u!114 &6812171879809599552

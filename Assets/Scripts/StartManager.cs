@@ -21,13 +21,11 @@ public class StartManager:MonoBehaviourPunCallbacks
     {
         AudioManager.Instance.PlayStartSceneButton();
         PhotonNetwork.ConnectUsingSettings();
-        Console.WriteLine("Start");
+        animator.SetTrigger("Start");
         loading.text = "Loading...";
     }
     public override void OnConnectedToMaster()
     {
-        animator.SetTrigger("Start");
-        print("Connecting");
 
         StartCoroutine(WaitStartAnimationThenLoadScene());
     }

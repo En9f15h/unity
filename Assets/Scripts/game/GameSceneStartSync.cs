@@ -147,11 +147,18 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
     private void ShowCharacterRoots()
     {
-        if (myCharacterRoot != null)
-            myCharacterRoot.SetActive(true);
+        ShowCharacterWithEntrance(myCharacterRoot);
+        ShowCharacterWithEntrance(enemyCharacterRoot);
+    }
 
-        if (enemyCharacterRoot != null)
-            enemyCharacterRoot.SetActive(true);
+    private void ShowCharacterWithEntrance(GameObject character)
+    {
+        if (character == null) return;
+        character.SetActive(true);
+        // Use the shared beat anchor so a late spawn catches up or skips an expired entrance.
+        int elapsedMs = unchecked(PhotonNetwork.ServerTimestamp - beatStartServerTimestamp);
+        character.GetComponent<CharacterShaderFeedback>()?.BeginEntrance(
+            GetBeatDurationMs() / 1000f, Mathf.Max(0, elapsedMs) / 1000f);
     }
 
     public void MarkLocalSceneReady()
@@ -421,7 +428,10 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         myCharacterRoot = go;
 
         if (myCharacterRoot != null)
-            myCharacterRoot.SetActive(gameStartedOnBeat);
+        {
+            if (gameStartedOnBeat) ShowCharacterWithEntrance(myCharacterRoot);
+            else myCharacterRoot.SetActive(false);
+        }
     }
 
     public void RegisterEnemyCharacter(GameObject go)
@@ -429,7 +439,10 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         enemyCharacterRoot = go;
 
         if (enemyCharacterRoot != null)
-            enemyCharacterRoot.SetActive(gameStartedOnBeat);
+        {
+            if (gameStartedOnBeat) ShowCharacterWithEntrance(enemyCharacterRoot);
+            else enemyCharacterRoot.SetActive(false);
+        }
     }
 
     public bool HasBeatStarted()

@@ -40,7 +40,9 @@ public static class ReadyPresentationProbe
         bool oldEnabled = manager.enabled, oldInteractable = button.interactable;
         float oldScale = Time.timeScale;
         var properties = PhotonNetwork.LocalPlayer.CustomProperties;
-        var savedProps = new Hashtable { {"turnReady", properties["turnReady"]}, {"submitTurn", properties["submitTurn"]}, {"turnActions", properties["turnActions"]} };
+        var savedProps = new Hashtable { {"turnReady", properties["turnReady"]}, {"submitTurn", properties["submitTurn"]}, {"turnActions", properties["turnActions"]}, {"actionsTurn", properties["actionsTurn"]} };
+        var pendingFields = new[] { "pendingLocalPlan", "pendingLocalPlanTurn", "localPlanPublished" };
+        var savedPending = pendingFields.Select(n => type.GetField(n, Private).GetValue(manager)).ToArray();
         int clicks = 0;
         UnityAction countClick = () => clicks++;
         button.onClick.AddListener(countClick);
@@ -83,8 +85,11 @@ public static class ReadyPresentationProbe
             update.Invoke(manager, null);
             check(clicks == 1 && (bool)submitted.GetValue(manager) && !button.IsInteractable(),
                 "Original Ready callback submits exactly once and locks the button " + map);
-            check((bool)properties["turnReady"] && ((int[])properties["turnActions"]).SequenceEqual(expectedActions),
-                "Ready submission publishes the original action payload " + map);
+            check((bool)properties["turnReady"] && ((int[])type.GetField("pendingLocalPlan", Private).GetValue(manager)).SequenceEqual(expectedActions),
+                "Ready locks the original action snapshot locally " + map);
+            bool bothReady = (bool)type.GetMethod("AreBothPlayersReady", Private).Invoke(manager, new object[] { properties["submitTurn"] });
+            check(bothReady ? properties["turnActions"] is int[] sent && sent.SequenceEqual(expectedActions) : properties["turnActions"] == null,
+                "Actions are published only when both players are ready " + map);
             check(badge.gameObject.activeSelf && title.text == "WAITING" && title.color.b > title.color.r,
                 "Actual submission shows cool waiting badge " + map);
             if (map < 2) capture("Ready-" + map + "-waiting.png");
@@ -121,6 +126,7 @@ public static class ReadyPresentationProbe
             button.onClick.RemoveListener(countClick);
             submitted.SetValue(manager, oldSubmitted); resolving.SetValue(manager, oldResolving);
             ended.SetValue(manager, oldEnded); received.SetValue(manager, oldReceived);
+            for (int i = 0; i < pendingFields.Length; i++) type.GetField(pendingFields[i], Private).SetValue(manager, savedPending[i]);
             PhotonNetwork.LocalPlayer.SetCustomProperties(savedProps);
             setInteractable.Invoke(manager, new object[] { oldInteractable });
             type.GetMethod("HideAllPlanningReadyIndicators", Private).Invoke(manager, null);

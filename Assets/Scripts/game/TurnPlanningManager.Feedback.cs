@@ -243,6 +243,7 @@ public partial class TurnPlanningManager
             return;
 
         PlayKnightParrySuccessAudio(defenderIsMine);
+        PlayKnightGetParry(!defenderIsMine);
 
         targetUnit.GetComponent<CombatImpactPresentation>()?.PlayResolvedImpact(defenderIsMine ? enemyUnit : myUnit, true);
         if (parrySuccessEffectPrefab == null)
@@ -315,6 +316,7 @@ public partial class TurnPlanningManager
             return;
 
         PlayKnightParrySuccessAudio(defenderIsMine);
+        PlayKnightGetParry(!defenderIsMine);
 
         if (IsKnightClass(defenderIsMine) && defenderAnim != null)
             defenderAnim.SetTrigger("ParryCounter");
@@ -370,7 +372,7 @@ public partial class TurnPlanningManager
         if (target == null)
             yield break;
 
-        Vector3 origin = target.position;
+        Vector3 previousOffset = Vector3.zero;
         float timer = 0f;
 
         while (timer < hitShakeDuration)
@@ -378,11 +380,14 @@ public partial class TurnPlanningManager
             timer += Time.unscaledDeltaTime;
             float decay = 1f - Mathf.Clamp01(timer / Mathf.Max(0.0001f, hitShakeDuration));
             float offsetX = UnityEngine.Random.Range(-hitShakeStrength, hitShakeStrength) * decay;
-            target.position = origin + new Vector3(offsetX, 0f, 0f);
+            if (target == null) yield break;
+            Vector3 offset = new Vector3(offsetX, 0f, 0f);
+            target.position += offset - previousOffset;
+            previousOffset = offset;
             yield return null;
         }
 
-        target.position = origin;
+        if (target != null) target.position -= previousOffset;
     }
 
 }

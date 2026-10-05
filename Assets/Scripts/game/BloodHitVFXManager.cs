@@ -84,7 +84,9 @@ public class BloodHitVFXManager : MonoBehaviour
     private float DamageImpact(int damage,ParticleSystem fx)
     {
         float increaseScale=damage* scalePerDamage;
-        fx.emission.SetBurst(0, new ParticleSystem.Burst(fx.emission.GetBurst(0).time, fx.emission.burstCount + damage * brustPerDamage));     
+        ParticleSystem.Burst burst= fx.emission.GetBurst(0);
+        burst.count = burst.count.constant + damage * brustPerDamage;
+        fx.emission.SetBurst(0, burst);
         return increaseScale;
     }
     private void SpawnBloodDecal(Transform victim, Vector3 dir)

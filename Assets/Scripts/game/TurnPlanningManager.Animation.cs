@@ -10,6 +10,29 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public partial class TurnPlanningManager
 {
+    private void PlayKnightGetParry(bool attackerIsMine)
+    {
+        CharacterUnit attacker = attackerIsMine ? myUnit : enemyUnit;
+        if (attacker == null || !string.Equals(attacker.className, "knight", StringComparison.OrdinalIgnoreCase)) return;
+        Animator animator = attacker.GetAnimator();
+        if (animator != null) StartCoroutine(PlayGetParryReaction(animator));
+    }
+
+    private IEnumerator PlayGetParryReaction(Animator animator)
+    {
+        float originalSpeed = animator.speed;
+        float duration = GetBeatSeconds(1f);
+        if (!BattleStepPlayer.TryPlayForcedReaction(animator, "getParry", duration, "hit")) yield break;
+        float reactionSpeed = animator.speed;
+        yield return new WaitForSecondsRealtime(duration);
+        if (animator != null && Mathf.Approximately(animator.speed, reactionSpeed))
+        {
+            var state = animator.GetCurrentAnimatorStateInfo(0);
+            if (state.IsName("getParry") || state.IsName("hit") || state.IsName("Idle") || state.IsName("idle"))
+                animator.speed = originalSpeed;
+        }
+    }
+
     private float GetClipLength(Animator animator, string clipName)
     {
         if (animator == null || animator.runtimeAnimatorController == null || string.IsNullOrEmpty(clipName))
@@ -28,41 +51,12 @@ public partial class TurnPlanningManager
 
     private IEnumerator PlayParryCounterAnimationAndWait(Animator animator)
     {
-        if (animator == null)
-            yield break;
-
-        float originalSpeed = animator.speed;
-
-        string stateName = "ParryCounter";
-        string triggerName = "ParryCounter";
-
         float stepDuration = GetBeatSeconds(parryCounterStepBeats);
-        float clipLength = GetClipLength(animator, stateName);
-
-        if (clipLength > 0.0001f)
-            animator.speed = clipLength / stepDuration;
-        else
-            animator.speed = 1f;
-
-        ResetActionTriggers(animator);
-        animator.SetTrigger(triggerName);
-
-        float enterTimeout = 0.25f;
-        while (enterTimeout > 0f)
-        {
-            AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(0);
-            AnimatorStateInfo next = animator.GetNextAnimatorStateInfo(0);
-
-            if (current.IsName(stateName) || next.IsName(stateName))
-                break;
-
-            enterTimeout -= Time.unscaledDeltaTime;
-            yield return null;
-        }
-
+        float originalSpeed = animator != null ? animator.speed : 1f;
+        BattleStepPlayer.TryPlayForcedReaction(animator, "ParryCounter", stepDuration);
+        // A missing renderer/state must not alter gameplay timing on one client.
         yield return new WaitForSecondsRealtime(stepDuration);
-
-        animator.speed = originalSpeed;
+        if (animator != null) animator.speed = originalSpeed;
     }
 
     private void PlayActionAnimation(Animator animator, ActionType action, bool isMine, int currentTurn)

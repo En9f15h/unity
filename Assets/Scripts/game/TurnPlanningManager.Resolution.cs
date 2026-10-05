@@ -113,8 +113,6 @@ public partial class TurnPlanningManager
         if (playBloodOnParryCounter && bloodHitVFXManager != null)
             PlayBloodHitEffect(counterByMine,damage);
 
-        if (HitStopManager.Instance != null)
-            yield return StartCoroutine(HitStopManager.Instance.HitStopByBeat());
 
         // Refresh UI after counter damage resolves.
         if (counterByMine)
@@ -140,13 +138,11 @@ public partial class TurnPlanningManager
 
         RefreshAllHPUI();
 
-        // Add the same post-effect beat delay used by normal hit effects.
+        // Only the terminal finisher presentation may add a delay.
         float postCounterDelayBeats = 0f;
 
         if (playedFinisherSlowMotionThisStep)
             postCounterDelayBeats = Mathf.Max(effectDelayBeats, finisherSlowMotionBeats);
-        else if (playedHitFeedbackThisStep)
-            postCounterDelayBeats = effectDelayBeats;
 
         if (postCounterDelayBeats > 0f)
             yield return new WaitForSecondsRealtime(GetBeatSeconds(postCounterDelayBeats));
@@ -348,7 +344,7 @@ public partial class TurnPlanningManager
             enemyHeavyReleaseNow
         );
 
-        // Add beat-based effect delay after hit stop, blood, and fatal slow motion triggers.
+        // Ordinary hit feedback never extends the shared action schedule.
         bool hasSlowMotionStep =
             myEffectiveAction == ActionType.Dance ||
             enemyEffectiveAction == ActionType.Dance;
@@ -357,7 +353,7 @@ public partial class TurnPlanningManager
 
         if (playedFinisherSlowMotionThisStep)
             postStepDelayBeats = Mathf.Max(effectDelayBeats, finisherSlowMotionBeats);
-        else if (playedHitFeedbackThisStep || hasSlowMotionStep)
+        else if (hasSlowMotionStep)
             postStepDelayBeats = effectDelayBeats;
 
         if (postStepDelayBeats > 0f)

@@ -43,7 +43,20 @@ public static class CombatShaderGraphIntegrationProbe
         }
         foreach (var name in new[] { "Oracle_WardVFX", "Oracle_WardSuccessVFX" })
             check(Resources.Load<GameObject>(Path + name).GetComponentsInChildren<SpriteRenderer>(true).All(r => r.sharedMaterial.shader.name == "Combat/Energy Sprite"), "Ward impact shader preserved: " + name);
-        check(unit.GetComponent<CharacterShaderFeedback>().BodyRenderers.All(r => r.sharedMaterial.shader.name == "Combat/Character Lit"), "Character hit feedback preserved on selected skin");
+        var bodies = unit.GetComponent<CharacterShaderFeedback>().BodyRenderers;
+        check(bodies.Length > 0 && bodies.All(r => r != null && r.sharedMaterial != null &&
+            r.sharedMaterial.shader.name == "Combat/Graphs/CharacterSkillPresentation" && r.sharedMaterial.shader.isSupported),
+            "Actual selected skin uses supported character presentation Graph on map " + map);
+        var properties = new MaterialPropertyBlock();
+        check(bodies.All(r => { r.GetPropertyBlock(properties); return properties.GetFloat("_EntranceAmount") == 0; }),
+            "Completed entrance clears on actual spawned skin");
+        foreach (string material in new[] { "KnightSlash", "OracleGhost" })
+        {
+            var loaded = Resources.Load<Material>("Combat/Materials/" + material);
+            string expected = material == "KnightSlash" ? "WeaponRibbon" : "CharacterGhost";
+            check(loaded != null && loaded.shader.isSupported && loaded.shader.name == "Combat/Graphs/" + expected,
+                "Production character effect Graph resolves: " + material);
+        }
         yield return null;
 
         var oracle = unit.GetComponentInChildren<OracleVFXController>();
