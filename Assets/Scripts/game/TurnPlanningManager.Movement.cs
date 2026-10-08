@@ -64,18 +64,21 @@ public partial class TurnPlanningManager
         int oracleCell = OracleShiftResolver.WorldToCell(oracleUnit.transform.position.x, boardOriginX, WorldUnitsPerTile);
         int targetCell = OracleShiftResolver.WorldToCell(targetUnit.transform.position.x, boardOriginX, WorldUnitsPerTile);
 
+        if (!TryGetOracleShiftBoardBounds(out int shiftMinCell, out int shiftMaxCell))
+            return;
+
         OracleShiftResult result = OracleShiftResolver.Resolve(
             oracleCell,
             targetCell,
-            boardMinCell,
-            boardMaxCell,
+            shiftMinCell,
+            shiftMaxCell,
             blockedBoardCells,
             oracleShiftMaxFinalDistance
         );
 
         if (!result.valid)
         {
-            Debug.Log("Oracle Shift failed because no valid position was available.");
+            Debug.Log($"Oracle Shift failed: oracleCell={oracleCell}, targetCell={targetCell}, validCells=[{shiftMinCell},{shiftMaxCell}].");
             return;
         }
 
@@ -143,8 +146,11 @@ public partial class TurnPlanningManager
             return;
         }
 
-        if (!OracleShiftResolver.IsCellValid(myCell, boardMinCell, boardMaxCell, blockedBoardCells) ||
-            !OracleShiftResolver.IsCellValid(enemyCell, boardMinCell, boardMaxCell, blockedBoardCells))
+        if (!TryGetOracleShiftBoardBounds(out int shiftMinCell, out int shiftMaxCell))
+            return;
+
+        if (!OracleShiftResolver.IsCellValid(myCell, shiftMinCell, shiftMaxCell, blockedBoardCells) ||
+            !OracleShiftResolver.IsCellValid(enemyCell, shiftMinCell, shiftMaxCell, blockedBoardCells))
         {
             Debug.Log("Simultaneous Shift failed because one current cell is invalid.");
             return;
@@ -372,6 +378,24 @@ public partial class TurnPlanningManager
 
         LogMissingMovementCollider(target, "default half width");
         return 0.5f;
+    }
+
+    private bool TryGetOracleShiftBoardBounds(out int minCell, out int maxCell)
+    {
+        minCell = Mathf.Min(boardMinCell, boardMaxCell);
+        maxCell = Mathf.Max(boardMinCell, boardMaxCell);
+        if (constrainOracleSpecialMovementToWall)
+        {
+            // Apply walls before resolving so a blocked behind-target destination
+            // can use the existing swap fallback instead of aborting afterwards.
+            float minWall = Mathf.Min(oracleMovementWallMinX, oracleMovementWallMaxX);
+            float maxWall = Mathf.Max(oracleMovementWallMinX, oracleMovementWallMaxX);
+            minCell = Mathf.Max(minCell, Mathf.CeilToInt((minWall - boardOriginX) / WorldUnitsPerTile));
+            maxCell = Mathf.Min(maxCell, Mathf.FloorToInt((maxWall - boardOriginX) / WorldUnitsPerTile));
+        }
+        if (minCell <= maxCell) return true;
+        Debug.LogWarning("Oracle Shift has no board cells inside the configured walls.");
+        return false;
     }
 
     private bool AreOracleSpecialMovementPositionsInsideWall(float firstX, float secondX)

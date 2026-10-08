@@ -217,8 +217,8 @@ MonoBehaviour:
     usedOverlaySprite: {fileID: 0}
     lockedContinuationSprite: {fileID: -1799386721170512200, guid: ce88f08e40f43234399fd066b415bfc5, type: 3}
     tooltipTitle: Ward
-    tooltipDescription: Blocks Light Attack. Heavy Attack breaks through, and Low
-      Attack bypasses it.
+    tooltipDescription: Blocks Light Attack. Reduces Low Attack damage by 3, to a minimum
+      of 0. Heavy Attack breaks through for reduced damage.
     rangeText: 
   fade:
     actionName: Fade

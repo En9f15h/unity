@@ -61,8 +61,8 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
 
     [Header("Oracle Board")]
     [SerializeField] private float boardOriginX = 0f;
-    [SerializeField] private int boardMinCell = -4;
-    [SerializeField] private int boardMaxCell = 4;
+    [SerializeField] private int boardMinCell = -8;
+    [SerializeField] private int boardMaxCell = 8;
     [SerializeField] private int[] blockedBoardCells;
     [SerializeField] private bool constrainOracleSpecialMovementToWall = true;
     [SerializeField] private float oracleMovementWallMinX = -8.5f;

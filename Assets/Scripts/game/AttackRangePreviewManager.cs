@@ -137,6 +137,7 @@ public class AttackRangePreviewManager : MonoBehaviour
     {
         EnsureCanvasToggles();
         UpdateToggleVisual();
+        
     }
 
     private void OnDisable()

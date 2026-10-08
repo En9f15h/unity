@@ -143,7 +143,7 @@ MonoBehaviour:
     range: 2
     canBeParried: 1
     canBeDefended: 1
-    jumpInteraction: 1
+    jumpInteraction: 2
     requiresCharge: 0
     chargeTurns: 1
   energyBarPrefab: {fileID: 958131594077356885, guid: c71191559bc4a3044a46e646be64d16a, type: 3}

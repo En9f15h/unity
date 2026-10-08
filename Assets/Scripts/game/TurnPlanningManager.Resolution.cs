@@ -251,6 +251,11 @@ public partial class TurnPlanningManager
         ActionType myEffectiveAction = GetEffectiveActionForStep(myAction, true, out myHeavyReleaseNow);
         ActionType enemyEffectiveAction = GetEffectiveActionForStep(enemyAction, false, out enemyHeavyReleaseNow);
 
+        // Jump is a combat state for this effective step. A jump-versus-attack
+        // step has no horizontal movement callback, so it cannot set this state there.
+        myJumping = myEffectiveAction == ActionType.Jump;
+        enemyJumping = enemyEffectiveAction == ActionType.Jump;
+
         // Decide effective actions and per-step state flags before presentation starts.
         myChargingHeavyThisStep = IsHeavyChargingThisStep(myEffectiveAction, myHeavyReleaseNow);
         enemyChargingHeavyThisStep = IsHeavyChargingThisStep(enemyEffectiveAction, enemyHeavyReleaseNow);

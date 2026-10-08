@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
+[DefaultExecutionOrder(100)]
 public class DynamicBattleCamera2D : MonoBehaviour
 {
     [Header("Auto-Find Characters")]
@@ -30,6 +31,9 @@ public class DynamicBattleCamera2D : MonoBehaviour
     [Header("Follow Settings")]
     [SerializeField] private float followSmoothTime = 0.18f;
     [SerializeField] private Vector3 baseOffset = new Vector3(0f, 0f, -10f);
+    [Tooltip("Keep tagged Root targets, but ignore animation-only motion inside their CharacterUnit.")]
+    [SerializeField] private bool stabilizeAnimatedRoot = true;
+    [SerializeField] private float targetDeadZone = 0.1f;
 
     [Header("Look-Ahead Settings")]
     [SerializeField] private bool enableLookAhead = true;
@@ -41,6 +45,8 @@ public class DynamicBattleCamera2D : MonoBehaviour
     [SerializeField] private bool autoZoom = true;
     [SerializeField] private float distanceToSizeMultiplier = 0.45f;
     [SerializeField] private float zoomSmoothSpeed = 5f;
+    [SerializeField] private float zoomOutSpeed = 10f;
+    [SerializeField] private float zoomDeadZone = 0.045f;
 
     [Tooltip("Minimum camera size. Smaller values zoom closer.")]
     [SerializeField] private float minOrthoSize = 3.5f;
@@ -51,6 +57,10 @@ public class DynamicBattleCamera2D : MonoBehaviour
     [Header("Safe Padding")]
     [SerializeField] private float horizontalPadding = 2f;
     [SerializeField] private float verticalPadding = 1f;
+    [Header("Ground Composition")]
+    [Tooltip("Optional fixed gameplay floor. Keeps feet above the authored bottom HUD while zooming, without following animated bones.")]
+    [SerializeField] private Collider2D compositionGround;
+    [SerializeField, Range(0.1f, 0.45f)] private float groundViewportY = 0.34f;
     [Header("Background Bounds Limit")]
     [SerializeField] private bool useBackgroundBounds = true;
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
@@ -78,6 +88,10 @@ public class DynamicBattleCamera2D : MonoBehaviour
     private Vector3[] zoomScaleOriginalScales;
     private int cachedChildCount = -1;
     private Coroutine autoFindCoroutine;
+    private Transform ownerA, ownerB;
+    private Vector3 rootOffsetA, rootOffsetB, stableA, stableB;
+    private float framedSize, heldSize;
+    public Vector3 StablePosition { get; private set; }
 
     private void Awake()
     {
@@ -97,6 +111,8 @@ public class DynamicBattleCamera2D : MonoBehaviour
             maxOrthoSize = cam.orthographicSize;
         TryCacheBackgroundBounds();
         referenceOrthoSize = cam.orthographicSize;
+        framedSize = heldSize = cam.orthographicSize;
+        StablePosition = transform.position;
 
         if (childrenScaleRoot == null)
             childrenScaleRoot = transform;
@@ -124,6 +140,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
         if (!IsTargetValid(targetA) || !IsTargetValid(targetB))
             return;
 
+        TryCacheBackgroundBounds(); // Photon may change the selected map after Start.
         UpdateTargetVelocities();
 
         Vector3 desiredCenter = GetTargetsCenter();
@@ -140,24 +157,22 @@ public class DynamicBattleCamera2D : MonoBehaviour
             transform.position.z
         );
 
-        if (useCameraBounds || hasBackgroundBounds)
-            desiredCameraPos = ClampCameraPositionToBounds(desiredCameraPos, desiredSize);
-
-        transform.position = Vector3.SmoothDamp(
-            transform.position,
-            desiredCameraPos,
-            ref positionVelocity,
-            followSmoothTime
-        );
-
+        float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
         if (autoZoom)
         {
-            cam.orthographicSize = Mathf.Lerp(
-                cam.orthographicSize,
-                desiredSize,
-                Time.deltaTime * zoomSmoothSpeed
-            );
+            if (Mathf.Abs(desiredSize - heldSize) > zoomDeadZone) heldSize = desiredSize;
+            float speed = heldSize > framedSize ? zoomOutSpeed : zoomSmoothSpeed;
+            framedSize = Mathf.Lerp(framedSize, heldSize, 1f - Mathf.Exp(-speed * dt));
+            float limit = hasBackgroundBounds ? Mathf.Min(maxOrthoSize, GetMaxOrthoSizeFromBackground()) : maxOrthoSize;
+            cam.orthographicSize = Mathf.Min(framedSize, Mathf.Max(0.01f, limit));
         }
+        if (compositionGround != null && compositionGround.enabled && compositionGround.gameObject.activeInHierarchy)
+            desiredCameraPos.y = compositionGround.bounds.max.y + cam.orthographicSize * (1f - 2f * groundViewportY);
+        desiredCameraPos = ClampCameraPositionToBounds(desiredCameraPos, cam.orthographicSize);
+        StablePosition = Vector3.SmoothDamp(StablePosition, desiredCameraPos, ref positionVelocity,
+            followSmoothTime, Mathf.Infinity, dt);
+        StablePosition = ClampCameraPositionToBounds(StablePosition, cam.orthographicSize);
+        transform.position = StablePosition;
         if (scaleChildrenWithZoom)
         {
             if (childrenScaleRoot != null && childrenScaleRoot.childCount != cachedChildCount)
@@ -315,11 +330,34 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
     private void CacheCurrentTargetPositions()
     {
-        if (targetA != null)
-            lastAPosition = targetA.position;
+        BindStableAnchor(targetA, out ownerA, out rootOffsetA, out stableA);
+        BindStableAnchor(targetB, out ownerB, out rootOffsetB, out stableB);
+        lastAPosition = stableA;
+        lastBPosition = stableB;
+    }
 
-        if (targetB != null)
-            lastBPosition = targetB.position;
+    private void BindStableAnchor(Transform root, out Transform owner, out Vector3 offset, out Vector3 position)
+    {
+        var unit = root != null ? root.GetComponentInParent<CharacterUnit>() : null;
+        owner = stabilizeAnimatedRoot && unit != null ? unit.transform : root;
+        offset = owner != null && root != null ? owner.InverseTransformPoint(root.position) : Vector3.zero;
+        position = root != null ? root.position : Vector3.zero;
+    }
+
+    private Vector3 SampleAnchor(Transform owner, Vector3 offset, Vector3 previous)
+    {
+        if (owner == null) return previous;
+        Vector3 raw = owner.TransformPoint(offset);
+        var unit = owner.GetComponent<CharacterUnit>();
+        if (unit != null) raw -= unit.PresentationOffset;
+        // Reject the existing 0.08-world-unit character hit shake as well.
+        for (int axis = 0; axis < 2; axis++)
+        {
+            float delta = raw[axis] - previous[axis];
+            if (Mathf.Abs(delta) > targetDeadZone)
+                previous[axis] = raw[axis] - Mathf.Sign(delta) * targetDeadZone;
+        }
+        return previous;
     }
 
     private bool IsTargetValid(Transform t)
@@ -329,32 +367,38 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
     private void UpdateTargetVelocities()
     {
+        stableA = SampleAnchor(ownerA, rootOffsetA, stableA);
+        stableB = SampleAnchor(ownerB, rootOffsetB, stableB);
+        float dt = Mathf.Max(Time.unscaledDeltaTime, 0.0001f);
+        float blend = 1f - Mathf.Exp(-velocitySampleSmoothing * dt);
         if (targetA != null)
         {
-            Vector3 rawVelocityA = (targetA.position - lastAPosition) / Mathf.Max(Time.deltaTime, 0.0001f);
+            Vector3 delta = stableA - lastAPosition;
+            Vector3 rawVelocityA = delta.magnitude > 2f ? Vector3.zero : delta / dt;
             smoothedVelocityA = Vector3.Lerp(
                 smoothedVelocityA,
                 rawVelocityA,
-                Time.deltaTime * velocitySampleSmoothing
+                blend
             );
-            lastAPosition = targetA.position;
+            lastAPosition = stableA;
         }
 
         if (targetB != null)
         {
-            Vector3 rawVelocityB = (targetB.position - lastBPosition) / Mathf.Max(Time.deltaTime, 0.0001f);
+            Vector3 delta = stableB - lastBPosition;
+            Vector3 rawVelocityB = delta.magnitude > 2f ? Vector3.zero : delta / dt;
             smoothedVelocityB = Vector3.Lerp(
                 smoothedVelocityB,
                 rawVelocityB,
-                Time.deltaTime * velocitySampleSmoothing
+                blend
             );
-            lastBPosition = targetB.position;
+            lastBPosition = stableB;
         }
     }
 
     private Vector3 GetTargetsCenter()
     {
-        return (targetA.position + targetB.position) * 0.5f;
+        return (stableA + stableB) * 0.5f;
     }
 
     private Vector3 GetLookAheadOffset()
@@ -364,7 +408,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
         Vector3 averageVelocity = (smoothedVelocityA + smoothedVelocityB) * 0.5f;
 
-        float lookX = averageVelocity.x * lookAheadStrength * 0.01f;
+        float lookX = averageVelocity.x * lookAheadStrength;
         lookX = Mathf.Clamp(lookX, -maxLookAheadX, maxLookAheadX);
 
         return new Vector3(lookX, 0f, 0f);
@@ -372,8 +416,8 @@ public class DynamicBattleCamera2D : MonoBehaviour
 
     private float GetDesiredOrthoSize()
     {
-        float distanceX = Mathf.Abs(targetA.position.x - targetB.position.x);
-        float distanceY = Mathf.Abs(targetA.position.y - targetB.position.y);
+        float distanceX = Mathf.Abs(stableA.x - stableB.x);
+        float distanceY = Mathf.Abs(stableA.y - stableB.y);
 
         float sizeFromWidth = ((distanceX + horizontalPadding) * 0.5f) / cam.aspect;
         float sizeFromHeight = (distanceY + verticalPadding) * 0.5f;
@@ -391,8 +435,7 @@ public class DynamicBattleCamera2D : MonoBehaviour
         if (hasBackgroundBounds)
             maxSizeLimit = Mathf.Min(maxSizeLimit, GetMaxOrthoSizeFromBackground());
 
-        finalSize = Mathf.Min(finalSize, maxSizeLimit);
-        finalSize = Mathf.Max(finalSize, minOrthoSize);
+        finalSize = Mathf.Clamp(finalSize, Mathf.Min(minOrthoSize, maxSizeLimit), maxSizeLimit);
 
         return finalSize;
     }
@@ -434,8 +477,8 @@ public class DynamicBattleCamera2D : MonoBehaviour
         // Fall back to manual bounds when background bounds are unavailable.
         if (useCameraBounds)
         {
-            float clampedX = Mathf.Clamp(desiredPosition.x, minX + halfWidth, maxX - halfWidth);
-            float clampedY = Mathf.Clamp(desiredPosition.y, minY + halfHeight, maxY - halfHeight);
+            float clampedX = minX + halfWidth > maxX - halfWidth ? (minX + maxX) * .5f : Mathf.Clamp(desiredPosition.x, minX + halfWidth, maxX - halfWidth);
+            float clampedY = minY + halfHeight > maxY - halfHeight ? (minY + maxY) * .5f : Mathf.Clamp(desiredPosition.y, minY + halfHeight, maxY - halfHeight);
             return new Vector3(clampedX, clampedY, desiredPosition.z);
         }
 
@@ -454,16 +497,16 @@ public class DynamicBattleCamera2D : MonoBehaviour
     {
         targetA = FindTrackingRoot(a);
         smoothedVelocityA = Vector3.zero;
-        if (targetA != null)
-            lastAPosition = targetA.position;
+        BindStableAnchor(targetA, out ownerA, out rootOffsetA, out stableA);
+        lastAPosition = stableA;
     }
 
     public void SetTargetB(Transform b)
     {
         targetB = FindTrackingRoot(b);
         smoothedVelocityB = Vector3.zero;
-        if (targetB != null)
-            lastBPosition = targetB.position;
+        BindStableAnchor(targetB, out ownerB, out rootOffsetB, out stableB);
+        lastBPosition = stableB;
     }
 
     public Transform GetTargetA()

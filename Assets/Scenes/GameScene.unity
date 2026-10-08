@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 136889472}
   - component: {fileID: 136889471}
   - component: {fileID: 136889475}
+  - component: {fileID: 136889476}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -387,8 +388,8 @@ Canvas:
   m_GameObject: {fileID: 136889470}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1511880816}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -399,7 +400,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &136889474
 RectTransform:
@@ -451,6 +452,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &136889476
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136889470}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &137245798
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,8 +869,8 @@ MonoBehaviour:
   minCharacterGap: 0.2
   verboseMovementCollisionLogs: 0
   boardOriginX: 0
-  boardMinCell: -4
-  boardMaxCell: 4
+  boardMinCell: -8
+  boardMaxCell: 8
   blockedBoardCells: 
   constrainOracleSpecialMovementToWall: 1
   oracleMovementWallMinX: -8.5
@@ -2558,7 +2571,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3878557786174838139, guid: 7667ab5162af3664eb48eeaea0abf7e9, type: 3}
+  m_Sprite: {fileID: 7109297536227335521, guid: d25bb3573be602843ade8475b40a0d9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3698,9 +3711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449706443894cb84293711b8d83d5e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  maxStrength: 0.35
-  frequency: 36
-  rotationMultiplier: 6
+  maxStrength: 0.14
+  frequency: 24
+  rotationMultiplier: 1.5
 --- !u!114 &1511880820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3715,36 +3728,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DynamicBattleCamera2D
   autoFindPlayersOnSyncedStart: 1
   playerTag: Player
+  rootTag: Root
   retryFindInterval: 0.5
-  scaleChildrenWithZoom: 1
+  scaleChildrenWithZoom: 0
   childrenScaleRoot: {fileID: 0}
   onlyDirectChildren: 1
   includeInactiveChildren: 1
   invertChildScale: 0
   targetA: {fileID: 0}
   targetB: {fileID: 0}
-  followSmoothTime: 0.18
-  baseOffset: {x: 0, y: 0, z: -10}
+  followSmoothTime: 0.2
+  baseOffset: {x: 0, y: 0.9, z: -10}
   enableLookAhead: 1
-  lookAheadStrength: 0.35
-  maxLookAheadX: 1.25
-  velocitySampleSmoothing: 12
+  lookAheadStrength: 0.08
+  maxLookAheadX: 0.35
+  velocitySampleSmoothing: 8
   autoZoom: 1
-  distanceToSizeMultiplier: 0.45
-  zoomSmoothSpeed: 5
-  minOrthoSize: 3.5
-  maxOrthoSize: 5
-  horizontalPadding: 2
-  verticalPadding: 1
+  distanceToSizeMultiplier: 0.15
+  zoomSmoothSpeed: 2.8
+  minOrthoSize: 3.4
+  maxOrthoSize: 5.15
+  horizontalPadding: 3.6
+  verticalPadding: 3.9
+  compositionGround: {fileID: 1176404011}
+  groundViewportY: 0.34
   useBackgroundBounds: 1
   backgroundSpriteRenderer: {fileID: 1351338253}
   backgroundCollider2D: {fileID: 0}
-  backgroundPadding: 0
+  backgroundPadding: 0.18
   useCameraBounds: 1
   minX: -8.5
   maxX: 8.5
   minY: -5.44
   maxY: 5.44
+  stabilizeAnimatedRoot: 1
+  targetDeadZone: 0.1
+  zoomOutSpeed: 10
+  zoomDeadZone: 0.045
 --- !u!114 &1511880821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3760,16 +3780,17 @@ MonoBehaviour:
   childrenRoot: {fileID: 0}
   onlyDirectChildren: 1
   includeInactiveChildren: 1
-  adjustPositionWhenCameraMoves: 1
+  adjustPositionWhenCameraMoves: 0
   adjustPositionWhenCameraZooms: 1
   adjustScaleWhenCameraZooms: 1
-  movePositionFactorX: 0.15
-  movePositionFactorY: 0.15
+  movePositionFactorX: 0
+  movePositionFactorY: 0
   zoomPositionFactor: 1
   invertScaleWithZoom: 0
-  smoothTransform: 1
+  smoothTransform: 0
   positionSmoothSpeed: 2
   scaleSmoothSpeed: 6
+  ignoreCameraShake: 1
 --- !u!1 &1605082353
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
+[DefaultExecutionOrder(1100)]
 public class CameraChildrenTransformFollower : MonoBehaviour
 {
     [Header("Child Root To Adjust")]
@@ -10,6 +11,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
     [Header("Search Settings")]
     [SerializeField] private bool onlyDirectChildren = true;
     [SerializeField] private bool includeInactiveChildren = true;
+    [SerializeField] private bool ignoreCameraShake = true;
 
     [Header("Camera Change Adjustment")]
     [SerializeField] private bool adjustPositionWhenCameraMoves = true;
@@ -30,6 +32,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
     [SerializeField] private float scaleSmoothSpeed = 12f;
 
     private Camera cam;
+    private CameraShake shake;
     private Vector3 referenceCameraPosition;
     private float referenceOrthoSize;
 
@@ -40,6 +43,7 @@ public class CameraChildrenTransformFollower : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
+        shake = GetComponent<CameraShake>();
 
         if (childrenRoot == null)
             childrenRoot = transform;
@@ -118,7 +122,9 @@ public class CameraChildrenTransformFollower : MonoBehaviour
 
     private void UpdateChildrenTransforms()
     {
-        Vector3 cameraDelta = transform.position - referenceCameraPosition;
+        bool compensate = ignoreCameraShake && shake != null && shake.isActiveAndEnabled && childrenRoot == transform;
+        Vector3 stablePosition = compensate ? shake.UnshakenPosition : transform.position;
+        Vector3 cameraDelta = stablePosition - referenceCameraPosition;
 
         float zoomRatio = 1f;
         if (referenceOrthoSize > 0.0001f)
@@ -163,7 +169,9 @@ public class CameraChildrenTransformFollower : MonoBehaviour
                 targetLocalScale = originalLocalScales[i] * scaleRatio;
             }
 
-            if (smoothTransform)
+            // Camera children already stay fixed in viewport space, including roll.
+            // Only the layout's movement delta must exclude presentation shake.
+            if (smoothTransform && !compensate)
             {
                 child.localPosition = Vector3.Lerp(
                     child.localPosition,

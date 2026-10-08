@@ -512,8 +512,15 @@ public partial class TurnPlanningManager
 
             if (attackerAction == ActionType.LowAttack)
             {
-                ApplyAttackHit(attackerIsMine, 2, false);
-                Debug.Log((defenderIsMine ? "My" : "Enemy") + " Ward was bypassed by LowAttack for 2 damage.");
+                int reducedDamage = Mathf.Max(0, attackData.damage - 3);
+                if (reducedDamage > 0)
+                    ApplyAttackHit(attackerIsMine, reducedDamage, false);
+                else
+                {
+                    AddEnergy(defenderIsMine, energyPerBlock);
+                    PlayOracleWardSuccess(defenderIsMine);
+                }
+                Debug.Log((defenderIsMine ? "My" : "Enemy") + " Ward reduced LowAttack damage to " + reducedDamage + ".");
                 return true;
             }
 
@@ -778,9 +785,10 @@ public partial class TurnPlanningManager
             return;
         }
 
-        // Jump interactions for ultimate use the configured action data.
-
+        // Match the Knight-versus-Oracle branch: Jump reduces Ultimate damage by half.
         int damage = ultimateData.damage;
+        if (defenderAction == ActionType.Jump)
+            damage = Mathf.Max(0, damage / 2);
         bool fatalDamage = false;
 
         if (damage > 0)

@@ -373,6 +373,7 @@ public partial class TurnPlanningManager
             yield break;
 
         Vector3 previousOffset = Vector3.zero;
+        CharacterUnit shakenUnit = target.GetComponent<CharacterUnit>();
         float timer = 0f;
 
         while (timer < hitShakeDuration)
@@ -382,12 +383,15 @@ public partial class TurnPlanningManager
             float offsetX = UnityEngine.Random.Range(-hitShakeStrength, hitShakeStrength) * decay;
             if (target == null) yield break;
             Vector3 offset = new Vector3(offsetX, 0f, 0f);
-            target.position += offset - previousOffset;
+            Vector3 delta = offset - previousOffset;
+            target.position += delta;
+            if (shakenUnit != null) shakenUnit.AddPresentationOffset(delta);
             previousOffset = offset;
             yield return null;
         }
 
         if (target != null) target.position -= previousOffset;
+        if (shakenUnit != null) shakenUnit.AddPresentationOffset(-previousOffset);
     }
 
 }

@@ -36,6 +36,14 @@ public class BackgroundSpriteSync : MonoBehaviourPunCallbacks
 
         if (floorRenderer != null)
             initialFloorSprite = floorRenderer.sprite;
+
+        // Use a complete authored pair before Photon delivers the room's stage.
+        // Keep the scene's background choice rather than forcing stage zero.
+        if (backgroundRenderer != null && backgroundSprites != null)
+        {
+            int initialIndex = System.Array.IndexOf(backgroundSprites, backgroundRenderer.sprite);
+            if (initialIndex >= 0) ApplyFloor(initialIndex);
+        }
     }
 
     private void Start()

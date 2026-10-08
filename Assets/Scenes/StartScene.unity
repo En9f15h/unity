@@ -599,7 +599,6 @@ GameObject:
   m_Component:
   - component: {fileID: 350802015}
   - component: {fileID: 350802014}
-  - component: {fileID: 350802016}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -636,23 +635,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &350802016
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350802013}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 5b2f21eb523fb8f43913dc13a2802138, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 5b2f21eb523fb8f43913dc13a2802138, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_UpdateMode: 0
-  m_CullingType: 0
 --- !u!1 &460680519
 GameObject:
   m_ObjectHideFlags: 0

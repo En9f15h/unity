@@ -13,6 +13,9 @@ public class CharacterUnit : MonoBehaviourPun
     public int maxHP;
     public int currentHP;
     public int slotCount;
+    // Visual hit recoil must not become camera tracking motion.
+    public Vector3 PresentationOffset { get; private set; }
+    public void AddPresentationOffset(Vector3 delta) => PresentationOffset += delta;
 
     [Header("Heavy Charge State")]
     public bool isChargingHeavy = false;

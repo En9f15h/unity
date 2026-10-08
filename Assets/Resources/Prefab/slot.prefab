@@ -192,7 +192,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -273.89, y: 240}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 460, y: 463}
   m_Pivot: {x: 0.5000002, y: 0.5000003}
 --- !u!114 &7314612461440116432
 MonoBehaviour:
@@ -211,10 +211,20 @@ MonoBehaviour:
   contentRoot: {fileID: 0}
   nextSlot: {fileID: 0}
   lockOverlay: {fileID: 2214167881051006824}
+  lockedContinuationImage: {fileID: 0}
   currentActionData:
     actionName: 
     actionType: 0
     sourcePrefab: {fileID: 0}
+    slotCost: 1
+    iconSprite: {fileID: 0}
+    disabledOverlaySprite: {fileID: 0}
+    cooldownOverlaySprite: {fileID: 0}
+    usedOverlaySprite: {fileID: 0}
+    lockedContinuationSprite: {fileID: 0}
+    tooltipTitle: 
+    tooltipDescription: 
+    rangeText: 
 --- !u!222 &1374251857464314714
 CanvasRenderer:
   m_ObjectHideFlags: 0
