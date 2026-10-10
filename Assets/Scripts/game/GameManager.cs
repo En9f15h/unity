@@ -50,7 +50,11 @@ public class GameManager : MonoBehaviour
             SceneTransitionManager.RequestSceneTransition("StartScene");
             return;
         }
-
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
+        {
+            {CharacterSelectPhotonKeys.IsReady, false },
+            {CharacterSelectPhotonKeys.LegacyReady, false }
+        });
         Debug.Log("GameManager Start");
 
         LoadPlayerSelection();

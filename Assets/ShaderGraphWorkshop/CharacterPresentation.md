@@ -1,5 +1,25 @@
 # 人物 Shader Graph
 
+各圖專屬光源（2026-10-10，最新）：七張地圖現在分別配置光色、位置／高度、亮度、光束角度／寬度／擴散／集中度、次光束與漂移。競技場淡金頂光、晴天城堡寬幅日光、冷石室高窗冷光、手繪山景柔和天光、暖砂競技場斜向暖光、暗石室月白窄光、像素城堡簡潔日光。人物身體維持僅 12% 環境色混合，投影依各圖光位更新。設定位於 CharacterEnvironmentPalette；313 項 DX11 檢查通過，報告與七圖對照見 `CodexLogs/HD2DMapStyles-20261010/README.md`、`compare.html`。以下為歷史紀錄。
+
+七地圖日光罩（2026-10-10，最新）：背景頭頂光罩／下散光束已擴充至全部七圖。其餘六圖以背景層的輕量平面呈現，沿用原素材與 2D 攝影機；競技場保留原 3D 背景路徑，不重複疊加。Palette 的 `Sunlight Multiplier` 依圖調整強度，人物仍使用上一版的中性頭頂日光與骨架投影。307 項 DX11 檢查通過，逐張查看畫面與光罩開關對照。設定及報告見 `CodexLogs/HD2DAllDaylight-20261010/README.md`、`compare.html`。以下為歷史版本紀錄。
+
+頂部日光（2026-10-10，最新）：移除競技場新增的兩根火把、火焰與兩盞暖色燈光。人物光源改放在地面上方 10，略偏中央左方，色彩接近中性白 (0.94, 0.97, 1)，僅以 24 秒週期漂移 ±0.65。3D 舞台採頭頂斜照日光，背景 Shader 增加柔和光罩及下散光束。背景光罩僅在 index 0 競技場；其餘六圖保留原背景，人物皆採新日光。Graph 本身未改，身體原色與骨架動畫保留。設定、對照與驗證見 `CodexLogs/HD2DDaylight-20261010/README.md`。以下為歷史版本紀錄。
+
+冷光染色修正（2026-10-10，最新）：前版高飽和藍光與藍色底光使人物整體變藍；現在改用低飽和冷白光 (0.78, 0.87, 1)，身體底光恢復中性，只混入 12% 光源色彩，亮邊光量係數由 0.38 降至 0.16。保留人物原色與動態明暗、光源移動、骨架投影。設定及前後對照見 `CodexLogs/HD2DSoftCold-20261010/README.md`、`compare.html`。以下為歷史版本紀錄。
+
+冷色動態光源（2026-10-10，最新）：HD2DStagePresentation 現在建立可移動的藍色 Point Light，預設每 10 秒完成左 → 右 → 左移動。人物亮面／暗面、藍色亮邊與骨架投影依光源位置、距離及強度變化，取代先前固定方向與人物暖色火把反光。連線時僅讀 Photon 時間，不影響動畫或回合。七地圖皆支援；Palette 保留地圖配對及投影形狀設定，歷史人物光色／方向由動態光源覆蓋。Graph 維持 302 個原生節點。291 項 DX11 檢查通過；設定及左右端點對照見 `CodexLogs/HD2DColdLight-20261010/README.md`、`compare.html`。仍為 2D 風格化受光，以下皆為歷史階段紀錄。
+
+亮面／暗面加強（2026-10-10，最新）：依「輪廓略亮，但身體仍缺少亮暗面」回饋，新增迎光面補光 `_HD2DLightWrap`，火柴人 0.18、鎧甲／法袍 0.08；背光底值降低並加強水平明暗分區。材質對比 1、亮邊強度 4，寬度維持 1.25 畫面像素。Graph 現有 302 個原生節點，原 Alpha／隱身接線不變。補光受環境總開關與受擊參數控制。實際開關／前版／本版對照可開啟 `CodexLogs/HD2DReadable-20261010/compare.html`，報告同資料夾 `README.md`。這是世界座標方向明暗近似，並非人物的真實表面法線受光。以下是歷史階段紀錄。
+
+方向光修正（2026-10-10，最新）：`CharacterSkillPresentation.shadergraph` 現有 293 個原生節點。新增迎光／背光對比、以畫面像素控制寬度的單側亮邊。修正火柴人全黑 Sprite tint 將光效乘成黑色的問題：在 Graph 明確套用原有染色與 Vertex Alpha，新的環境亮邊獨立合成並避開完全受擊閃色。四種材質提供 `_HD2DContrast`（0.9）、`_HD2DReflection`（2.4）、`_HD2DRimWidth`（1.25 像素）三項控制。保留原圖片、Renderer 顏色、骨架與動畫。280 項 DX11 整合檢查通過，詳細設定／限制與輸出見 `CodexLogs/HD2DDirectional-20261009/README.md`。以下為之前階段紀錄。
+
+七地圖人物光影（2026-10-09，最新）：人物受光與骨架地面投影已擴充至全部七張地圖，取代下方早期階段僅 index 0 啟用的限制。`Assets/Resources/HD2D/CharacterEnvironmentPalette.asset` 以背景 Sprite 配對補光、邊光、投影方向、濃度、長度和深度；只有第一張競技場提供兩側火把反光。其他六圖使用原 2D 相機和背景，不新增 3D 舞台。未知背景與選角預覽維持原人物效果，Character Lighting 可關閉環境受光與骨架投影。本輪 272 項檢查通過，正式輸出位於 `Builds/HD2DMaps-20261009`，報告見 `CodexLogs/HD2DMaps-20261009/README.md`。以下兩段為先前階段紀錄。
+
+骨架地面投影補充（2026-10-09）：`CharacterGroundPresentation` 會掛上 `CharacterProjectedShadow`，於 index 0 競技場沿主光方向投射原人物的骨架姿勢與貼圖 Alpha。這部分是獨立輕量投影 shader，不修改人物 Graph。支援跳躍、翻身、隱身與場景清理；仍屬平面投影近似，沒有 3D 自身遮蔽。115 項本輪 DX11 檢查通過，輸出與報告見 `CodexLogs/HD2DShadow-20261009`。
+
+人物 HD-2D 升級（2026-10-09）：`CharacterSkillPresentation` 保留原有 145 個節點與 GUID，附加 36 個原生節點，提供 index 0 競技場的世界座標受光、冷色補光、火把暖色反光。`CharacterShaderFeedback` 提供 `_HD2DStrength`、`_HD2DBodyLight`、`_HD2DEdgeLight`、`_HD2DAnchor`；其他地圖與選角預覽強度為 0。完整受擊閃色仍優先，Alpha／隱身接線維持原樣。GameScene/background 的 HD2DStagePresentation → Character Lighting 可單獨停用這批人物效果。接觸陰影沿用原 renderer，依主光方向與跳躍高度調整；沒有真實人物輪廓投影，也沒有新增法線貼圖。製作與驗證見專案根目錄 `HD2D_CHARACTER_CHECKLIST.md` 及 `CodexLogs/HD2DCharacter-20261009/README.md`。
+
 `CharacterSkillPresentation.shadergraph` 是目前人物使用的 URP Sprite Unlit 原生節點圖，可直接以 Shader Graph 開啟。`CharacterPresentation.shadergraph` 為第一版基礎效果。兩者皆沒有 Custom Function。使用原圖色彩，不依賴場景 Light2D 的強度，避免人物因場景光源不足而變暗。
 
 已掛到 `knight_0`、`knight_1`、`Oracle_0`、`Oracle_1` 的 `CharacterShaderFeedback` 與身體 SpriteRenderer。材質位於 `Assets/Resources/Combat/Materials/CharacterGraph_*.mat`，騎士採金色、預言家採藍紫色；線稿版本的光效較輕。

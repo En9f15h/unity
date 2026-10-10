@@ -26,6 +26,8 @@ public sealed class CharacterShaderFeedback : MonoBehaviour
     private static readonly int PulseId = Shader.PropertyToID("_ActionPulse"), GuardId = Shader.PropertyToID("_GuardFlash");
     private static readonly int SkillId = Shader.PropertyToID("_SkillAmount"), SkillPhaseId = Shader.PropertyToID("_SkillPhase");
     private static readonly int LowHealthId = Shader.PropertyToID("_LowHealthAmount");
+    private static readonly int StageBodyId=Shader.PropertyToID("_HD2DBodyLight"), StageEdgeId=Shader.PropertyToID("_HD2DEdgeLight"),
+        StageAnchorId=Shader.PropertyToID("_HD2DAnchor"), StageStrengthId=Shader.PropertyToID("_HD2DStrength");
     private static readonly string[] ActionStates = {
         "LightAttack", "HeavyCharge", "HeavyAttack", "LowAttack", "Parry", "ParryCounter", "Defense",
         "MoveForward", "MoveBackward", "Jump", "Dance", "Ultimate", "Bolt", "RiftCharge", "Rift",
@@ -150,6 +152,10 @@ public sealed class CharacterShaderFeedback : MonoBehaviour
         if (block == null) block = new MaterialPropertyBlock();
         Matrix4x4 space = transform.worldToLocalMatrix;
         bool stageStyled = StageReadabilityController.TryGetCharacterStyle(gameObject, out var stage) && isActiveAndEnabled;
+        bool hdLighting=HD2DStagePresentation.TryGetCharacterLighting(gameObject,transform.position,out var bodyLight,out var edgeLight,out float shadowDirection) && isActiveAndEnabled;
+        float worldHeight=Mathf.Max(.1f,characterHeight*Mathf.Abs(transform.lossyScale.y));
+        // A stable owner anchor prevents idle bone motion from pumping the light gradient.
+        var anchor=new Vector4(transform.position.x,transform.position.y-worldHeight*.5f,worldHeight,-shadowDirection);
         // A slow warning pulse freezes with game time and stays separate from action beats.
         float warning = .35f + .65f * (.5f + .5f * Mathf.Sin(Time.time * (2f * Mathf.PI / 1.4f)));
         foreach (SpriteRenderer renderer in bodyRenderers)
@@ -157,6 +163,8 @@ public sealed class CharacterShaderFeedback : MonoBehaviour
             if (renderer == null || renderer.sprite == null) continue;
             // Keep other property-block values, including SpriteSkin data.
             renderer.GetPropertyBlock(block);
+            block.SetFloat(StageStrengthId,hdLighting?1:0);
+            block.SetColor(StageBodyId,bodyLight); block.SetColor(StageEdgeId,edgeLight); block.SetVector(StageAnchorId,anchor);
             block.SetFloat(PulseId, ActionPulse);
             block.SetFloat(EntranceId, EntranceAmount);
             block.SetFloat(EntrancePhaseId, EntrancePhase);

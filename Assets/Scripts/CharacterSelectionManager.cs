@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using Unity.Hierarchy;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -49,7 +50,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
     [Header("Optional Animation")]
     [SerializeField] private CharacterSelectionAnimationController vsAnimation;
-
+    private bool toggleOn = false;
     private readonly Dictionary<string, CharacterSelectionDefinition> characterById = new Dictionary<string, CharacterSelectionDefinition>();
     private readonly Dictionary<string, MapSelectionDefinition> mapById = new Dictionary<string, MapSelectionDefinition>();
     private readonly List<CharacterSelectionCard> characterCards = new List<CharacterSelectionCard>();
@@ -86,7 +87,6 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         AudioManager.Instance.PlaySelectCharacterBGM();
-
         InitializeControllers();
         LoadRoomStateFromProperties();
         LoadLocalStateFromProperties();
@@ -406,7 +406,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
             mapSelectionController.MapSelected += RequestMapSelectionChange;
         }
     }
-
+    public void setToggle(bool b) => toggleOn = b;
     private void EnsureLocalSelectionDefaults()
     {
         CharacterSelectionDefinition definition = committedLocalCharacter;
@@ -446,7 +446,8 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
         committedLocalCharacter = definition;
         localSkinIndex = definition.GetValidSkinIndex(skinIndex);
-        WriteLocalSelectionProperties(ready);
+        if (toggleOn) WriteLocalSelectionProperties(ready);
+        else RefreshAllViews();
     }
 
     private void SyncSelectorToLocalState()
@@ -912,6 +913,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
         pendingLocalSelectionProperties = false;
         pendingLocalReadyProperties = false;
+        
         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
         {
             { CharacterSelectPhotonKeys.SelectedCharacterId, committedLocalCharacter.characterId },

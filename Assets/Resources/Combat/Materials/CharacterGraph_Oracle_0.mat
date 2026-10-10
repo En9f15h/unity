@@ -56,8 +56,18 @@ Material:
     m_Floats:
     - _ActionPulse: 0
     - _Dissolve: 0
+    - _EntranceAmount: 0
+    - _EntrancePhase: 0
+    - _EntranceStrength: 0.8
     - _GuardFlash: 0
+    - _HD2DContrast: 1
+    - _HD2DLightWrap: 0.18
+    - _HD2DReflection: 4
+    - _HD2DRimWidth: 1.25
+    - _HD2DStrength: 0
     - _HitAmount: 0
+    - _LowHealthAmount: 0
+    - _LowHealthStrength: 1.2
     - _PhaseWidth: 0.075
     - _PulseStrength: 0.9
     - _RimStrength: 0.12
@@ -67,12 +77,14 @@ Material:
     - _SkillPattern: 1
     - _SkillPhase: 0
     - _SkillStrength: 0.48
-    - _LowHealthStrength: 1.2
-    - _EntranceStrength: 0.8
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _HD2DAnchor: {r: 0, g: 0, b: 1, a: 0}
+    - _HD2DBodyLight: {r: 1, g: 1, b: 1, a: 1}
+    - _HD2DEdgeLight: {r: 0, g: 0, b: 0, a: 0}
     - _HitColor: {r: 1.5, g: 1.1, b: 0.8, a: 1}
+    - _LowHealthColor: {r: 1.2, g: 0.13, b: 0.08, a: 1}
     - _PhaseColor: {r: 0.4, g: 1.4, b: 2, a: 1}
     - _RimColor: {r: 0.4, g: 0.6, b: 1.1, a: 1}
     - _SpriteUVRect: {r: 0, g: 0, b: 1, a: 1}

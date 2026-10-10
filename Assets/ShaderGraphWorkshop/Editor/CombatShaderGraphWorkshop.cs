@@ -53,6 +53,25 @@ public static class CombatShaderGraphWorkshop
         readonly object category;
         object group;
         float row;
+        public Graph(string path)
+        {
+            data = New("UnityEditor.ShaderGraph.GraphData");
+            Set(data, "assetGuid", AssetDatabase.AssetPathToGUID(path));
+            var deserialize = T("UnityEditor.ShaderGraph.Serialization.MultiJson").GetMethods(Flags).First(m => m.Name == "Deserialize" && m.IsGenericMethod);
+            deserialize.MakeGenericMethod(data.GetType()).Invoke(null, new object[] { data, File.ReadAllText(path), null, false });
+            Call(data, "OnEnable");
+            category = New("UnityEditor.ShaderGraph.CategoryData"); Set(category, "name", "HD2D Stage Lighting"); Call(data, "AddCategory", category);
+        }
+        public object[] Nodes() => ((IEnumerable)data.GetType().GetMethods(Flags).First(m => m.Name == "GetNodes" && m.IsGenericMethod)
+            .MakeGenericMethod(T("UnityEditor.ShaderGraph.AbstractMaterialNode")).Invoke(data, null)).Cast<object>().ToArray();
+        public object[] Edges() => ((IEnumerable)Get(data,"edges")).Cast<object>().ToArray();
+        public static object Read(object obj,string field) => Get(obj,field);
+        public static void Write(object obj,string field,object value) => Set(obj,field,value);
+        public void Save(string path)
+        {
+            Call(data,"ValidateGraph");
+            File.WriteAllText(path,(string)T("UnityEditor.ShaderGraph.Serialization.MultiJson").GetMethod("Serialize",Flags).Invoke(null,new[]{data}));
+        }
         public Graph(bool sprite = true, bool additive = false)
         {
             data = New("UnityEditor.ShaderGraph.GraphData"); Call(data, "AddContexts"); Set(data, "path", "Combat/Graphs");

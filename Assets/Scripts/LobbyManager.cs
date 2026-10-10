@@ -50,19 +50,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private readonly Dictionary<string, string> regionCodeByDropdownText = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
         { "Asia / Singapore", "asia" },
-        { "Hong Kong", "hk" },
-        { "Japan / Tokyo", "jp" },
-        { "South Korea / Seoul", "kr" },
-        { "USA West / San Jose", "usw" }
+        { "Europe / Amsterdam", "eu" },
+        { "USA West / San Jose", "usw" },
+        { "United Arab Emirates / Dubai","uae"},
+        { "South Africa / Johannesburg","za"}
     };
 
     private readonly List<string> fallbackRegionDisplayNames = new List<string>
     {
         "Asia / Singapore",
-        "Hong Kong",
-        "Japan / Tokyo",
-        "South Korea / Seoul",
-        "USA West / San Jose"
+        "Europe / Amsterdam",
+        "USA West / San Jose",
+        "United Arab Emirates / Dubai",
+        "South Africa / Johannesburg"
     };
 
     private bool isChangingRegion;
@@ -986,7 +986,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = 2,
-            IsVisible = true,
+            IsVisible = string.IsNullOrEmpty(roomPassword)?false:true,
             IsOpen = true,
             EmptyRoomTtl = 0
         };

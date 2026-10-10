@@ -2931,6 +2931,7 @@ GameObject:
   - component: {fileID: 1351338253}
   - component: {fileID: 1351338255}
   - component: {fileID: 1351338256}
+  - component: {fileID: 1351338257}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -3046,6 +3047,28 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 1351338253}
   palette: {fileID: 11400000, guid: 7eec169f348d65d43af03ef8591d29f7, type: 2}
   backgroundMaterial: {fileID: 2100000, guid: aa62f4dd18c2d604e95b9f9244bb66fd, type: 2}
+--- !u!114 &1351338257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351338252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430fbdbe101b49d1a1e223c9c123d051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HD2DStagePresentation
+  gameplayCamera: {fileID: 1511880816}
+  background: {fileID: 1351338253}
+  ground: {fileID: 1176404011}
+  supportedBackground: {fileID: 6332600815343343693, guid: 7fb51085f5362f34b86e4577e944da11, type: 3}
+  rendererIndex: 1
+  maximumRenderHeight: 900
+  backgroundSoftness: 0.8
+  mistDensity: 0.035
+  bloomIntensity: 0.12
+  keyIntensity: 1.15
 --- !u!1 &1434063358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,6 +3762,8 @@ MonoBehaviour:
   targetB: {fileID: 0}
   followSmoothTime: 0.2
   baseOffset: {x: 0, y: 0.9, z: -10}
+  stabilizeAnimatedRoot: 1
+  targetDeadZone: 0.1
   enableLookAhead: 1
   lookAheadStrength: 0.08
   maxLookAheadX: 0.35
@@ -3746,6 +3771,8 @@ MonoBehaviour:
   autoZoom: 1
   distanceToSizeMultiplier: 0.15
   zoomSmoothSpeed: 2.8
+  zoomOutSpeed: 10
+  zoomDeadZone: 0.045
   minOrthoSize: 3.4
   maxOrthoSize: 5.15
   horizontalPadding: 3.6
@@ -3761,10 +3788,6 @@ MonoBehaviour:
   maxX: 8.5
   minY: -5.44
   maxY: 5.44
-  stabilizeAnimatedRoot: 1
-  targetDeadZone: 0.1
-  zoomOutSpeed: 10
-  zoomDeadZone: 0.045
 --- !u!114 &1511880821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3780,6 +3803,7 @@ MonoBehaviour:
   childrenRoot: {fileID: 0}
   onlyDirectChildren: 1
   includeInactiveChildren: 1
+  ignoreCameraShake: 1
   adjustPositionWhenCameraMoves: 0
   adjustPositionWhenCameraZooms: 1
   adjustScaleWhenCameraZooms: 1
@@ -3790,7 +3814,6 @@ MonoBehaviour:
   smoothTransform: 0
   positionSmoothSpeed: 2
   scaleSmoothSpeed: 6
-  ignoreCameraShake: 1
 --- !u!1 &1605082353
 GameObject:
   m_ObjectHideFlags: 0

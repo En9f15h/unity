@@ -24,6 +24,8 @@ public sealed class CharacterGroundPresentation : MonoBehaviour
     public float GroundDistance { get; private set; }
     public int DustBurstCount { get; private set; }
     public MeshRenderer ShadowRenderer => shadow;
+    public bool HasGround => hadGround && bodyCollider!=null && bodyCollider.enabled && bodyCollider.gameObject.activeInHierarchy;
+    public Vector3 GroundPoint => contactPoint;
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public sealed class CharacterGroundPresentation : MonoBehaviour
         if(shadowMaterial==null) shadowMaterial=Resources.Load<Material>("Combat/Materials/ContactShadow");
         if(dustMaterial==null) dustMaterial=Resources.Load<Material>("Combat/Materials/ContactDust");
         CreateVisuals();
+        if(GetComponent<CharacterProjectedShadow>()==null) gameObject.AddComponent<CharacterProjectedShadow>();
     }
     private void OnEnable() { hadGround=false; wasGrounded=false; calibratedFeet=false; strideActive=false; previousX=transform.position.x; }
     private void CreateVisuals()
@@ -94,6 +97,14 @@ public sealed class CharacterGroundPresentation : MonoBehaviour
         shadow.enabled=visibility>.01f && shadowMaterial!=null;
         shadow.transform.SetPositionAndRotation(contactPoint,Quaternion.identity);
         Vector3 desired=new Vector3(width*Mathf.Lerp(1.25f,.65f,lift),height*.07f,1);
+        bool hdLighting=HD2DStagePresentation.TryGetCharacterLighting(gameObject,transform.position,out _,out _,out float shadowDirection);
+        if(hdLighting)
+        {
+            // Soft projected footprint. It is deliberately not a fake skeletal silhouette.
+            desired.x*=Mathf.Lerp(1.3f,1.65f,lift);
+            desired.y*=Mathf.Lerp(1.9f,2.6f,lift);
+            shadow.transform.position+=new Vector3(shadowDirection*height*(.025f+.06f*lift),-height*.025f,0);
+        }
         Vector3 parentScale=transform.lossyScale;
         shadow.transform.localScale=new Vector3(desired.x/Mathf.Max(.001f,Mathf.Abs(parentScale.x)),desired.y/Mathf.Max(.001f,Mathf.Abs(parentScale.y)),1);
         block.SetColor("_Color",new Color(.08f,.075f,.09f,shadowOpacity*Mathf.Lerp(1,.25f,lift)*visibility)); shadow.SetPropertyBlock(block);
