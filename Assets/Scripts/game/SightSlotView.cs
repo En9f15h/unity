@@ -37,6 +37,9 @@ public class SightSlotView : MonoBehaviour
     private bool normalActionIconPreserveAspect;
     private bool normalActionIconEnabled = true;
     private Coroutine watchedPulseCoroutine;
+    private RectTransform watchedPulseRect;
+    private Vector3 watchedPulseBaseScale;
+    private bool watchedPulseActive;
 
     private void Awake()
     {
@@ -112,6 +115,8 @@ public class SightSlotView : MonoBehaviour
     public void SetWatched(bool watched)
     {
         ResolveReferences();
+        if (!watched)
+            StopWatchedSlotPulse();
 
         Image target = watchedSpriteTarget != null ? watchedSpriteTarget : slotRootImage;
         if (target == null)
@@ -156,6 +161,7 @@ public class SightSlotView : MonoBehaviour
 
     public void ClearReveal()
     {
+        StopWatchedSlotPulse();
         ResolveReferences();
 
         if (sightRevealLayer != null)
@@ -311,17 +317,35 @@ public class SightSlotView : MonoBehaviour
     private void PlayWatchedSlotPulse()
     {
         ResolveReferences();
+        // A new snapshot may interrupt a pulse. Restore before capturing its baseline,
+        // otherwise repeated updates multiply the already enlarged scale.
+        StopWatchedSlotPulse();
+        watchedPulseRect = transform as RectTransform;
+        if (!isActiveAndEnabled || watchedPulseRect == null)
+            return;
 
-        if (watchedPulseCoroutine != null)
-            StopCoroutine(watchedPulseCoroutine);
-
+        watchedPulseBaseScale = watchedPulseRect.localScale;
+        watchedPulseActive = true;
         watchedPulseCoroutine = StartCoroutine(WatchedSlotPulseRoutine());
     }
 
+    private void StopWatchedSlotPulse()
+    {
+        if (watchedPulseCoroutine != null)
+            StopCoroutine(watchedPulseCoroutine);
+        watchedPulseCoroutine = null;
+        if (watchedPulseActive && watchedPulseRect != null)
+            watchedPulseRect.localScale = watchedPulseBaseScale;
+        watchedPulseActive = false;
+        watchedPulseRect = null;
+    }
+
+    private void OnDisable() => StopWatchedSlotPulse();
+
     private IEnumerator WatchedSlotPulseRoutine()
     {
-        RectTransform rect = transform as RectTransform;
-        Vector3 baseScale = rect != null ? rect.localScale : Vector3.one;
+        RectTransform rect = watchedPulseRect;
+        Vector3 baseScale = watchedPulseBaseScale;
         float duration = Mathf.Max(0.01f, watchedSlotPulseDuration);
         float timer = 0f;
 
@@ -341,6 +365,8 @@ public class SightSlotView : MonoBehaviour
             rect.localScale = baseScale;
 
         watchedPulseCoroutine = null;
+        watchedPulseActive = false;
+        watchedPulseRect = null;
     }
 
     private Sprite LoadDefaultWatchedSlotSprite()
