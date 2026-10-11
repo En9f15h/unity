@@ -33,7 +33,7 @@ public partial class TurnPlanningManager
     private int GetResolveStartTimestamp()
     {
         if (GameSceneStartSync.Instance != null)
-            return GameSceneStartSync.Instance.GetNextBeatTimestamp(resolveLeadBeats);
+            return GameSceneStartSync.Instance.GetNextOddBeatTimestamp(resolveLeadBeats);
 
         // Fall back to GameSceneStartSync shared beat timing; otherwise use local bpm.
         int beatMs = Mathf.RoundToInt((60f / bpm) * 1000f);

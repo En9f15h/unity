@@ -126,7 +126,7 @@ public partial class TurnPlanningManager : MonoBehaviourPunCallbacks, IOnEventCa
     [SerializeField] private int maxEnergy = 10;
     [SerializeField] private int energyPerHit = 1;
     [SerializeField] private int energyPerBlock = 1;
-    [SerializeField] private int resolveLeadBeats = 1;   // Beats after both plans are ready before resolve starts.
+    [SerializeField] private int resolveLeadBeats = 1;   // Beat lookahead, rounded to an odd musical beat; 1 selects the next odd beat.
 
     private Coroutine resolveStartCoroutine;
 

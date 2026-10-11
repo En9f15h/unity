@@ -94,6 +94,28 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
 
         return beatStartServerTimestamp + (beatsPassed + safeExtraBeats) * beatMs;
     }
+    public int GetNextOddBeatTimestamp(int extraBeats = 1)
+    {
+        int safeExtraBeats = Mathf.Max(1, extraBeats);
+        int beatMs = GetBeatDurationMs();
+        int now = PhotonNetwork.ServerTimestamp;
+
+        // Without the shared music anchor, odd/even beat numbers are unknown.
+        if (!beatStartReady)
+            return unchecked(now + beatMs * safeExtraBeats);
+
+        int elapsedMs = unchecked(now - beatStartServerTimestamp);
+        // The anchor is musical beat 1 (zero-based index 0). Start strictly
+        // after now; extraBeats=1 selects the next beat without an extra delay.
+        long nextBeatIndex = elapsedMs < 0
+            ? safeExtraBeats - 1L
+            : (long)elapsedMs / beatMs + safeExtraBeats;
+        if ((nextBeatIndex & 1L) != 0)
+            nextBeatIndex++;
+
+        return unchecked((int)(beatStartServerTimestamp + nextBeatIndex * beatMs));
+    }
+
     private void Start()
     {
         HideBeforeStart();
