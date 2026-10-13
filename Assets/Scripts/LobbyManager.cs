@@ -71,6 +71,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private bool isLeavingAfterPasswordFailure;
     private string pendingRegionCode = "";
     private string pendingJoinPassword = "";
+    private Text matchRecordText;
+    private float nextStatusRefresh;
 
     private void Start()
     {
@@ -85,6 +87,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         EnsureRoomListUI();
         ClearRoomCacheAndUI(false);
         UpdateRegionText();
+        RefreshMatchRecord();
         DisablePlayerNameInput();
 
         if (!PhotonNetwork.IsConnected)
@@ -105,6 +108,47 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (RegionDropdown != null)
             RegionDropdown.onValueChanged.RemoveListener(OnRegionDropdownValueChanged);
+    }
+
+    private void Update()
+    {
+        if (Time.unscaledTime < nextStatusRefresh) return;
+        nextStatusRefresh = Time.unscaledTime + 1f;
+        UpdateRoomCountText(isChangingRegion);
+        RefreshMatchRecord();
+    }
+
+    public static string FormatPing(int ping, bool connected) => connected && ping >= 0 ? "PING: " + ping + " ms" : "PING: --";
+
+    public static string FormatMatchRecord(long wins, long losses)
+    {
+        double total = (double)wins + losses;
+        string winRate = (total > 0 ? wins / total : 0d)
+            .ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+        return $"<color=#20B74B>W</color>:{wins} / <color=#E04444>L</color>:{losses} =>{winRate}";
+    }
+
+    private void RefreshMatchRecord()
+    {
+        if (RegionRoomCountText == null) return;
+        if (matchRecordText == null)
+        {
+            var go = new GameObject("LocalMatchRecordText", typeof(RectTransform), typeof(Text));
+            go.transform.SetParent(RegionRoomCountText.transform.parent, false);
+            matchRecordText = go.GetComponent<Text>();
+            matchRecordText.font = RegionRoomCountText.font;
+            matchRecordText.fontSize = 30;
+            matchRecordText.color = RegionRoomCountText.color;
+            matchRecordText.alignment = TextAnchor.MiddleLeft;
+            matchRecordText.raycastTarget = false;
+            matchRecordText.supportRichText = true;
+        }
+        RectTransform source = RegionRoomCountText.rectTransform, rect = matchRecordText.rectTransform;
+        rect.anchorMin = source.anchorMin; rect.anchorMax = source.anchorMax; rect.pivot = source.pivot;
+        rect.sizeDelta = new Vector2(source.sizeDelta.x, 44f);
+        rect.anchoredPosition = source.anchoredPosition + Vector2.down * (source.sizeDelta.y * .5f + 22f);
+        var record = LocalMatchHistory.Read();
+        matchRecordText.text = FormatMatchRecord(record.wins, record.losses);
     }
 
     private void SetupRegionDropdown()
@@ -178,7 +222,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         countRect.anchorMin = dropdownRect.anchorMin;
         countRect.anchorMax = dropdownRect.anchorMax;
         countRect.pivot = new Vector2(0f, 0.5f);
-        countRect.sizeDelta = new Vector2(260f, dropdownRect.sizeDelta.y);
+        countRect.sizeDelta = new Vector2(620f, dropdownRect.sizeDelta.y);
 
         float dropdownRight = dropdownRect.anchoredPosition.x + dropdownRect.sizeDelta.x * (1f - dropdownRect.pivot.x);
         countRect.anchoredPosition = new Vector2(dropdownRight + 24f, dropdownRect.anchoredPosition.y);
@@ -200,6 +244,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         RegionRoomCountText.text = showSwitchingState
             ? GetLocalizedText("LobbyRoomsLoading", "ROOMS: --")
             : string.Format(GetLocalizedText("LobbyRoomsCount", "ROOMS: {0}"), cachedRooms.Count);
+        RegionRoomCountText.text += "   " + FormatPing(PhotonNetwork.GetPing(), PhotonNetwork.IsConnectedAndReady && !showSwitchingState && !PhotonNetwork.OfflineMode);
     }
 
     private void SyncRegionDropdownToConnectedRegion()
@@ -934,6 +979,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (string.IsNullOrWhiteSpace(roomName))
             return;
+        if (!CanStartMatchmaking())
+            return;
 
         PlayLobbyButtonSound();
         pendingJoinPassword = "";
@@ -960,6 +1007,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateRoomButton()
     {
+        if (!CanStartMatchmaking())
+            return;
         PlayLobbyButtonSound();
 
         string roomName = InputRoomName != null ? InputRoomName.text.Trim() : "";
@@ -986,7 +1035,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         RoomOptions roomOptions = new RoomOptions
         {
             MaxPlayers = 2,
-            IsVisible = string.IsNullOrEmpty(roomPassword)?false:true,
+            IsVisible = true,
             IsOpen = true,
             EmptyRoomTtl = 0
         };
@@ -1005,6 +1054,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void JoinRoomButton()
     {
+        if (!CanStartMatchmaking())
+            return;
         PlayLobbyButtonSound();
 
         string roomName = InputRoomName != null ? InputRoomName.text.Trim() : "";
@@ -1023,6 +1074,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void RandomJoinButton()
     {
+        if (!CanStartMatchmaking())
+            return;
         PlayLobbyButtonSound();
 
         ClearPhotonNickname();
@@ -1034,6 +1087,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         };
 
         PhotonNetwork.JoinRandomRoom(expectedProperties, 2);
+    }
+
+    private bool CanStartMatchmaking()
+    {
+        ClientState state = PhotonNetwork.NetworkClientState;
+        if (!isChangingRegion && !PhotonNetwork.InRoom &&
+            (state == ClientState.JoinedLobby || state == ClientState.ConnectedToMasterServer))
+            return true;
+
+        Debug.LogWarning("Matchmaking ignored while Photon is not ready: " + state);
+        SetOutput("LobbyConnecting", "Connecting...");
+        return false;
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

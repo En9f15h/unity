@@ -38,7 +38,7 @@ public class CharacterSelectionPrivacyController : MonoBehaviour
         suppressEvent = true;
         if (publicSelectionToggle != null)
         {
-            publicSelectionToggle.isOn = value;
+            publicSelectionToggle.SetIsOnWithoutNotify(value);
             publicSelectionToggle.interactable = interactable;
         }
         suppressEvent = false;

@@ -50,7 +50,6 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
     [Header("Optional Animation")]
     [SerializeField] private CharacterSelectionAnimationController vsAnimation;
-    private bool toggleOn = false;
     private readonly Dictionary<string, CharacterSelectionDefinition> characterById = new Dictionary<string, CharacterSelectionDefinition>();
     private readonly Dictionary<string, MapSelectionDefinition> mapById = new Dictionary<string, MapSelectionDefinition>();
     private readonly List<CharacterSelectionCard> characterCards = new List<CharacterSelectionCard>();
@@ -66,7 +65,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
     private bool selectorWired;
     private bool roomReadyInitialized;
     private bool pendingLocalSelectionProperties;
-    private bool pendingLocalReadyProperties;
+    private bool localSelectionPublishedForReady;
 
     private void Awake()
     {
@@ -105,6 +104,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
     {
         TryInitializeRoomWhenJoined();
         TryFlushPendingLocalProperties();
+        TryPublishReadySelection();
         AdvanceTimedPhaseIfNeeded();
     }
 
@@ -231,18 +231,20 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
         bool selectionChanged = changedProps.ContainsKey(CharacterSelectPhotonKeys.SelectedCharacterId) ||
                                 changedProps.ContainsKey(CharacterSelectPhotonKeys.SelectedSkinIndex) ||
-                                changedProps.ContainsKey(CharacterSelectPhotonKeys.IsReady);
+                                changedProps.ContainsKey(CharacterSelectPhotonKeys.IsReady) ||
+                                changedProps.ContainsKey(CharacterSelectPhotonKeys.SelectionFinalized);
 
         if (!selectionChanged)
             return;
 
         if (targetPlayer == PhotonNetwork.LocalPlayer)
         {
-            LoadLocalStateFromProperties();
+            // The local draft is authoritative. A ready-only echo must not restore an old selection.
             SyncSelectorToLocalState();
         }
 
         RefreshAllViews();
+        TryPublishReadySelection();
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -259,6 +261,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
             return;
 
         CharacterSelectionPhase oldPhase = currentPhase;
+        bool wasPublicSelection = publicSelection;
 
         if (propertiesThatChanged.ContainsKey(CharacterSelectPhotonKeys.SelectedMapId) ||
             propertiesThatChanged.ContainsKey(CharacterSelectPhotonKeys.PublicSelection) ||
@@ -266,6 +269,8 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
             propertiesThatChanged.ContainsKey(CharacterSelectPhotonKeys.PhaseStartTime))
         {
             LoadRoomStateFromProperties();
+            if (wasPublicSelection != publicSelection && currentPhase == CharacterSelectionPhase.Selecting)
+                WriteLocalSelectionProperties(localReady);
             RefreshAllViews();
 
             if (oldPhase != currentPhase)
@@ -406,7 +411,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
             mapSelectionController.MapSelected += RequestMapSelectionChange;
         }
     }
-    public void setToggle(bool b) => toggleOn = b;
+    public void setToggle(bool value) => RequestPublicSelectionChange(value);
     private void EnsureLocalSelectionDefaults()
     {
         CharacterSelectionDefinition definition = committedLocalCharacter;
@@ -446,8 +451,7 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
         committedLocalCharacter = definition;
         localSkinIndex = definition.GetValidSkinIndex(skinIndex);
-        if (toggleOn) WriteLocalSelectionProperties(ready);
-        else RefreshAllViews();
+        WriteLocalSelectionProperties(ready);
     }
 
     private void SyncSelectorToLocalState()
@@ -802,7 +806,8 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
         Player[] players = PhotonNetwork.PlayerList;
         for (int i = 0; i < players.Length; i++)
         {
-            if (!IsPlayerReady(players[i]) || !IsValidSelection(players[i]))
+            if (!IsPlayerReady(players[i]) || !IsValidSelection(players[i]) ||
+                !TryGetBool(players[i].CustomProperties, CharacterSelectPhotonKeys.SelectionFinalized, out bool finalized) || !finalized)
                 return false;
         }
 
@@ -876,34 +881,16 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
 
     private void SetLocalReady(bool ready)
     {
-        localReady = ready;
-
-        if (PhotonNetwork.LocalPlayer == null)
-            return;
-
-        if (!CanSendRoomOperations())
-        {
-            pendingLocalReadyProperties = true;
-            return;
-        }
-
-        pendingLocalReadyProperties = false;
-        PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-        {
-            { CharacterSelectPhotonKeys.IsReady, ready },
-            { CharacterSelectPhotonKeys.LegacyReady, ready }
-        });
+        WriteLocalSelectionProperties(ready);
     }
 
     private void WriteLocalSelectionProperties(bool ready)
     {
-        if (committedLocalCharacter == null || PhotonNetwork.LocalPlayer == null)
-            return;
-
-        int legacyClassIndex = GetLegacyClassIndex(committedLocalCharacter);
-        int validSkinIndex = committedLocalCharacter.GetValidSkinIndex(localSkinIndex);
-        localSkinIndex = validSkinIndex;
         localReady = ready;
+        localSelectionPublishedForReady = false;
+
+        if (PhotonNetwork.LocalPlayer == null)
+            return;
 
         if (!CanSendRoomOperations())
         {
@@ -912,17 +899,43 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
         }
 
         pendingLocalSelectionProperties = false;
-        pendingLocalReadyProperties = false;
-        
+
+        bool publishSelection = committedLocalCharacter != null &&
+            (publicSelection || (ready && AreBothPlayersReady()));
+        int validSkinIndex = committedLocalCharacter != null ? committedLocalCharacter.GetValidSkinIndex(localSkinIndex) : 0;
+        localSkinIndex = validSkinIndex;
+        localSelectionPublishedForReady = publishSelection && ready;
+
+        // Null removes previously shared choices, including the legacy keys consumed by GameScene.
         PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
         {
-            { CharacterSelectPhotonKeys.SelectedCharacterId, committedLocalCharacter.characterId },
-            { CharacterSelectPhotonKeys.SelectedSkinIndex, validSkinIndex },
+            { CharacterSelectPhotonKeys.SelectedCharacterId, publishSelection ? committedLocalCharacter.characterId : null },
+            { CharacterSelectPhotonKeys.SelectedSkinIndex, publishSelection ? (object)validSkinIndex : null },
             { CharacterSelectPhotonKeys.IsReady, ready },
-            { CharacterSelectPhotonKeys.LegacyClassIndex, legacyClassIndex },
-            { CharacterSelectPhotonKeys.LegacySkinIndex, validSkinIndex },
-            { CharacterSelectPhotonKeys.LegacyReady, ready }
+            { CharacterSelectPhotonKeys.LegacyClassIndex, publishSelection ? (object)GetLegacyClassIndex(committedLocalCharacter) : null },
+            { CharacterSelectPhotonKeys.LegacySkinIndex, publishSelection ? (object)validSkinIndex : null },
+            { CharacterSelectPhotonKeys.LegacyReady, ready },
+            { CharacterSelectPhotonKeys.SelectionFinalized, localSelectionPublishedForReady }
         });
+    }
+
+    private bool AreBothPlayersReady()
+    {
+        Player[] players = PhotonNetwork.PlayerList;
+        if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.PlayerCount != 2 || players.Length != 2)
+            return false;
+        foreach (Player player in players)
+            if (!IsPlayerReady(player)) return false;
+        return true;
+    }
+
+    private void TryPublishReadySelection()
+    {
+        if (!CanSendRoomOperations() || !localReady || localSelectionPublishedForReady ||
+            committedLocalCharacter == null || !AreBothPlayersReady())
+            return;
+        WriteLocalSelectionProperties(true);
+        TryStartRevealIfReady();
     }
 
     private void SetRoomMap(MapSelectionDefinition definition)
@@ -978,8 +991,6 @@ public class CharacterSelectionManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (pendingLocalReadyProperties)
-            SetLocalReady(localReady);
     }
 
     private bool CanSendRoomOperations()

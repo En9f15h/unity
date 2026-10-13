@@ -10,6 +10,21 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public partial class TurnPlanningManager
 {
+    private readonly string localMatchHistoryId = Guid.NewGuid().ToString("N");
+
+    private IEnumerator SaveLocalMatchResult(int winnerActorNumber, int localActorNumber)
+    {
+        string matchId = localMatchHistoryId;
+        var room = PhotonNetwork.CurrentRoom;
+        if (room != null && room.CustomProperties.TryGetValue("beatStartTs", out object anchor) && anchor is int)
+            matchId = PhotonNetwork.CloudRegion + "|" + room.Name + "|" + anchor + "|" + localActorNumber;
+        // Result callbacks may repeat; the persistent match id makes retries idempotent.
+        for (int attempt = 0; attempt < 5; attempt++)
+        {
+            if (LocalMatchHistory.RecordResult(matchId, winnerActorNumber, localActorNumber)) yield break;
+            yield return new WaitForSecondsRealtime(.2f);
+        }
+    }
     private void UpdateHPBars()
     {
         if (myUnit != null)
@@ -117,6 +132,7 @@ public partial class TurnPlanningManager
         RefreshPlanningPresentation(false);
 
         int localActorNumber = PhotonNetwork.LocalPlayer != null ? PhotonNetwork.LocalPlayer.ActorNumber : myActorNumber;
+        StartCoroutine(SaveLocalMatchResult(winnerActorNumber, localActorNumber));
         GameResultManager.Instance.ShowResult(winnerActorNumber, localActorNumber, reason);
 
         RefreshDebug("Game ended. Winner actor = " + winnerActorNumber + ", reason = " + reason);

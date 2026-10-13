@@ -2913,7 +2913,7 @@ Transform:
   m_GameObject: {fileID: 1326422717}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.55, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3069,6 +3069,13 @@ MonoBehaviour:
   mistDensity: 0.035
   bloomIntensity: 0.12
   keyIntensity: 1.15
+  characterLighting: 1
+  characterPalette: {fileID: 0}
+  characterLightSource: {fileID: 0}
+  animateCharacterLight: 1
+  characterLightPeriod: 24
+  characterLightSweep: 0.65
+  sunlightCanopy: 0.24
 --- !u!1 &1434063358
 GameObject:
   m_ObjectHideFlags: 0
@@ -3918,7 +3925,7 @@ Transform:
   m_GameObject: {fileID: 1866394294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.55, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

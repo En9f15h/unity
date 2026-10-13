@@ -179,6 +179,7 @@ public class GameSceneStartSync : MonoBehaviourPunCallbacks
         character.SetActive(true);
         // Use the shared beat anchor so a late spawn catches up or skips an expired entrance.
         int elapsedMs = unchecked(PhotonNetwork.ServerTimestamp - beatStartServerTimestamp);
+        character.GetComponent<CharacterUnit>()?.SynchronizeInitialIdle(elapsedMs);
         character.GetComponent<CharacterShaderFeedback>()?.BeginEntrance(
             GetBeatDurationMs() / 1000f, Mathf.Max(0, elapsedMs) / 1000f);
     }

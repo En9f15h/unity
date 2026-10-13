@@ -27,6 +27,41 @@ public class CharacterUnit : MonoBehaviourPun
     private DirectionalHealthBarUI healthBarUI;
     private Animator cachedAnimator;
     private Collider2D[] cachedBodyColliders;
+    private bool initialIdleSynchronized;
+
+    // Spawn delivery is local, but the opening Idle belongs to the shared music timeline.
+    // Only seek once: registration can happen from both GameManager and TurnPlanningManager.
+    public bool SynchronizeInitialIdle(int elapsedMilliseconds)
+    {
+        if (initialIdleSynchronized || elapsedMilliseconds < 0)
+            return false;
+
+        Animator animator = GetAnimator();
+        if (animator == null || !animator.isActiveAndEnabled || animator.runtimeAnimatorController == null)
+            return false;
+
+        if (!animator.isInitialized)
+            animator.Update(0f);
+
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        if (animator.IsInTransition(0) || !(state.IsName("Idle") || state.IsName("idle")))
+        {
+            // A late registration must never cancel an action that has already started.
+            initialIdleSynchronized = true;
+            return false;
+        }
+
+        float playbackSpeed = animator.speed * state.speed * state.speedMultiplier;
+        if (state.length <= 0f || playbackSpeed <= 0f)
+            return false;
+
+        double cycles = elapsedMilliseconds / 1000.0 * playbackSpeed / state.length;
+        float phase = (float)(cycles - System.Math.Floor(cycles));
+        animator.Play(state.fullPathHash, 0, phase);
+        animator.Update(0f);
+        initialIdleSynchronized = true;
+        return true;
+    }
 
     private void Awake()
     {
@@ -189,7 +224,19 @@ public class CharacterUnit : MonoBehaviourPun
     public void TakeDamage(int damage)
     {
         if (damage > 0)
+        {
             GetComponent<CharacterShaderFeedback>()?.FlashHit();
+            if (currentHP > 0 && CharacterPoseHitStop.FramesForDamage(damage) > 0)
+            {
+                foreach (CharacterUnit unit in ActiveUnits)
+                {
+                    if (unit == null || !unit.isActiveAndEnabled || unit.gameObject.scene != gameObject.scene) continue;
+                    var hold = unit.GetComponent<CharacterPoseHitStop>();
+                    if (hold == null) hold = unit.gameObject.AddComponent<CharacterPoseHitStop>();
+                    hold.HoldForDamage(damage);
+                }
+            }
+        }
         currentHP -= damage;
         if (currentHP < 0)
             currentHP = 0;

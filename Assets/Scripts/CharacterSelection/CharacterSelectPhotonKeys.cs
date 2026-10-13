@@ -3,6 +3,7 @@ public static class CharacterSelectPhotonKeys
     public const string SelectedCharacterId = "selectedCharacterId";
     public const string SelectedSkinIndex = "selectedSkinIndex";
     public const string IsReady = "characterSelectReady";
+    public const string SelectionFinalized = "characterSelectionFinalized";
 
     public const string SelectedMapId = "selectedMapId";
     public const string PublicSelection = "publicCharacterSelection";
